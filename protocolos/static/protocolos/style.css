@@ -1,0 +1,128 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: gray;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 0 40px;
+}
+
+.retangulo{
+    overflow: hidden;
+    width: 470px;
+    height: 800px;
+    background: #dcdcdc;
+    border-radius: 30px;
+    margin-top: 105px;
+}
+
+.header {
+    margin: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #dcdcdc;
+    padding: 6px 0 16px;
+}
+
+.voltar-botton{
+    background-color: white;
+
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    cursor: pointer;
+    flex-shrink: 0;
+    font-size: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.12);
+    border: none;
+    
+    transition: background .15s;
+}
+
+.busca {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #c8c8c8;
+    border-radius: 14px;
+    padding: 12px 16px;
+    margin: 0 16px 12px;
+}
+
+.busca input {
+    border: none;
+    background: transparent;
+    font-size: 15px;
+    color: #333;
+    outline: none;
+    width: 100%;
+}
+
+.busca input::placeholder {
+    color: #555;
+}
+
+
+.btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: none;
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin: 0 16px 12px;
+
+    background: #c8c8c8;
+    
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+    cursor: pointer;
+    width: calc(100% - 32px);
+    transition: background .15s;
+}
+
+.btn-acao:hover {
+    background: #b8b8b8;
+}
+
+
+.tabs {
+    display: flex;
+    align-items: center;
+    background: #c8c8c8;
+    border-radius: 20px;
+    padding: 4px;
+    margin: 0 16px;
+}
+
+.tab {
+    flex: 1;
+    padding: 10px 0;
+    border: none;
+    background: transparent;
+    border-radius: 16px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #555;
+    cursor: pointer;
+    transition: all .2s;
+}
+
+.tab.ativo {
+    background: white;
+    font-weight: 700;
+    color: #1a1a1a;
+    box-shadow: 0 1px 4px rgba(0,0,0,.15);
+}

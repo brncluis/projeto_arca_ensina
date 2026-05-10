@@ -28,4 +28,6 @@ urlpatterns = [
 
     path('dashboard/',include('dashboard.urls')),
 
+    path('protocolos/',include('protocolos.urls')),
+
 ]
