@@ -1,0 +1,34 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumus</title>
+
+    <link rel="stylesheet" href="{% static 'home/home.css' %}">
+</head>
+<body>
+
+    <main class="container">
+
+        <div class="circulo">
+            <span>LOGO</span>
+        </div>
+
+        <h1 class="titulo">Lumos</h1>
+
+        <p class="slogan">
+            Informação clara, <br>
+            escolha certa!
+        </p>
+
+        <a href="{% url 'login' %}" class="botao">
+            Iniciar ↗
+        </a>
+
+    </main>
+
+</body>
+</html>
