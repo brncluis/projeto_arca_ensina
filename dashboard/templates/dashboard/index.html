@@ -1,0 +1,236 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Dashboard Médico</title>
+    <link rel="stylesheet" href="{% static 'dashboard/style.css' %}">
+</head>
+<body>
+
+<div class="page">
+
+    <!-- HEADER (fundo escuro) -->
+    <header class="header">
+        <div class="header-text">
+            <p class="greeting">Bem-vindo(a),</p>
+            <h1>{{request.user.username|capfirst}}</h1>
+            <p class="cfm">ID:{{ request.user.id_acesso }}</p>
+        </div>
+        <button class="avatar-btn" title="Perfil">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            </svg>
+        </button>
+    </header>
+
+    <!-- CARD PRINCIPAL (cinza claro, cobre o resto da tela) -->
+    <div class="main-card">
+
+        <!-- BUSCA -->
+        <div class="search-wrap">
+            <div class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="7"/>
+                    <line x1="16.5" y1="16.5" x2="22" y2="22"/>
+                </svg>
+                <input type="text" placeholder="Buscar por categorias…" id="searchInput" oninput="filterCards()" />
+            </div>
+        </div>
+
+        <!-- CATEGORIAS: grid desktop -->
+        <p class="section-title">Categorias</p>
+
+        <div class="categories-grid" id="catGrid">
+
+            <a href="#" class="cat-card" data-name="protocolos">
+                <div class="icon-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+                        <rect x="9" y="3" width="6" height="4" rx="1"/>
+                        <line x1="9" y1="12" x2="15" y2="12"/>
+                        <line x1="9" y1="16" x2="13" y2="16"/>
+                    </svg>
+                </div>
+                <span class="cat-label">Protocolos</span>
+            </a>
+
+            <a href="#" class="cat-card" data-name="historico">
+                <div class="icon-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="9"/>
+                        <polyline points="12 7 12 12 15 15"/>
+                    </svg>
+                </div>
+                <span class="cat-label">Histórico</span>
+            </a>
+
+            <a href="#" class="cat-card" data-name="calculadora">
+                <div class="icon-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="4" y="2" width="16" height="20" rx="2"/>
+                        <line x1="8" y1="10" x2="16" y2="10"/>
+                        <line x1="8" y1="14" x2="16" y2="14"/>
+                        <line x1="8" y1="18" x2="12" y2="18"/>
+                        <line x1="8" y1="6"  x2="16" y2="6"/>
+                    </svg>
+                </div>
+                <span class="cat-label">Calculadora de Dosagens</span>
+            </a>
+
+        </div>
+
+        <!-- CATEGORIAS: carrossel mobile -->
+        <div class="categories-carousel" id="catCarousel">
+
+            <a href="#" class="cat-card" data-name="protocolos">
+                <div class="icon-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8">
+                        <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+                        <rect x="9" y="3" width="6" height="4" rx="1"/>
+                        <line x1="9" y1="12" x2="15" y2="12"/>
+                        <line x1="9" y1="16" x2="13" y2="16"/>
+                    </svg>
+                </div>
+                <span class="cat-label">Protocolos</span>
+            </a>
+
+            <a href="#" class="cat-card" data-name="historico">
+                <div class="icon-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8">
+                        <circle cx="12" cy="12" r="9"/>
+                        <polyline points="12 7 12 12 15 15"/>
+                    </svg>
+                </div>
+                <span class="cat-label">Histórico</span>
+            </a>
+
+            <a href="#" class="cat-card" data-name="calculadora">
+                <div class="icon-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8">
+                        <rect x="4" y="2" width="16" height="20" rx="2"/>
+                        <line x1="8" y1="10" x2="16" y2="10"/>
+                        <line x1="8" y1="14" x2="16" y2="14"/>
+                        <line x1="8" y1="18" x2="12" y2="18"/>
+                        <line x1="8" y1="6"  x2="16" y2="6"/>
+                    </svg>
+                </div>
+                <span class="cat-label">Calculadora de Dosagens</span>
+            </a>
+
+        </div>
+
+        <!-- HISTÓRICO: lista desktop -->
+        <p class="section-title">Histórico de Atendimentos</p>
+
+        <div class="historico-list" id="histList">
+            <div class="hist-card">
+                <div class="hist-avatar">M</div>
+                <div class="hist-info">
+                    <p class="hist-name">Maria Silva</p>
+                    <p class="hist-detail">Protocolo: Anti-aging · 3 sessões</p>
+                </div>
+                <p class="hist-date">Hoje<br>14:30</p>
+            </div>
+            <div class="hist-card">
+                <div class="hist-avatar">J</div>
+                <div class="hist-info">
+                    <p class="hist-name">Joana Ferreira</p>
+                    <p class="hist-detail">Protocolo: Hidratação · 1 sessão</p>
+                </div>
+                <p class="hist-date">Ontem<br>10:00</p>
+            </div>
+            <div class="hist-card">
+                <div class="hist-avatar">A</div>
+                <div class="hist-info">
+                    <p class="hist-name">Ana Costa</p>
+                    <p class="hist-detail">Calculadora: Toxina Botulínica</p>
+                </div>
+                <p class="hist-date">08/05<br>09:15</p>
+            </div>
+            <div class="hist-card">
+                <div class="hist-avatar">R</div>
+                <div class="hist-info">
+                    <p class="hist-name">Renata Souza</p>
+                    <p class="hist-detail">Protocolo: Preenchimento · 2 sessões</p>
+                </div>
+                <p class="hist-date">07/05<br>16:45</p>
+            </div>
+            <div class="hist-card">
+                <div class="hist-avatar">C</div>
+                <div class="hist-info">
+                    <p class="hist-name">Carla Mendes</p>
+                    <p class="hist-detail">Protocolo: Bioestimulador · 4 sessões</p>
+                </div>
+                <p class="hist-date">06/05<br>11:20</p>
+            </div>
+        </div>
+
+        <!-- HISTÓRICO: carrossel mobile -->
+        <div class="historico-carousel" id="histCarousel">
+            <div class="hist-card">
+                <div class="hist-avatar">M</div>
+                <div class="hist-info">
+                    <p class="hist-name">Maria Silva</p>
+                    <p class="hist-detail">Protocolo: Anti-aging · 3 sessões</p>
+                </div>
+                <p class="hist-date">Hoje<br>14:30</p>
+            </div>
+            <div class="hist-card">
+                <div class="hist-avatar">J</div>
+                <div class="hist-info">
+                    <p class="hist-name">Joana Ferreira</p>
+                    <p class="hist-detail">Protocolo: Hidratação · 1 sessão</p>
+                </div>
+                <p class="hist-date">Ontem<br>10:00</p>
+            </div>
+            <div class="hist-card">
+                <div class="hist-avatar">A</div>
+                <div class="hist-info">
+                    <p class="hist-name">Ana Costa</p>
+                    <p class="hist-detail">Calculadora: Toxina Botulínica</p>
+                </div>
+                <p class="hist-date">08/05<br>09:15</p>
+            </div>
+            <div class="hist-card">
+                <div class="hist-avatar">R</div>
+                <div class="hist-info">
+                    <p class="hist-name">Renata Souza</p>
+                    <p class="hist-detail">Protocolo: Preenchimento · 2 sessões</p>
+                </div>
+                <p class="hist-date">07/05<br>16:45</p>
+            </div>
+            <div class="hist-card">
+                <div class="hist-avatar">C</div>
+                <div class="hist-info">
+                    <p class="hist-name">Carla Mendes</p>
+                    <p class="hist-detail">Protocolo: Bioestimulador · 4 sessões</p>
+                </div>
+                <p class="hist-date">06/05<br>11:20</p>
+            </div>
+        </div>
+
+    </div><!-- end .main-card -->
+
+</div><!-- end .page -->
+
+<script>
+    function filterCards() {
+        const q = document.getElementById('searchInput').value.toLowerCase().trim();
+        const isMobile = window.innerWidth <= 520;
+        const gridId = isMobile ? 'catCarousel' : 'catGrid';
+        const cards = document.getElementById(gridId).querySelectorAll('.cat-card');
+
+        cards.forEach(card => {
+            const name  = card.dataset.name || '';
+            const label = card.querySelector('.cat-label').textContent.toLowerCase();
+            card.style.display = (name.includes(q) || label.includes(q)) ? '' : 'none';
+        });
+    }
+</script>
+
+</body>
+</html>

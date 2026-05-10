@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from decouple import config
 
 import requests
 
@@ -20,7 +21,7 @@ def login_view(request):
     # impede usuário logado de acessar login novamente
     if request.user.is_authenticated:
 
-        return redirect('dashboard:index')
+        return redirect('dashboard')
 
     erro = None
 
@@ -47,7 +48,7 @@ def login_view(request):
 
             login(request, user)
 
-            return redirect('dashboard:index')
+            return redirect('dashboard')
 
         # login inválido
         else:
@@ -89,7 +90,7 @@ def register_view(request):
         # dados enviados ao google
         data = {
 
-            'secret': '6LfJZOIsAAAAAKSUIqDNiF934urN5P8LmON_lxQC',
+            'secret': config('RECAPTCHA_SECRET_KEY'),
 
             'response': recaptcha_response
         }
@@ -137,17 +138,7 @@ def register_view(request):
             # faz login automático
             login(request, user)
 
-            # mostra ID gerado
-            return render(
-
-                request,
-
-                'usuarios/id_gerado.html',
-
-                {
-                    'id_acesso': user.id_acesso
-                }
-            )
+            return redirect('dashboard')
 
     return render(
 
