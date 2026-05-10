@@ -15,7 +15,9 @@
 <div class="retangulo">
 
     <div class="header">
-        <button class="voltar-botton">&#8592;</button>
+        <a href="{% url 'dashboard' %}">
+            <button class="voltar-botton">&#8592;</button>
+        </a>
         <h1>Protocolos</h1>
     </div>
 
@@ -38,6 +40,35 @@
         <button class="tab">Recentes</button>
     </div>
 
+<a href="{% url 'detalhes_do_protocolo' %}" style="text-decoration: none;">
+    <div class="sub_header">
+
+        <div class = "sub_header_interna">
+            <div class = "primeiro_card">
+                <h2>Dengue</h2>
+                <button class="estrela_de_favorito">⭐</button>
+            </div>
+            <div class="sub_header_interna_interna">
+                uma doença infecciosa febril aguda, transmitida pela picada da fêmea do mosquito Aedes aegypti. É caracterizada por febre alta, dores no corpo/articulações, dor atrás dos olhos e manchas vermelhas.
+            </div>
+        </div>
+    </div>
+</a>
+
+<a href="{% url 'detalhes_do_protocolo' %}" style="text-decoration: none;">
+    <div class="sub_header">
+
+        <div class = "sub_header_interna">
+            <div class = "primeiro_card">
+                <h2>Sedação</h2>
+                <button class="estrela_de_favorito">⭐</button>
+            </div>
+            <div class="sub_header_interna_interna">
+                Breve descrição
+            </div>
+        </div>
+    </div>
+</a>
 
 </div>
 
