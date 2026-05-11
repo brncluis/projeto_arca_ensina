@@ -1,4 +1,5 @@
 {% load static %}
+<script src="{% static 'protocolos/js/calculadora.js' %}"></script>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -30,7 +31,7 @@
         <span>⚙️</span> Filtrar protocolos
     </button>
 
-    <button class="btn">
+    <button class="btn" onclick="abrirCalculadora()">
         <span>🧮</span> Calculadora
     </button>
 
@@ -40,36 +41,78 @@
         <button class="tab">Recentes</button>
     </div>
 
-<a href="{% url 'detalhes_do_protocolo' %}" style="text-decoration: none;">
-    <div class="sub_header">
+    <a href="{% url 'detalhes_do_protocolo' %}" style="text-decoration: none;">
+        <div class="sub_header">
 
-        <div class = "sub_header_interna">
-            <div class = "primeiro_card">
-                <h2>Dengue</h2>
-                <button class="estrela_de_favorito">⭐</button>
-            </div>
-            <div class="sub_header_interna_interna">
-                uma doença infecciosa febril aguda, transmitida pela picada da fêmea do mosquito Aedes aegypti. É caracterizada por febre alta, dores no corpo/articulações, dor atrás dos olhos e manchas vermelhas.
-            </div>
-        </div>
-    </div>
-</a>
+            <div class = "sub_header_interna">
 
-<a href="{% url 'detalhes_do_protocolo' %}" style="text-decoration: none;">
-    <div class="sub_header">
+                <div class = "primeiro_card">
+                    <h2>Dengue</h2>
+                    <button class="estrela_de_favorito">⭐</button>
+                </div>
+                <div class="sub_header_interna_interna">
+                    uma doença infecciosa febril aguda, transmitida pela picada da fêmea do mosquito Aedes aegypti. É caracterizada por febre alta, dores no corpo/articulações, dor atrás dos olhos e manchas vermelhas.
+                </div>
 
-        <div class = "sub_header_interna">
-            <div class = "primeiro_card">
-                <h2>Sedação</h2>
-                <button class="estrela_de_favorito">⭐</button>
-            </div>
-            <div class="sub_header_interna_interna">
-                Breve descrição
             </div>
         </div>
-    </div>
-</a>
+    </a>
 
+    <a href="{% url 'detalhes_do_protocolo' %}" style="text-decoration: none;">
+        <div class="sub_header">
+
+            <div class = "sub_header_interna">
+
+                <div class = "primeiro_card">
+                    <h2>Sedação</h2>
+                    <button class="estrela_de_favorito">⭐</button>
+                </div>
+                <div class="sub_header_interna_interna">
+                    Breve descrição
+                </div>
+
+            </div>
+        </div>
+    </a>
+
+</div>
+
+<div id="modal-calculadora" class="modal-overlay" style="display:none;">
+    <div class="modal-box">
+
+        <button class="modal-fechar" onclick="fecharCalculadora()">✕</button>
+
+        <h2><span>🧮</span> Calculadora de dosagens</h2>
+        <p class="modal-subtitulo">Preencha com os dados do paciente e selecione a medicação desejada para receber a informação de dosagem correta</p>
+
+        <h3>Dados do paciente</h3>
+
+        <div class="campo">
+            <label>Peso (kg) *</label>
+            <input type="number" placeholder="Ex: 20.2" id="peso">
+        </div>
+
+        <div class="campo">
+            <label>Altura (cm) *</label>
+            <input type="number" placeholder="Ex: 100" id="altura">
+        </div>
+
+
+        <div class="campo">
+            <label>Medicação *</label>
+            <select id="medicacao">
+                <option value="">Selecione</option>
+                <option value="med1">Medicação 1</option>
+                <option value="med2">Medicação 2</option>
+            </select>
+        </div>
+
+        <div class="modal-botoes">
+            <button class="btn-calcular" onclick="calcular()"><span>🧮</span> Calcular</button>
+            <button class="btn-limpar" onclick="limpar()"><span>🗑️</span> Limpar</button>
+        </div>
+
+    </div>
 </div>
 
 
