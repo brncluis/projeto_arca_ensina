@@ -1,14 +1,18 @@
+<!--detalhes.html-->
+
 {% load static %}
-<script src="{% static 'protocolos/js/calculadora.js' %}"></script>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dengue</title>
-    <link rel="stylesheet" href="{% static 'protocolos/style.css' %}">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dengue</title>
+        <link rel="stylesheet" href="{% static 'protocolos/style.css' %}">
+        <script src="{% static 'protocolos/js/calculadora.js' %}"></script>
+        <script defer src="{% static 'protocolos/js/fluxograma.js' %}"></script>
+        
+    </head>
 
 <body>
 
@@ -44,23 +48,43 @@
     </div>
 
     <div class="tabs">
-        <button class="tab ativo">📄 Detalhes</button>
-        <button class="tab">👤 Fluxograma</button>
+        <button class="tab ativo" id="tab-detalhes"   onclick="mudarAba('detalhes')">📄 Detalhes</button>
+        <button class="tab"       id="tab-fluxograma" onclick="mudarAba('fluxograma')">👤 Fluxograma</button>
     </div>
 
-    <div class = "cards_de_informacoes">
-        <div class="cards_com_informacao">
-        <div class="card_interno">Informações</div>
+
+
+    <div class="tab-content ativo" id="conteudo-detalhes">
+        <div class="cards_de_informacoes">
+            <div class="cards_com_informacao">
+                <div class="card_interno">Informações</div>
+            </div>
+            <div class="cards_com_informacao">
+                <div class="card_interno">Informações</div>
+            </div>
+            <div class="cards_com_informacao">
+                <div class="card_interno">Informações</div>
+            </div>
+            <div class="cards_com_informacao">
+                <div class="card_interno">Informações</div>
+            </div>
         </div>
-        <div class="cards_com_informacao">
-        <div class="card_interno">Informações</div>
+    </div>
+
+    <div class="tab-content" id="conteudo-fluxograma">
+ 
+        <!-- Barra: Resetar + Contador -->
+        <div class="fluxograma-header">
+            <button class="btn-resetar" onclick="resetarFluxograma()">🔄 Resetar</button>
+            <div class="progresso-contador">
+                <span>⏱</span>
+                <span id="texto-progresso">0 / 4 concluídos</span>
+            </div>
         </div>
-        <div class="cards_com_informacao">
-        <div class="card_interno">Informações</div>
-        </div>
-        <div class="cards_com_informacao">
-        <div class="card_interno">Informações</div>
-        </div>
+ 
+        <!-- Cards conectados por setas — gerados pelo JS -->
+        <div class="fluxograma-lista" id="lista-fluxograma"></div>
+ 
     </div>
 
 </div>
