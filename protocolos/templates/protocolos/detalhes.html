@@ -1,0 +1,85 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dengue</title>
+    <link rel="stylesheet" href="{% static 'protocolos/style.css' %}">
+</head>
+
+<body>
+
+<div class="retangulo">
+
+    <div class="header">
+        <a href="{% url 'dashboard' %}">
+            <button class="voltar-botton">&#8592;</button>
+        </a>
+        <h1>Protocolos</h1>
+    </div>
+
+    <div class="busca">
+        <span class="icone-busca">🔎</span>
+        <input type="text" placeholder="Buscar protocolos...">
+    </div>
+
+    <div class="agrupamento_de_opcoes">
+        <button class="btn">
+            <span>⚙️</span> Filtrar protocolos
+        </button>
+        <button class="btn">
+            <span>🧮</span> Calculadora
+        </button>
+    </div>
+
+    <div class="header">
+        <a href="{% url 'protocolos' %}">
+            <button class="voltar-botton">&#8592;</button>
+        </a>
+        <h1>Dengue</h1>
+        <button class="estrela_de_favorito_2">⭐</button>
+    </div>
+
+    <div class="tabs">
+        <button class="tab ativo">📄 Detalhes</button>
+        <button class="tab">👤 Fluxograma</button>
+    </div>
+
+    <div class = "cards_de_informacoes">
+
+        <div class="cards_com_informacao">
+
+        <div class="card_interno">
+            Informações
+        </div>
+        </div>
+
+        <div class="cards_com_informacao">
+
+        <div class="card_interno">
+            Informações
+        </div>
+        </div>
+
+        <div class="cards_com_informacao">
+
+        <div class="card_interno">
+            Informações
+        </div>
+        </div>
+
+        <div class="cards_com_informacao">
+
+        <div class="card_interno">
+            Informações
+        </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
