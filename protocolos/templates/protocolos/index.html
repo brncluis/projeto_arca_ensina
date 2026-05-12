@@ -10,6 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Protocolos</title>
     <link rel="stylesheet" href="{% static 'protocolos/style.css' %}">
+
+    <script defer src="{% static 'protocolos/js/filtrar.js' %}"></script>
 </head>
 
 
@@ -26,12 +28,14 @@
 
     <div class="busca">
         <span class="icone-busca">🔎</span>
-        <input type"text" placeholder="Buscar protocolos...">
+        <input type="text" placeholder="Buscar protocolos..." oninput="buscarProtocolo(this.value)">
     </div>
 
-    <button class="btn">
+    <a href="{% url 'filtrar_sintomas' %}" style="text-decoration: none;">
+    <button class="btn" >
         <span>⚙️</span> Filtrar protocolos
     </button>
+    </a>
 
     <button class="btn" onclick="abrirCalculadora()">
         <span>🧮</span> Calculadora
@@ -43,41 +47,37 @@
         <button class="tab">Recentes</button>
     </div>
 
+    <div id="lista-protocolos">
+
     <a href="{% url 'detalhes_do_protocolo' %}" style="text-decoration: none;">
-        <div class="sub_header">
-
-            <div class = "sub_header_interna">
-
-                <div class = "primeiro_card">
+        <div class="sub_header" data-categoria="infectologia" data-ordem="1">
+            <div class="sub_header_interna">
+                <div class="primeiro_card">
                     <h2>Dengue</h2>
                     <button class="estrela_de_favorito">⭐</button>
                 </div>
                 <div class="sub_header_interna_interna">
-                    Uma doença infecciosa febril aguda, transmitida pela picada da fêmea do mosquito Aedes aegypti. É caracterizada por febre alta, dores no corpo/articulações, dor atrás dos olhos e manchas vermelhas.
+                    Uma doença infecciosa febril aguda, transmitida pela picada da fêmea do mosquito Aedes aegypti.
                 </div>
-
             </div>
         </div>
     </a>
 
     <a href="{% url 'detalhes_do_protocolo' %}" style="text-decoration: none;">
-        <div class="sub_header">
-
-            <div class = "sub_header_interna">
-
-                <div class = "primeiro_card">
+        <div class="sub_header" data-categoria="uti" data-ordem="2">
+            <div class="sub_header_interna">
+                <div class="primeiro_card">
                     <h2>Sedação</h2>
                     <button class="estrela_de_favorito">⭐</button>
                 </div>
                 <div class="sub_header_interna_interna">
                     Breve descrição
                 </div>
-
             </div>
         </div>
     </a>
 
-</div>
+</div> 
 
 <div id="modal-calculadora" class="modal-overlay" style="display:none;">
     <div class="modal-box">
@@ -118,6 +118,50 @@
 </div>
 
 
+    <!-- Modal do filtro -->
+    <div id="modal-filtrar" class="modal-overlay" style="display:none;">
+        <div class="modal-box">
+
+            <button class="modal-fechar" onclick="fecharFiltro()">✕</button>
+
+            <h2>⚙️ Filtrar protocolos</h2>
+            <p class="modal-subtitulo">Filtre ou ordene os protocolos conforme sua necessidade</p>
+
+            <h3>Ordenar por</h3>
+            <div class="filtro-opcoes">
+                <button class="filtro-btn ativo" data-ordem="az"      onclick="selecionarOrdem(this)">🔤 A → Z</button>
+                <button class="filtro-btn"       data-ordem="za"      onclick="selecionarOrdem(this)">🔤 Z → A</button>
+                <button class="filtro-btn"       data-ordem="recente" onclick="selecionarOrdem(this)">🕐 Mais recentes</button>
+            </div>
+
+            <h3>Categoria</h3>
+            <div class="filtro-opcoes">
+                <button class="filtro-btn filtro-cat ativo" data-cat="todos"        onclick="selecionarCategoria(this)">📋 Todos</button>
+                <button class="filtro-btn filtro-cat"       data-cat="infectologia" onclick="selecionarCategoria(this)">🦠 Infectologia</button>
+                <button class="filtro-btn filtro-cat"       data-cat="uti"          onclick="selecionarCategoria(this)">🏥 UTI</button>
+                <button class="filtro-btn filtro-cat"       data-cat="pediatria"    onclick="selecionarCategoria(this)">👶 Pediatria</button>
+            </div>
+
+            <div class="modal-botoes">
+                <button class="btn-calcular" onclick="aplicarFiltro()">✅ Aplicar</button>
+                <button class="btn-limpar"   onclick="limparFiltro()">🗑️ Limpar</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+    function buscarProtocolo(termo) {
+        const t = termo.toLowerCase();
+        document.querySelectorAll(".sub_header").forEach(card => {
+            const nome = card.querySelector("h2")?.textContent.toLowerCase() || "";
+            card.style.display = nome.includes(t) ? "" : "none";
+        });
+    }
+    </script>
+
+</body>
+</html>
 
 </body>
 </html>
