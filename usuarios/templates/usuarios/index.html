@@ -9,16 +9,28 @@
     <link rel="stylesheet" href="{% static 'usuarios/usuarios.css' %}">
     
 </head>
+
 <body>
     
+
+    <header>
+
+    <div class="header-content">
+
+        <div class="circulo">
+            <span>LOGO</span>
+        </div>
+
+        <h1 class="titulo">LUMUS</h1>
+
+    </div>
+
+    </header>
+
     <main>
 
         <section class = "login-section">
             <div class = "container">
-                
-                <div class="circulo">
-                    <span>LOGO</span>
-                </div>
 
                 <div class = "login-card">
                     <h1 class = "titulo">Acesse sua conta</h1>
@@ -34,44 +46,74 @@
                     <form method="post">
                         {% csrf_token %}
 
-                        <div class = "form-group">
-                            <label for = "id_acesso">ID</label>
-                            <input
-                                type = "text"
-                                id = "id_acesso"
-                                name = "id_acesso"
-                                placeholder="Seu ID de acesso"
-                                required
-                            >
+                        
+
+                        <div class="form-group">
+
+                            <div class="input-wrapper">
+
+                                <img 
+                                    src="{% static 'usuarios/icons/user.svg' %}" 
+                                    class="input-icon"
+                                    alt="Usuário"
+                                >
+
+                                <input
+                                    type="text"
+                                    id="id_acesso"
+                                    name="id_acesso"
+                                    placeholder="ID"
+                                    required
+                                >
+
+                            </div>
+
                         </div>
 
                         <div class="form-group">
 
-                                <label for="password">
-                                    Senha
-                                </label>
+                        <div class="input-wrapper">
+
+                                <img 
+                                    src="{% static 'usuarios/icons/lock.svg' %}" 
+                                    class="input-icon"
+                                    alt="Senha"
+                                >
 
                                 <input
                                     type="password"
                                     id="password"
                                     name="password"
-                                    placeholder="Sua senha"
+                                    placeholder="Senha"
                                     required
                                 >
 
-                                <a href="#" class="link-forgot">
-                                    Esqueceu sua senha?
-                                </a>
+                                <img
+                                    src="{% static 'usuarios/icons/eye.svg' %}"
+                                    class="toggle-password"
+                                    id="togglePassword"
+                                    alt="Mostrar senha"
+
+                                    data-eye="{% static 'usuarios/icons/eye.svg' %}"
+                                    data-eye-off="{% static 'usuarios/icons/eyeoff.svg' %}"
+                                >
+
+                            </div>
 
                         </div>
-
+                            
                         <button type="submit" class="btn-primary btn-full">
-                            Entrar
+                                Entrar
                         </button>
+
+                        <a href="#" class="link-forgot">
+                                Esqueceu sua senha?
+                        </a>
+
                     </form>
 
                     <p class="login-signup">
-                        Ainda não tem conta?
+                        Não tem conta?
                         <a href="{% url 'register' %}">Cadastre-se Já!</a>
                     </p>
                 </div>
@@ -86,6 +128,24 @@
 
     </main>
 
+
+<script>
+
+    const passwordInput = document.getElementById("password");
+    const togglePassword = document.getElementById("togglePassword");
+
+    togglePassword.addEventListener("click", () => {
+
+        const isPassword = passwordInput.type === "password";
+
+        passwordInput.type = isPassword ? "text" : "password";
+
+        togglePassword.src = isPassword
+            ? togglePassword.dataset.eyeOff
+            : togglePassword.dataset.eye;
+    });
+
+</script>
 
 
 </body>

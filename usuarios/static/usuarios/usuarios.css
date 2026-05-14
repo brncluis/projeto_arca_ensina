@@ -5,19 +5,11 @@
 }
 
 body{
-    background-color: #9e9e9e;
+    background-color: white;
 
     font-family: Arial, Helvetica, sans-serif;
 
-    display: flex;
-
-    justify-content: center;
-
-    align-items: flex-start;
-
     min-height: 100vh;
-
-    padding-top: 60px;
 }
 
 form{
@@ -25,6 +17,28 @@ form{
     display: flex;
 
     flex-direction: column;
+}
+
+header{
+
+    width: 100%;
+
+    border-bottom: 2px solid #d9d9d9;
+
+    padding: 15px 0;
+
+    margin-bottom: 50px;
+}
+
+.header-content{
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 10px;
 }
 
 .container{
@@ -37,6 +51,7 @@ form{
 
     display: flex;
 
+    margin: 0 auto;
 
     flex-direction: column;
 
@@ -51,22 +66,22 @@ form{
 
     width: min(1010px, 95vw);
 
-    background-color: gainsboro;
+    background-color: white;
 
     border-radius: 30px 30px 0 0;
 
-    padding: 40px 30px;
+    padding: 150px;
 
     display: flex;
     flex-direction: column;
 
     gap: 20px;
 
-    box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
+   
 }
 .circulo{
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
 
     background-color: #d9d9d9;
     border-radius: 50%;
@@ -78,14 +93,14 @@ form{
 
 .circulo span{
     color: white;
-    font-size: 20px;
+    font-size: 10px;
     font-weight: bold;
 }
 
 .titulo{
     margin-top: 13px;
     margin-bottom: 15px;
-    color: white;
+    color: black;
     font-size: 20px;
     font-weight: bold;
 
@@ -105,7 +120,7 @@ form{
 
     gap: 8px;
 
-    margin: 0 auto 10px auto;
+    margin: 0 auto 17px auto;
 }
 
 .form-group label{
@@ -122,17 +137,17 @@ form{
 
     width: 100%;
 
-    height: 35px;
+    height: 50px;
 
     border: none;
 
-    border-radius: 20px;
+    border-radius: 10px;
 
     padding: 0 20px;
 
     font-size: 12px;
 
-    background-color: white;
+    background-color: rgb(174, 170, 170);
 }
 .form-group input:focus{
 
@@ -141,41 +156,55 @@ form{
     border: 2px solid #999;
 }
 
+input::placeholder {
+  color: white 
+}
+
 .link-forgot{
 
-    font-size: 11px;
+    font-size: 13px;
 
     color: black;
 
     text-decoration: none;
 
-    margin-top: 5px;
+    margin-top: 15px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.link-forgot a:hover{
+
+    text-decoration: underline;
 }
 
 .btn-primary{
 
-    width: 100px;
-
-    height: 30px;
-
+    width: 100%;
+    max-width: 500px;
+    
+    height: 40px;
+    
     border: none;
-
+    
     border-radius: 25px;
-
-    background-color: white;
-
+    
+    
     font-size: 13px;
-
+    
     font-weight: bold;
-
+    
     cursor: pointer;
-
+    
     align-self: center;
-
+    
     margin-top: 20px;
     
     transition: 0.3s;
-
+    
+    background-color: gray
 }
 
 .btn-primary:hover{
@@ -189,6 +218,10 @@ form{
 
     margin-top: 30px;
 
+    border-top: 1px solid gray;
+
+    padding: 15px 0;
+
     text-align: center;
 
     font-size: 13px;
@@ -199,11 +232,6 @@ form{
     color: black;
 
     font-weight: bold;
-
-    text-decoration: none;
-}
-
-.login-signup a:hover{
 
     text-decoration: underline;
 }
@@ -221,6 +249,49 @@ form{
     border-radius: 12px;
 
     text-align: center;
+}
+
+.input-wrapper{
+
+    position: relative;
+
+    width: 100%;
+}
+
+.input-wrapper input{
+
+    padding-left: 45px;
+    padding-right: 45px;
+}
+
+.input-icon{
+
+    position: absolute;
+
+    left: 15px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 18px;
+    height: 18px;
+}
+
+.toggle-password{
+
+    position: absolute;
+
+    right: 15px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 20px;
+    height: 20px;
+
+    cursor: pointer;
 }
 
 .recaptcha-container {

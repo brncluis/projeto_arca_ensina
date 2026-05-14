@@ -19,9 +19,9 @@ Usuario = get_user_model()
 def login_view(request):
 
     # impede usuário logado de acessar login novamente
-    if request.user.is_authenticated:
+    '''if request.user.is_authenticated:
 
-        return redirect('dashboard')
+        return redirect('dashboard')'''
 
     erro = None
 
