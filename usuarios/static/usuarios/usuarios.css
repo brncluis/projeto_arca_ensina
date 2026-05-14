@@ -165,9 +165,7 @@ input::placeholder {
     font-size: 13px;
 
     color: black;
-
     text-decoration: none;
-
     margin-top: 15px;
 
     display: flex;
@@ -175,7 +173,7 @@ input::placeholder {
     align-items: center;
 }
 
-.link-forgot a:hover{
+.link-forgot:hover{
 
     text-decoration: underline;
 }
@@ -232,6 +230,11 @@ input::placeholder {
     color: black;
 
     font-weight: bold;
+
+    text-decoration: none;
+}
+
+.login-signup a:hover{
 
     text-decoration: underline;
 }
