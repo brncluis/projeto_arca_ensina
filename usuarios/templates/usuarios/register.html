@@ -7,20 +7,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lumus | Cadastro</title>
     <link rel="stylesheet" href="{% static 'usuarios/usuarios.css' %}">
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
+
+    <header>
+        <div class="header-content">
+            <div class="circulo">
+                <span>LOGO</span>
+            </div>
+            <h1 class="titulo titulo-header">LUMUS</h1>
+        </div>
+    </header>
 
     <main>
         <section class="login-section">
             <div class="container">
-                
-                <div class="circulo">
-                    <span>LOGO</span>
-                </div>
 
                 <div class="login-card">
-                    <h1 class="titulo">Crie sua conta</h1>
+                    <h1 class="titulo titulo-form">Crie uma conta</h1>
 
                     {% if erro %}
                         <div class="login-error">
@@ -31,74 +35,129 @@
                     <form method="post">
                         {% csrf_token %}
 
+                        <!-- Campo: Nome de usuário -->
                         <div class="form-group">
-                            <label for="username">Nome de usuário</label>
-                            <input
-                                type="text"
-                                id="username"
-                                name="username"
-                                placeholder="Escolha um nome de usuário"
-                                required
-                            >
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                placeholder="Seu melhor email"
-                                required
-                            >
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password1">Senha</label>
-                            <input
-                                type="password"
-                                id="password1"
-                                name="password1"
-                                placeholder="Crie uma senha"
-                                required
-                            >
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password2">Confirmar senha</label>
-                            <input
-                                type="password"
-                                id="password2"
-                                name="password2"
-                                placeholder="Repita sua senha"
-                                required
-                            >
-                        </div>
-
-                        <div class="recaptcha-container">
-
-                            <div 
-                                class="g-recaptcha"
-                                data-sitekey="6LfJZOIsAAAAAKOKRV2O-lcntNBbuznSA3x6tCeB"
-                                data-size="compact">
+                            <div class="input-wrapper">
+                                <img
+                                    src="{% static 'usuarios/icons/user.svg' %}"
+                                    class="input-icon"
+                                    alt="Usuário"
+                                >
+                                <input
+                                    type="text"
+                                    id="username"
+                                    name="username"
+                                    placeholder="Nome de usuário"
+                                    required
+                                >
                             </div>
+                        </div>
 
+                        <!-- Campo: E-mail -->
+                        <div class="form-group">
+                            <div class="input-wrapper">
+                                <img
+                                    src="{% static 'usuarios/icons/email.svg' %}"
+                                    class="input-icon"
+                                    alt="E-mail"
+                                >
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    placeholder="E-mail"
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Campo: Senha -->
+                        <div class="form-group">
+                            <div class="input-wrapper">
+                                <img
+                                    src="{% static 'usuarios/icons/lock.svg' %}"
+                                    class="input-icon"
+                                    alt="Senha"
+                                >
+                                <input
+                                    type="password"
+                                    id="password1"
+                                    name="password1"
+                                    placeholder="Senha"
+                                    required
+                                >
+                                <img
+                                    src="{% static 'usuarios/icons/eye.svg' %}"
+                                    class="toggle-password"
+                                    id="togglePassword1"
+                                    alt="Mostrar senha"
+                                    data-eye="{% static 'usuarios/icons/eye.svg' %}"
+                                    data-eye-off="{% static 'usuarios/icons/eyeoff.svg' %}"
+                                    data-target="password1"
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Campo: Confirmar Senha -->
+                        <div class="form-group">
+                            <div class="input-wrapper">
+                                <img
+                                    src="{% static 'usuarios/icons/lock.svg' %}"
+                                    class="input-icon"
+                                    alt="Confirmar senha"
+                                >
+                                <input
+                                    type="password"
+                                    id="password2"
+                                    name="password2"
+                                    placeholder="Confirme sua senha"
+                                    required
+                                >
+                                <img
+                                    src="{% static 'usuarios/icons/eye.svg' %}"
+                                    class="toggle-password"
+                                    id="togglePassword2"
+                                    alt="Mostrar senha"
+                                    data-eye="{% static 'usuarios/icons/eye.svg' %}"
+                                    data-eye-off="{% static 'usuarios/icons/eyeoff.svg' %}"
+                                    data-target="password2"
+                                >
+                            </div>
                         </div>
 
                         <button type="submit" class="btn-primary btn-full">
-                            Cadastrar
+                            Criar perfil
                         </button>
+
+                        <p class="terms-text">
+                            Ao se registrar, você está de acordo com nossos termos e condições, e
+                            confirma estar ciente de nossa política de privacidade.
+                        </p>
                     </form>
 
                     <p class="login-signup">
-                        Já tem conta?
-                        <a href="{% url 'login' %}">Entrar</a>
+                        Para continuar, inicie a sessão com sua conta <strong>Lumus</strong><br>
+                        <a href="{% url 'login' %}">Faça login em sua conta</a>
                     </p>
                 </div>
 
             </div>
         </section>
     </main>
+
+    <script>
+        document.querySelectorAll(".toggle-password").forEach(function(toggle) {
+            toggle.addEventListener("click", function() {
+                const targetId = this.dataset.target;
+                const input = document.getElementById(targetId);
+                const isPassword = input.type === "password";
+                input.type = isPassword ? "text" : "password";
+                this.src = isPassword
+                    ? this.dataset.eyeOff
+                    : this.dataset.eye;
+            });
+        });
+    </script>
 
 </body>
 </html>
