@@ -17,29 +17,26 @@
 
 <body>
 
-<div class="retangulo">
+<div class="container">
+
 
     <div class="header">
         <a href="{% url 'dashboard' %}">
-            <button class="voltar-botton">&#8592;</button>
+            <button class="voltar-botton">
+                <span class= "seta"></span>
+            </button>
         </a>
-        <h1>Protocolos</h1>
+
+        <h1 class="titulo">Protocolos</h1>
     </div>
 
     <div class="busca">
-        <span class="icone-busca">🔎</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2c2c2c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
         <input type="text" placeholder="Buscar protocolos..." oninput="buscarProtocolo(this.value)">
     </div>
-
-    <a href="{% url 'filtrar_sintomas' %}" style="text-decoration: none;">
-    <button class="btn" >
-        <span>⚙️</span> Filtrar protocolos
-    </button>
-    </a>
-
-    <button class="btn" onclick="abrirCalculadora()">
-        <span>🧮</span> Calculadora
-    </button>
 
     <div class="tabs">
         <button class="tab ativo">Todos</button>
@@ -71,7 +68,21 @@
                     <button class="estrela_de_favorito">⭐</button>
                 </div>
                 <div class="sub_header_interna_interna">
-                    Breve descrição
+                    Descrição breve
+                </div>
+            </div>
+        </div>
+    </a>
+
+    <a href="{% url 'detalhes_do_protocolo' %}" style="text-decoration: none;">
+        <div class="sub_header" data-categoria="uti" data-ordem="2">
+            <div class="sub_header_interna">
+                <div class="primeiro_card">
+                    <h2>Outro</h2>
+                    <button class="estrela_de_favorito">⭐</button>
+                </div>
+                <div class="sub_header_interna_interna">
+                    Descrição breve
                 </div>
             </div>
         </div>
