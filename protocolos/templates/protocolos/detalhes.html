@@ -14,7 +14,7 @@
         <script defer src="{% static 'protocolos/js/filtrar.js' %}"></script>
     </head>
 
-<body>
+<body data-page="detalhe">
 
 <div class="container">
 
@@ -36,6 +36,10 @@
             </svg>
             <input type="text" placeholder="Buscar protocolos..." oninput="buscarProtocolo(this.value)">
         </div>
+
+        <button id="abrirFiltro" class="btn-filtrar">
+            Filtrar Protocolos
+        </button>
 
         <div class="calculadora_icone" onclick="abrirCalculadora()">
             <div class="tela"></div>

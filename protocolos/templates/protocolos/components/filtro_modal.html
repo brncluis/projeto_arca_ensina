@@ -1,0 +1,68 @@
+
+
+<div id="modal-filtro" class="modal-overlay">
+
+    <div class="modal-container">
+
+        <!-- HEADER -->
+        <div class="modal-header">
+            <button id="fecharFiltro">
+                X   
+            </button>
+            <h2>Protocolos</h2>
+        </div>
+
+        <!-- CONTEÚDO -->
+        <div class="modal-body">
+
+            <h3>Filtrar por sintomas</h3>
+            <p class="sub">Selecione os sintomas do paciente</p>
+
+            <!-- BUSCA -->
+            <div class="barra-busca">
+                <input type="text" placeholder="Buscar protocolos..." oninput="filtrarSintomas(this.value)">
+            </div>
+
+            <!-- FORM -->
+            <form method="GET" action="">
+
+                <div class="lista-sintomas">
+
+                    {% for categoria in categorias %}
+                        <div class="grupo">
+
+                            <div class="grupo-header">
+                                <strong>{{ categoria.nome }}</strong>
+                            </div>
+
+                            {% for sintoma in categoria.sintoma_set.all %}
+                                <label>
+                                    <input 
+                                        type="checkbox"
+                                        name="sintomas"
+                                        value="{{ sintoma.id }}"
+                                    >
+                                    {{ sintoma.nome }}
+                                </label>
+                            {% endfor %}
+
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn-limpar" onclick="limparFiltros()">
+                        Limpar filtros
+                    </button>
+                    <button type="submit">Aplicar</button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
