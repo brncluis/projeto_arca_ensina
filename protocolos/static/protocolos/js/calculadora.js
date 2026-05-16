@@ -26,6 +26,10 @@
     }
 
     
-    document.getElementById('modal-calculadora').addEventListener('click', function(e) {
-        if (e.target === this) fecharCalculadora();
-    });
+    const modalCalc = document.getElementById('modal-calculadora');
+
+    if (modalCalc) {
+        modalCalc.addEventListener('click', function(e) {
+            if (e.target === this) fecharCalculadora();
+        });
+    }

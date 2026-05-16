@@ -69,15 +69,23 @@ body {
 }
 
 .busca {
+    flex: 1;
+    min-width: 0; 
     display: flex;
     align-items: center;
     gap: 10px;
     background: #a0a0a0;
     border-radius: 8px;
     padding: 15px 16px;
-    margin: 16px auto 12px 16px;
-    width: 90%;
     box-shadow: 0px 2px 10px rgba(0,0,0,0.08);
+}
+
+.busca-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: calc(100% - 32px);;
+    margin: 16px;
 }
 
 .busca input {
@@ -596,23 +604,18 @@ a {
 
 /*FITLRO FLUXOGRAMA (LULA)*/
 
-    .filtro-opcoes {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-bottom: 4px;
-    }
- 
-    .filtro-btn {
-        padding: 8px 14px;
-        border: 2px solid #ddd;
-        border-radius: 20px;
-        background: #f5f5f5;
-        font-size: 13px;
-        font-weight: 500;
-        color: #555;
-        cursor: pointer;
-        transition: all 0.2s;
-    }
-    .filtro-btn:hover        { background: #e8e8e8; border-color: #bbb; }
-    .filtro-btn.ativo        { background: #1a1a1a; color: white; border-color: #1a1a1a; }
+.btn-filtrar {
+    padding: 15px 16px;
+    background: #a0a0a0;
+    border-radius: 8px;
+
+    text-decoration: none;
+    color: #000;
+
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.hidden {
+    display: none;
+}
