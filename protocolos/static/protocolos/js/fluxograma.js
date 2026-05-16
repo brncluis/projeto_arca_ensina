@@ -8,6 +8,12 @@ const passos = [
     "Informações",
     "Informações",
     "Informações",
+    "Informações",
+    "Informações",
+    "Informações",
+    "Informações",
+    "Informações",
+    "Informações"
 ];
  
 const concluidos = new Array(passos.length).fill(false);
@@ -77,3 +83,4 @@ function mudarAba(aba) {
  
 /* Inicializa o fluxograma na carga da página */
 renderizarFluxograma();
+mudarAba('fluxograma');
