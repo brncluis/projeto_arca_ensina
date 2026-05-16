@@ -1,4 +1,4 @@
-<!--detalhes.html-->
+<!--fluxograma.html-->
 
 {% load static %}
 
@@ -55,52 +55,32 @@
 
 
     <div class="tabs2">
-        <button class="tab ativo2" id="tab-detalhes"   onclick="mudarAba('detalhes')">Detalhes</button>
-        <a href="{% url 'fluxograma' %}" class="tab2">Fluxograma</a>
+        <a href="{% url 'detalhes_do_protocolo' %}" class="tab2">Detalhes</a>
+        <button class="tab ativo2"       id="tab-fluxograma" onclick="mudarAba('fluxograma')">Fluxograma</button>
     </div>
 
+<!--PARTE FLUXOGRAMA (LULA)-->
+    <div class="tab-content" id="conteudo-fluxograma">
+ 
+        <!-- Barra: Resetar + Contador -->
+         
+        <div class="fluxograma-header">
 
-
-        <div class="sub_header2" data-categoria="infectologia" data-ordem="1">
-            <div class="sub_header_interna2">
-                <div class="sub_header_interna_interna2">
-                    Informações
-                </div>
+            
+            <button class="btn-resetar" onclick="resetarFluxograma()">🔄️Resetar</button>
+            <div class="progresso-contador">
+                <span>⏱</span>
+                <span id="texto-progresso">0 / 10 concluídos</span>
             </div>
         </div>
+ 
+        <!-- Cards conectados por setas — gerados pelo JS -->
+        <div class="fluxograma-lista" id="lista-fluxograma"></div>
+ 
+    </div>
 
-        <div class="sub_header2" data-categoria="infectologia" data-ordem="1">
-            <div class="sub_header_interna2">
-                <div class="sub_header_interna_interna2">
-                    Informações
-                </div>
-            </div>
-        </div>
-
-        <div class="sub_header2" data-categoria="infectologia" data-ordem="1">
-            <div class="sub_header_interna2">
-                <div class="sub_header_interna_interna2">
-                    Informações
-                </div>
-            </div>
-        </div>
-
-        <div class="sub_header2" data-categoria="infectologia" data-ordem="1">
-            <div class="sub_header_interna2">
-                <div class="sub_header_interna_interna2">
-                    Informações
-                </div>
-            </div>
-        </div>
-
-        <div class="sub_header2" data-categoria="infectologia" data-ordem="1">
-            <div class="sub_header_interna2">
-                <div class="sub_header_interna_interna2">
-                    Informações
-                </div>
-            </div>
-        </div>
 </div>
+
 
 <div id="modal-calculadora" class="modal-overlay" style="display:none;">
     <div class="modal-box">
