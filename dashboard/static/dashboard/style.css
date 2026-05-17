@@ -422,3 +422,97 @@ body {
     .hist-name  { font-size: 13px; }
     .hist-date  { font-size: 10px; }
 }
+
+/* modal casdastro (orrico) */
+
+.modal-cadastro-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-cadastro-box {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal-cadastro-fechar {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #555;
+}
+
+.modal-cadastro-box h2 {
+    font-size: 20px;
+    margin: 0;
+}
+
+.modal-cadastro-box label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: -6px;
+}
+
+.campo-cadastro {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.modal-cadastro-box input {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.modal-cadastro-botoes {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.btn-cadastro-confirmar {
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    background: #a0a0a0;
+    color: white;
+}
+
+.btn-cadastro-cancelar {
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    background: #e0e0e0;
+    color: #333;
+}

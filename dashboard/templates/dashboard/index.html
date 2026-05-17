@@ -46,7 +46,7 @@
         <!-- Grid desktop (4 colunas) -->
         <div class="categories-grid" id="catGrid">
 
-            <a href="{% url 'protocolos' %}" class="cat-card" data-name="protocolos">
+            <div class="cat-card" data-name="protocolos" onclick="abrirConsulta()">
                 <div class="photo-circle">
                     <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
                         <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
@@ -56,7 +56,7 @@
                     </svg>
                 </div>
                 <span class="cat-label">Protocolos</span>
-            </a>
+            </div>
 
             <a href="#" class="cat-card" data-name="historico">
                 <div class="photo-circle">
@@ -98,7 +98,7 @@
         <!-- Carrossel mobile -->
         <div class="categories-carousel" id="catCarousel">
 
-            <a href="{% url 'protocolos' %}" class="cat-card" data-name="protocolos">
+            <div class="cat-card" data-name="protocolos" onclick="abrirConsulta()">
                 <div class="photo-circle">
                     <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
                         <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
@@ -108,7 +108,7 @@
                     </svg>
                 </div>
                 <span class="cat-label">Protocolos</span>
-            </a>
+            </div>
 
             <a href="#" class="cat-card" data-name="historico">
                 <div class="photo-circle">
@@ -245,6 +245,51 @@
     </main>
 
 </div>
+
+
+
+<div id="modal-consulta" class="modal-cadastro-overlay" style="display:none;">
+    <div class="modal-cadastro-box">
+        <button class="modal-cadastro-fechar" onclick="fecharConsulta()">✕</button>
+        <h2>Deseja cadastrar um novo paciente?</h2>
+        <div class="modal-cadastro-botoes">
+            <button class="btn-cadastro-confirmar" onclick="abrirCadastrar()">Sim</button>
+            <button class="btn-cadastro-cancelar" onclick="irParaProtocolos()">Não</button>
+        </div>
+    </div>
+</div>
+
+<div id="modal-cadastrar" class="modal-cadastro-overlay" style="display:none;">
+    <div class="modal-cadastro-box">
+        <button class="modal-cadastro-fechar" onclick="fecharCadastrar()">✕</button>
+        <h2>Dados do paciente</h2>
+        <div class="campo-cadastro">
+            <label>Nome</label>
+            <input type="text" placeholder="Ex: Maria" id="nome">
+        </div>
+        <div class="campo-cadastro">
+            <label>Idade</label>
+            <input type="number" placeholder="Ex: 10" id="idade">
+        </div>
+        <div class="campo-cadastro">
+            <label>Peso (kg)</label>
+            <input type="number" placeholder="Ex: 60" id="peso">
+        </div>
+        <div class="campo-cadastro">
+            <label>Altura (cm)</label>
+            <input type="number" placeholder="Ex: 170" id="altura">
+        </div>
+        <div class="modal-cadastro-botoes">
+            <button class="btn-cadastro-confirmar" onclick="salvarPaciente()">Salvar</button>
+            <button class="btn-cadastro-cancelar" onclick="fecharCadastrar()">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const URL_PROTOCOLOS = "{% url 'protocolos' %}";
+</script>
+<script src="{% static 'dashboard/js/cadastrar.js' %}"></script>
 
 </body>
 </html>
