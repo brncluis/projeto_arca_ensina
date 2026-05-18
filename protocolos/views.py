@@ -60,7 +60,10 @@ def detalhes_protocolo(request):
     })
 
 def detalhes_protocolo_sedacao(request):
-    return render(request, 'protocolos/detalhes_sedacao.html')
+    categorias = Categoria.objects.all()
+    return render(request, 'protocolos/detalhes_sedacao.html', {
+        'categorias': categorias,
+    })
 
 def fluxograma(request):
     categorias = Categoria.objects.all()

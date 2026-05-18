@@ -622,3 +622,26 @@ a {
 .hidden {
     display: none;
 }
+
+/* Modal de aviso - etapa pulada */
+.modal-aviso {
+    text-align: center;
+    padding: 2rem 1.5rem;
+}
+
+.aviso-icone {
+    font-size: 3rem;
+    margin-bottom: 0.75rem;
+}
+
+.modal-aviso h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #000000;
+}
+
+.modal-aviso p {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 1.25rem;
+}
