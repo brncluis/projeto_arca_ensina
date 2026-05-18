@@ -1,4 +1,4 @@
-
+<!-- modal.html -->
 
 <div id="modal-filtro" class="modal-overlay">
 
@@ -7,7 +7,7 @@
         <!-- HEADER -->
         <div class="modal-header">
             <button id="fecharFiltro">
-                X   
+                X
             </button>
             <h2>Protocolos</h2>
         </div>
@@ -37,7 +37,7 @@
 
                             {% for sintoma in categoria.sintoma_set.all %}
                                 <label>
-                                    <input 
+                                    <input
                                         type="checkbox"
                                         name="sintomas"
                                         value="{{ sintoma.id }}"
@@ -49,14 +49,6 @@
                         </div>
                     {% endfor %}
 
-                </div>
-
-                <div class="modal-footer">
-
-                    <button type="button" class="btn-limpar" onclick="limparFiltros()">
-                        Limpar filtros
-                    </button>
-                    <button type="submit">Aplicar</button>
                 </div>
 
             </form>
