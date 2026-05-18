@@ -49,48 +49,50 @@
     </div>
 
     <div id="lista-protocolos">
-        <a href="{% url 'detalhes_do_protocolo' %}" style="text-decoration: none;">
-            <div class="sub_header" data-categoria="infectologia" data-ordem="1">
+
+    {% if mensagem %}
+        <p>{{ mensagem }}</p>
+    {% endif %}
+
+    {% for protocolo in protocolos %}
+
+        <a href="
+            {% if protocolo.titulo == 'Dengue' %} 
+                {% url 'detalhes_do_protocolo' %}
+            {% elif protocolo.titulo == 'Sedação' %}
+                {% url 'detalhes_sedacao' %} 
+            {% endif %}" 
+            style="text-decoration: none;">
+
+            <div class="sub_header">
+
                 <div class="sub_header_interna">
+
                     <div class="primeiro_card">
-                        <h2>Dengue</h2>
-                        <button class="estrela_de_favorito">⭐</button>
+                        <h2>{{ protocolo.titulo }}</h2>
+
+                        <button class="estrela_de_favorito">
+                            ⭐
+                        </button>
                     </div>
+
                     <div class="sub_header_interna_interna">
-                        Uma doença infecciosa febril aguda, transmitida pela picada da fêmea do mosquito Aedes aegypti.
+                        {{ protocolo.descricao }}
                     </div>
+
                 </div>
+
             </div>
+
         </a>
 
-        <a href="{% url 'detalhes_sedacao' %}" style="text-decoration: none;">
-            <div class="sub_header" data-categoria="uti" data-ordem="2">
-                <div class="sub_header_interna">
-                    <div class="primeiro_card">
-                        <h2>Sedação</h2>
-                        <button class="estrela_de_favorito">⭐</button>
-                    </div>
-                    <div class="sub_header_interna_interna">
-                        Descrição breve
-                    </div>
-                </div>
-            </div>
-        </a>
+    {% empty %}
 
-        <a>
-            <div class="sub_header" data-categoria="uti" data-ordem="2">
-                <div class="sub_header_interna">
-                    <div class="primeiro_card">
-                        <h2>Outro</h2>
-                        <button class="estrela_de_favorito">⭐</button>
-                    </div>
-                    <div class="sub_header_interna_interna">
-                        Descrição breve
-                    </div>
-                </div>
-            </div>
-        </a>
-    </div> 
+        <p>Nenhum protocolo encontrado.</p>
+
+    {% endfor %}
+
+</div> 
 
 </div> 
 

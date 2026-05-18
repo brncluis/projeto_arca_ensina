@@ -27,6 +27,36 @@ def criar_dados_iniciais():
     for nome, categoria in sintomas:
         Sintoma.objects.get_or_create(nome=nome, categoria=categoria)
 
+    # PROTOCOLO DENGUE
+  
+    dengue, _ = Protocolo.objects.get_or_create(
+        titulo="Dengue",
+        defaults={
+            "descricao": "Uma doença infecciosa febril aguda, transmitida pela picada da fêmea do mosquito Aedes aegypti."
+        }
+    )
+
+    sintomas_dengue = Sintoma.objects.filter(
+        nome__in=["Febre", "Dor", "Vômito"]
+    )
+
+    dengue.sintomas.set(sintomas_dengue)
+
+    # PROTOCOLO SEDAÇÃO
+
+    sedacao, _ = Protocolo.objects.get_or_create(
+        titulo="Sedação",
+        defaults={
+            "descricao": "Protocolo de sedação para procedimentos clínicos."
+        }
+    )
+
+    sintomas_sedacao = Sintoma.objects.filter(
+        nome__in=["Apneia", "Bradicardia", "Hipotensão"]
+    )
+
+    sedacao.sintomas.set(sintomas_sedacao)
+
 
 def protocolos_home(request):
     criar_dados_iniciais()
@@ -50,6 +80,7 @@ def protocolos_home(request):
         'protocolos': protocolos,
         'categorias': categorias,
         'mensagem': mensagem,
+        'sintomas_selecionados': sintomas_ids,
     })
 
 

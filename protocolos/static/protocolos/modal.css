@@ -66,6 +66,19 @@
     margin-bottom: 20px;
 }
 
+.acoes-filtro{
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    background: #e0e0e0;
+    color: #333;
+
+}
+
 
 .grupo {
     margin-bottom: 20px;
