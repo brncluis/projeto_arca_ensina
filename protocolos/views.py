@@ -61,7 +61,11 @@ def protocolos_home(request):
 def detalhes_protocolo(request):
     return render(request, 'protocolos/detalhes.html')
 
+def detalhes_protocolo_sedacao(request):
+    return render(request, 'protocolos/detalhes_sedacao.html')
 
 def fluxograma(request):
     return render(request, 'protocolos/fluxograma.html')
 
+def fluxograma_sedacao(request):
+    return render(request, 'protocolos/fluxograma_sedacao.html')
