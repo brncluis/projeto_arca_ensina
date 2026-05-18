@@ -1,4 +1,4 @@
-
+<!-- filtro_modal.html -->
 
 <div id="modal-filtro" class="modal-overlay">
 
@@ -6,9 +6,7 @@
 
         <!-- HEADER -->
         <div class="modal-header">
-            <button id="fecharFiltro">
-                X   
-            </button>
+            <button id="fecharFiltro">❌</button>
             <h2>Protocolos</h2>
         </div>
 
@@ -17,10 +15,11 @@
 
             <h3>Filtrar por sintomas</h3>
             <p class="sub">Selecione os sintomas do paciente</p>
+            
 
             <!-- BUSCA -->
             <div class="barra-busca">
-                <input type="text" placeholder="Buscar protocolos..." oninput="filtrarSintomas(this.value)">
+                <input type="text" placeholder="Procure o sintoma..." oninput="filtrarSintomas(this.value)">
             </div>
 
             <!-- FORM -->
@@ -37,7 +36,7 @@
 
                             {% for sintoma in categoria.sintoma_set.all %}
                                 <label>
-                                    <input 
+                                    <input
                                         type="checkbox"
                                         name="sintomas"
                                         value="{{ sintoma.id }}"
@@ -49,14 +48,6 @@
                         </div>
                     {% endfor %}
 
-                </div>
-
-                <div class="modal-footer">
-
-                    <button type="button" class="btn-limpar" onclick="limparFiltros()">
-                        Limpar filtros
-                    </button>
-                    <button type="submit">Aplicar</button>
                 </div>
 
             </form>

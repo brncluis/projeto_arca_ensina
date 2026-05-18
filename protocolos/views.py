@@ -1,36 +1,31 @@
 from django.shortcuts import render
 from .models import Protocolo, Categoria, Sintoma
-from django.http import JsonResponse
+
 
 def criar_dados_iniciais():
-    if Categoria.objects.exists():
-        return
+    respiratorio, _ = Categoria.objects.get_or_create(nome="Respiratório")
+    cardiovascular, _ = Categoria.objects.get_or_create(nome="Cardiovascular")
+    geral, _ = Categoria.objects.get_or_create(nome="Geral")
+    gastrointestinal, _ = Categoria.objects.get_or_create(nome="Gastrointestinal")
 
-    respiratorio = Categoria.objects.create(nome="Respiratório")
-    cardiovascular = Categoria.objects.create(nome="Cardiovascular")
-    geral = Categoria.objects.create(nome="Geral")
-    gastrointestinal = Categoria.objects.create(nome="Gastrointestinal")
+    sintomas = [
+        ("Dispneia", respiratorio),
+        ("Tosse", respiratorio),
+        ("Chiado", respiratorio),
+        ("Cianose", respiratorio),
+        ("Apneia", respiratorio),
+        ("Taquicardia", cardiovascular),
+        ("Bradicardia", cardiovascular),
+        ("Hipotensão", cardiovascular),
+        ("Febre", geral),
+        ("Dor", geral),
+        ("Diarreia", gastrointestinal),
+        ("Distenção Abdominal", gastrointestinal),
+        ("Vômito", gastrointestinal),
+    ]
 
-    # RESPIRATÓRIO
-    Sintoma.objects.create(nome="Dispneia", categoria=respiratorio)
-    Sintoma.objects.create(nome="Tosse", categoria=respiratorio)
-    Sintoma.objects.create(nome="Chiado", categoria=respiratorio)
-    Sintoma.objects.create(nome="Cianose", categoria=respiratorio)
-    Sintoma.objects.create(nome="Apneia", categoria=respiratorio)
-
-    # CARDIO
-    Sintoma.objects.create(nome="Taquicardia", categoria=cardiovascular)
-    Sintoma.objects.create(nome="Bradicardia", categoria=cardiovascular)
-    Sintoma.objects.create(nome="Hipotensão", categoria=cardiovascular)
-
-    # GERAL
-    Sintoma.objects.create(nome="Febre", categoria=geral)
-    Sintoma.objects.create(nome="Dor", categoria=geral)
-
-    # GASTROINTESTINAL
-    Sintoma.objects.create(nome="Diarreia", categoria=gastrointestinal)
-    Sintoma.objects.create(nome="Distenção Abdominal", categoria=gastrointestinal)
-    Sintoma.objects.create(nome="Vômito", categoria=gastrointestinal)
+    for nome, categoria in sintomas:
+        Sintoma.objects.get_or_create(nome=nome, categoria=categoria)
 
 
 def protocolos_home(request):
@@ -54,18 +49,27 @@ def protocolos_home(request):
     return render(request, 'protocolos/index.html', {
         'protocolos': protocolos,
         'categorias': categorias,
-        "mensagem": mensagem
+        'mensagem': mensagem,
     })
 
 
 def detalhes_protocolo(request):
-    return render(request, 'protocolos/detalhes.html')
+    categorias = Categoria.objects.all()
+    return render(request, 'protocolos/detalhes.html', {
+        'categorias': categorias,
+    })
 
 def detalhes_protocolo_sedacao(request):
-    return render(request, 'protocolos/detalhes_sedacao.html')
+    categorias = Categoria.objects.all()
+    return render(request, 'protocolos/detalhes_sedacao.html', {
+        'categorias': categorias,
+    })
 
 def fluxograma(request):
-    return render(request, 'protocolos/fluxograma.html')
+    categorias = Categoria.objects.all()
+    return render(request, 'protocolos/fluxograma.html', {
+        'categorias': categorias,
+    })
 
 def fluxograma_sedacao(request):
     return render(request, 'protocolos/fluxograma_sedacao.html')
