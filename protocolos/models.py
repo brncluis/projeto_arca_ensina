@@ -24,3 +24,12 @@ class Protocolo(models.Model):
 
     def __str__(self):
         return self.titulo
+    
+class Medicamento(models.Model):
+    nome = models.CharField(max_length=50)
+    dosagem_minima = models.DecimalField(max_digits=5, decimal_places=3)
+    dosagem_maxima = models.DecimalField(max_digits=6, decimal_places=3)
+    unidade_dosagem = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.nome
