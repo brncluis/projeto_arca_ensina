@@ -26,10 +26,14 @@ class Protocolo(models.Model):
         return self.titulo
     
 class Medicamento(models.Model):
-    nomes = models.CharField(max_length=50)
+    nome_farmaco = models.CharField(max_length=50)
+    tipo_farmaco = models.CharField(max_length=50)
+
     dosagens_minima = models.DecimalField(max_digits=5, decimal_places=3)
     dosagens_maxima = models.DecimalField(max_digits=6, decimal_places=3)
     unidades_dosagem = models.CharField(max_length=50)
+
+    efeito_farmaco = models.TextField(blank= True, help_text= "Efeito e indicacao clinica")
 
     def __str__(self):
         return self.nome
