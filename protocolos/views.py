@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import Protocolo, Categoria, Sintoma
 
 
+
 def criar_dados_iniciais():
     respiratorio, _ = Categoria.objects.get_or_create(nome="Respiratório")
     cardiovascular, _ = Categoria.objects.get_or_create(nome="Cardiovascular")
@@ -28,7 +29,7 @@ def criar_dados_iniciais():
         Sintoma.objects.get_or_create(nome=nome, categoria=categoria)
 
     # PROTOCOLO DENGUE
-  
+
     dengue, _ = Protocolo.objects.get_or_create(
         titulo="Dengue",
         defaults={
@@ -104,3 +105,5 @@ def fluxograma(request):
 
 def fluxograma_sedacao(request):
     return render(request, 'protocolos/fluxograma_sedacao.html')
+
+
