@@ -1,0 +1,383 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    width: 100%;
+    border-bottom: 2px solid #d9d9d9;
+    padding: 15px 0;
+    margin-bottom: 50px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+.login-card {
+    width: min(480px, 95vw);
+    background-color: white;
+    border-radius: 16px;
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.circulo {
+    width: 60px;
+    height: 60px;
+    background-color: #d9d9d9;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circulo span {
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+/* Título no header (LUMUS) — centralizado */
+.titulo {
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.titulo-header {
+    margin: 0;
+}
+
+/* Título dentro do card — alinhado à esquerda */
+.titulo-form {
+    justify-content: flex-start;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.form-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+}
+
+.form-group input {
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    padding: 0 20px;
+    font-size: 13px;
+    background-color: rgb(174, 170, 170);
+    color: white;
+}
+
+.form-group input:focus {
+    outline: none;
+    border: 2px solid #999;
+}
+
+input::placeholder {
+    color: white;
+}
+
+.link-forgot {
+    font-size: 13px;
+    color: black;
+    text-decoration: none;
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.link-forgot:hover {
+    text-decoration: underline;
+}
+
+/* Botão escuro, pill shape */
+.btn-primary {
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s, transform 0.2s;
+    background-color: #1a1a1a;
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: scale(1.02);
+    background-color: #333;
+}
+
+/* Texto de termos abaixo do botão */
+.terms-text {
+    font-size: 12px;
+    color: #555;
+    text-align: left;
+    margin-top: 12px;
+    line-height: 1.5;
+}
+
+/* Rodapé do card */
+.login-signup {
+    margin-top: 20px;
+    border-top: 1px solid #d9d9d9;
+    padding: 20px 0 5px 0;
+    text-align: center;
+    font-size: 13px;
+    color: #444;
+    line-height: 1.8;
+}
+
+.login-signup strong {
+    font-weight: bold;
+    color: black;
+}
+
+.login-signup a {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    display: block;
+    margin-top: 4px;
+}
+
+.login-signup a:hover {
+    text-decoration: underline;
+}
+
+.login-error {
+    background-color: white;
+    color: #000;
+    font-size: 13px;
+    padding: 10px 15px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+/* Input com ícones */
+.input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.input-wrapper input {
+    padding-left: 45px;
+    padding-right: 45px;
+}
+
+.input-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    opacity: 0.7;
+    /* Deixa o ícone branco para contrastar com o fundo cinza */
+    filter: brightness(0) invert(1);
+}
+
+.toggle-password {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    opacity: 0.7;
+    filter: brightness(0) invert(1);
+}
+
+/* =====================
+   RESPONSIVIDADE MOBILE
+   ===================== */
+
+/* Tablets (até 768px) */
+@media (max-width: 768px) {
+    header {
+        margin-bottom: 30px;
+    }
+
+    .circulo {
+        width: 48px;
+        height: 48px;
+    }
+
+    .titulo {
+        font-size: 18px;
+    }
+
+    .login-card {
+        padding: 30px 20px;
+        border-radius: 12px;
+        gap: 8px;
+    }
+
+    .titulo-form {
+        font-size: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 8px;
+    }
+
+    .form-group input {
+        height: 46px;
+        font-size: 13px;
+    }
+
+    .btn-primary {
+        height: 46px;
+        font-size: 14px;
+    }
+}
+
+/* Celulares (até 480px) */
+@media (max-width: 480px) {
+    header {
+        padding: 12px 0;
+        margin-bottom: 20px;
+    }
+
+    .circulo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .circulo span {
+        font-size: 8px;
+    }
+
+    .titulo {
+        font-size: 16px;
+    }
+
+    .login-card {
+        width: 100%;
+        padding: 24px 16px;
+        border-radius: 0;    /* ocupa toda a largura sem bordas arredondadas */
+        gap: 6px;
+    }
+
+    .titulo-form {
+        font-size: 18px;
+        margin-bottom: 6px;
+    }
+
+    .form-group {
+        margin-bottom: 6px;
+    }
+
+    .form-group input {
+        height: 44px;
+        font-size: 13px;
+        border-radius: 8px;
+    }
+
+    .input-wrapper input {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .input-icon {
+        left: 12px;
+        width: 16px;
+        height: 16px;
+    }
+
+    .toggle-password {
+        right: 12px;
+        width: 18px;
+        height: 18px;
+    }
+
+    .btn-primary {
+        height: 44px;
+        font-size: 14px;
+        margin-top: 8px;
+    }
+
+    .terms-text {
+        font-size: 11px;
+    }
+
+    .login-signup {
+        font-size: 12px;
+        margin-top: 16px;
+        padding-top: 16px;
+    }
+
+    .link-forgot {
+        font-size: 12px;
+    }
+}
+
+/* Celulares muito pequenos (até 320px) */
+@media (max-width: 320px) {
+    .login-card {
+        padding: 20px 12px;
+    }
+
+    .titulo-form {
+        font-size: 16px;
+    }
+
+    .form-group input {
+        height: 42px;
+        font-size: 12px;
+    }
+
+    .btn-primary {
+        height: 42px;
+        font-size: 13px;
+    }
+}
