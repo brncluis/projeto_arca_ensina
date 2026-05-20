@@ -83,3 +83,38 @@ function limpar() {
     esconderResultado();
 }
 
+function calcular() {
+    const pesoPaciente = parseFloat(document.getElementById('peso').value);
+    const idMedicamentoSelecionado = document.getElementById('medicacao').value;
+
+    if (!pesoPaciente || !idMedicamentoSelecionado) {
+        alert('Preencha o peso e selecione uma medicação.');
+        return;
+    }
+
+    const medicamentoSelecionado = listaMedicamentos.find(
+        medicamentoAtual => medicamentoAtual.id === idMedicamentoSelecionado
+    );
+    if (!medicamentoSelecionado) return;
+
+    const doseMinimaCalculada = (medicamentoSelecionado.doseMin * pesoPaciente).toFixed(2);
+    const doseMaximaCalculada = (medicamentoSelecionado.doseMax * pesoPaciente).toFixed(2);
+
+
+    exibirResultado(medicamentoSelecionado, doseMinimaCalculada, doseMaximaCalculada);
+}
+
+function exibirResultado(medicamentoSelecionado, doseMinimaCalculada, doseMaximaCalculada) {
+    document.getElementById('resultado-nome-farmaco').textContent = medicamentoSelecionado.nome;
+    document.getElementById('resultado-tipo-farmaco').textContent = medicamentoSelecionado.tipo;
+    document.getElementById('resultado-dose').textContent = `${doseMinimaCalculada} – ${doseMaximaCalculada} ${medicamentoSelecionado.unidade}`;
+    document.getElementById('resultado-efeito').textContent = medicamentoSelecionado.efeito;
+
+    document.getElementById('calculadora-resultado').style.display = 'flex';
+    document.getElementById('calculadora-placeholder').style.display = 'none';
+}
+
+function esconderResultado() {
+    document.getElementById('calculadora-resultado').style.display = 'none';
+    document.getElementById('calculadora-placeholder').style.display = 'block';
+}
