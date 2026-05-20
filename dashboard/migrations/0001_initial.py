@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('protocolos', '0004_rename_nomes_medicamento_nome_farmaco_and_more'),
+        ('protocolos', '0002_medicamento'),
     ]
 
     operations = [
