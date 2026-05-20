@@ -46,3 +46,21 @@ const listaMedicamentos = [
     }
 ];
 
+function abrirCalculadora() {
+    const elementoModalCalculadora = document.getElementById('modal-calculadora');
+    elementoModalCalculadora.style.display = 'flex';
+    preencherSelectMedicamentos();
+}
+
+function fecharCalculadora() {
+    document.getElementById('modal-calculadora').style.display = 'none';
+}
+
+const elementoModalCalculadora = document.getElementById('modal-calculadora');
+if (elementoModalCalculadora) {
+    elementoModalCalculadora.addEventListener('click', function (eventoClique) {
+        if (eventoClique.target === this) fecharCalculadora();
+    });
+}
+
+
