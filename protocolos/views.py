@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from .models import Protocolo, Categoria, Sintoma
+from django.http import JsonResponse
+from .models import Protocolo, Categoria, Sintoma, Medicamento
+
 
 
 def criar_dados_iniciais():
@@ -104,3 +106,16 @@ def fluxograma(request):
 
 def fluxograma_sedacao(request):
     return render(request, 'protocolos/fluxograma_sedacao.html')
+
+
+def medicamentos(request):
+    medicamentos = Medicamento.objects.all().values(
+        'id',
+        'nome_farmaco',
+        'tipo_farmaco',
+        'dosagens_minima',
+        'dosagens_maxima',
+        'unidades_dosagem',
+        'efeito_farmaco',
+    )
+    return JsonResponse(list(medicamentos), safe=False)
