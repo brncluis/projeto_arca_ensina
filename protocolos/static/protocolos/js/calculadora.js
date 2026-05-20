@@ -64,3 +64,22 @@ if (elementoModalCalculadora) {
 }
 
 
+function preencherSelectMedicamentos() {
+    const selectMedicamentos = document.getElementById('medicacao');
+    if (selectMedicamentos.options.length > 1) return; 
+    listaMedicamentos.forEach(medicamento => {
+        const opcaoMedicamento = document.createElement('option');
+        opcaoMedicamento.value = medicamento.id;
+        opcaoMedicamento.textContent = medicamento.nome;
+        selectMedicamentos.appendChild(opcaoMedicamento);
+    });
+}
+
+
+function limpar() {
+    document.getElementById('peso').value = '';
+    document.getElementById('altura').value = '';
+    document.getElementById('medicacao').value = '';
+    esconderResultado();
+}
+
