@@ -4,9 +4,10 @@ const lista_medicamentos = [
         nome: 'Dipirona',
         tipo: 'Analgésico / Antipirético',
         dose_min: 10,
-        dose_max: 25,
-        unidade: 'mg/dose',
-        efeito: 'Reduz febre e dor por inibição de prostaglandinas. Indicada em dor aguda e hipertermia de qualquer etiologia.'
+        dose_max: 20,
+        unidade: 'mg/kg/dose',
+        dose_maxima_absoluta: 1000,
+        efeito: 'Reduz febre e dor por inibição de prostaglandinas. Dose a cada 6h. Indicada em dor aguda e hipertermia de qualquer etiologia.'
     },
     {
         id: 'ibuprofeno',
@@ -14,17 +15,19 @@ const lista_medicamentos = [
         tipo: 'Anti-inflamatório / AINE',
         dose_min: 5,
         dose_max: 10,
-        unidade: 'mg/dose',
-        efeito: 'Inibe COX-1 e COX-2, reduzindo prostaglandinas. Indicado em processos inflamatórios, dor leve a moderada e febre.'
+        unidade: 'mg/kg/dose',
+        dose_maxima_absoluta: 400,
+        efeito: 'Inibe COX-1 e COX-2. Dose a cada 6–8h. Indicado em febre, dor leve a moderada e processos inflamatórios. Não usar em < 3 meses.'
     },
     {
         id: 'amoxicilina',
         nome: 'Amoxicilina',
         tipo: 'Antibiótico — Penicilina',
         dose_min: 25,
-        dose_max: 45,
+        dose_max: 50,
         unidade: 'mg/kg/dia',
-        efeito: 'Bactericida de amplo espectro. Indicada em infecções de vias aéreas superiores, otite média e infecções de pele.'
+        dose_maxima_absoluta: 3000,
+        efeito: 'Bactericida de amplo espectro. Dividir em 2–3 doses/dia. Indicada em otite média, faringite, pneumonia e infecções de pele.'
     },
     {
         id: 'paracetamol',
@@ -32,8 +35,9 @@ const lista_medicamentos = [
         tipo: 'Analgésico / Antipirético',
         dose_min: 10,
         dose_max: 15,
-        unidade: 'mg/dose',
-        efeito: 'Age centralmente inibindo síntese de prostaglandinas. Primeira escolha em febre e dor leve em crianças e adultos.'
+        unidade: 'mg/kg/dose',
+        dose_maxima_absoluta: 750,
+        efeito: 'Primeira escolha em febre e dor leve. Dose a cada 6h. Dose diária máxima: 60 mg/kg/dia ou 4g/dia em adolescentes.'
     },
     {
         id: 'dexametasona',
@@ -41,8 +45,9 @@ const lista_medicamentos = [
         tipo: 'Corticosteroide',
         dose_min: 0.15,
         dose_max: 0.6,
-        unidade: 'mg/dose',
-        efeito: 'Potente glicocorticoide sintético. Indicada em crupe, edema cerebral, reações alérgicas graves e processos inflamatórios intensos.'
+        unidade: 'mg/kg/dose',
+        dose_maxima_absoluta: 10,
+        efeito: 'Dose única. 0,15 mg/kg para crupe leve; 0,6 mg/kg para crupe moderada/grave (padrão-ouro SBP). Máximo 10 mg/dose.'
     }
 ];
 
@@ -126,8 +131,9 @@ function calcular() {
     const medicamento = lista_medicamentos.find(m => m.id === id_medicamento);
     if (!medicamento) return;
 
-    const dose_minima = (medicamento.dose_min * peso).toFixed(2);
-    const dose_maxima = (medicamento.dose_max * peso).toFixed(2);
+    const dose_minima = Math.min(medicamento.dose_min * peso,medicamento.dose_maxima_absoluta).toFixed(2);
+
+    const dose_maxima = Math.min(medicamento.dose_max * peso, medicamento.dose_maxima_absoluta).toFixed(2);
 
     document.getElementById('resultado-nome-farmaco').textContent = medicamento.nome;
     document.getElementById('resultado-tipo-farmaco').textContent = medicamento.tipo;
