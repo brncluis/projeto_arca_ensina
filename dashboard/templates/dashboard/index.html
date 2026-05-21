@@ -65,7 +65,7 @@
                         <polyline points="12 7 12 12 15 15"/>
                     </svg>
                 </div>
-                <span class="cat-label">Histórico</span>
+                <span class="cat-label">Histórico de atendimentos</span>
             </a>
 
             <a href="#" class="cat-card" data-name="calculadora">
@@ -81,7 +81,7 @@
                 <span class="cat-label">Calculadora de Dosagens</span>
             </a>
 
-            <a href="#" class="cat-card" data-name="pacientes">
+            <a href="#" class="cat-card" data-name="pacientes" onclick="event.preventDefault(); abrirConsulta()">
                 <div class="photo-circle">
                     <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
                         <circle cx="9" cy="7" r="4"/>
@@ -90,7 +90,7 @@
                         <path d="M14 21c0-2.8 1.3-5 3-5s3 2.2 3 5"/>
                     </svg>
                 </div>
-                <span class="cat-label">Histórico de Pacientes</span>
+                <span class="cat-label">Pesquisar pacientes</span>
             </a>
 
         </div>
@@ -117,7 +117,7 @@
                         <polyline points="12 7 12 12 15 15"/>
                     </svg>
                 </div>
-                <span class="cat-label">Histórico</span>
+                <span class="cat-label">Histórico de atendimentos</span>
             </a>
 
             <a href="#" class="cat-card" data-name="calculadora">
@@ -133,7 +133,7 @@
                 <span class="cat-label">Calculadora de Dosagens</span>
             </a>
 
-            <a href="#" class="cat-card" data-name="pacientes">
+            <a href="#" class="cat-card" data-name="pacientes" onclick="event.preventDefault(); abrirConsulta()">
                 <div class="photo-circle">
                     <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
                         <circle cx="9" cy="7" r="4"/>
@@ -142,13 +142,13 @@
                         <path d="M14 21c0-2.8 1.3-5 3-5s3 2.2 3 5"/>
                     </svg>
                 </div>
-                <span class="cat-label">Histórico de Pacientes</span>
+                <span class="cat-label">Pesquisar pacientes</span>
             </a>
 
         </div>
 
         <!-- HISTÓRICO -->
-        <p class="section-title section-title--center">Histórico de Atendimentos</p>
+        <p class="section-title section-title--center">Últimos atendimentos</p>
 
         <!-- Lista desktop -->
         <div class="historico-list" id="histList">
@@ -199,7 +199,7 @@
         <h2>Deseja cadastrar um novo paciente?</h2>
         <div class="modal-cadastro-botoes">
             <button class="btn-cadastro-confirmar" onclick="abrirCadastrar()">Sim</button>
-            <button class="btn-cadastro-cancelar" onclick="irParaProtocolos()">Não</button>
+            <button class="btn-cadastro-cancelar" onclick="window.location.href='{% url 'pacientes' %}'">Não</button>
         </div>
     </div>
 </div>
