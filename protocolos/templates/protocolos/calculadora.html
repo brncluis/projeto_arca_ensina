@@ -58,4 +58,45 @@
                 <button class="calc-btn calc-btn-preto">Salvar</button>
             </div>
 
-        
+                <div class="calc-coluna-dir">
+
+            <div id="calculadora-placeholder" class="calc-placeholder">
+                <p class="calc-placeholder-titulo">Pronto para Calcular</p>
+                <p class="calc-placeholder-texto">Preencha o peso do paciente e selecione uma medicação para ver as dosagens calculadas.</p>
+            </div>
+
+            <div id="calculadora-resultado" class="calc-resultado" style="display:none;">
+
+                <div class="calc-res-header">
+                    <h2 id="resultado-nome-farmaco">—</h2>
+                    <span class="calc-tag-tipo" id="resultado-tipo-farmaco">—</span>
+                </div>
+
+                <div class="calc-card">
+                    <p class="calc-res-dose-label">Dose calculada: <strong id="resultado-dose">—</strong></p>
+                </div>
+
+                <div class="calc-card">
+                    <p id="resultado-efeito">—</p>
+                </div>
+
+                <div class="calc-card calc-card-dica" id="bloco-dica">
+                    <p><strong>ⓘ Dica de Segurança</strong></p>
+                    <p>Sempre verifique cálculos críticos com outro profissional antes da administração.</p>
+                </div>
+
+                <div class="calc-card calc-card-prescricao" id="bloco-prescricao" style="display:none;">
+                    <p><strong>Informações sobre a prescrição</strong><br>
+                    (nome do medicamento, dosagem, tempo de administração, via de administração)</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script src="{% static 'protocolos/js/calculadora_page.js' %}"></script>
+</body>
+</html>
