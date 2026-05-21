@@ -1,0 +1,60 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Histórico — {{ paciente.nome_completo }}</title>
+    <link rel="stylesheet" href="{% static 'dashboard/historico.css' %}">
+</head>
+<body>
+
+<div class="page">
+
+    <!-- HEADER -->
+    <div class="page-header">
+        <a href="{% url 'dashboard' %}" class="btn-voltar" title="Voltar">
+            <img src="{% static 'dashboard/icons/Seta_sair_vetorizada.png' %}"
+            alt="Voltar" width="42" height="42">
+        </a>
+        <div class="page-title">
+            <h1>Histórico</h1>
+            <p class="paciente-id">ID do paciente: {{ paciente.id }}</p>
+        </div>
+    </div>
+
+    <!-- GRID DE CARDS -->
+    <div class="cards-grid">
+
+        <!-- Card do paciente (destaque) -->
+        <div class="card-paciente">
+            <div>
+                <p class="card-nome">{{ paciente.nome_completo }}</p>
+                <p class="card-data">{{ paciente.data_nascimento|date:"d/m/Y" }}</p>
+            </div>
+            <span class="card-plus">+</span>
+        </div>
+
+        <!-- Cards de consultas -->
+        {% for consulta in consultas %}
+            <a href="#" class="card-consulta">
+                <div>
+                    <p class="consulta-label">Data da consulta</p>
+                    <p class="consulta-data">{{ consulta.data_consulta|date:"d/m/Y" }}</p>
+                </div>
+                <span class="consulta-plus">+</span>
+            </a>
+        {% empty %}
+            <div class="sem-consultas">
+                Nenhuma consulta registrada para este paciente.
+            </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>
+
