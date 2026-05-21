@@ -1,0 +1,61 @@
+{% load static %}
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Dosagens</title>
+    <link rel="stylesheet" href="{% static 'protocolos/style.css' %}">
+    <link rel="stylesheet" href="{% static 'protocolos/calculadora_page.css' %}">
+</head>
+
+<body>
+<div class="container">
+
+    <div class="header">
+        <a href="{% url 'dashboard' %}">
+            <button class="voltar-botton">
+                <span class="seta"></span>
+            </button>
+        </a>
+        <h1 class="titulo">Calculadora de Dosagens</h1>
+    </div>
+
+
+    <div class="calc-layout">
+
+        <div class="calc-coluna-esq">
+
+            <div class="calc-subtitulo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+                <span>Dados do Paciente</span>
+            </div>
+
+            <div class="calc-campo">
+                <label>Peso (Kg)</label>
+                <input type="number" id="peso" placeholder="Ex: 15.5" class="calc-input">
+            </div>
+
+            <div class="calc-campo">
+                <label>Altura (cm)</label>
+                <input type="number" id="altura" placeholder="Ex: 100" class="calc-input">
+            </div>
+
+            <div class="calc-campo">
+                <label>Medicação</label>
+                <select id="medicacao" class="calc-select">
+                    <option value="">Selecione uma medicação</option>
+                </select>
+            </div>
+
+            <div class="calc-botoes">
+                <button class="calc-btn calc-btn-secundario" id="btn-calcular" onclick="calcular()">Calcular</button>
+                <button class="calc-btn calc-btn-secundario" id="btn-prescrever">Prescrever</button>
+                <button class="calc-btn calc-btn-preto">Salvar</button>
+            </div>
+
+        
