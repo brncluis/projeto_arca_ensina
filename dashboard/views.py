@@ -2,7 +2,8 @@ from django.shortcuts import render
 from .models import Paciente, Consulta
 
 def dashboard(request):
-    return render(request, 'dashboard/index.html')
+    pacientes = Paciente.objects.all()
+    return render(request, 'dashboard/index.html', {'pacientes': pacientes})
 
 def lista_pacientes(request):
     pacientes = Paciente.objects.all()

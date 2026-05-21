@@ -152,92 +152,37 @@
 
         <!-- Lista desktop -->
         <div class="historico-list" id="histList">
-            <div class="hist-card">
-                <div class="hist-avatar">M</div>
-                <div class="hist-info">
-                    <p class="hist-name">Maria Silva</p>
-                    <p class="hist-detail">Protocolo: Anti-aging · 3 sessões</p>
-                </div>
-                <p class="hist-date">Hoje<br>14:30</p>
-            </div>
-            <div class="hist-card">
-                <div class="hist-avatar">J</div>
-                <div class="hist-info">
-                    <p class="hist-name">Joana Ferreira</p>
-                    <p class="hist-detail">Protocolo: Hidratação · 1 sessão</p>
-                </div>
-                <p class="hist-date">Ontem<br>10:00</p>
-            </div>
-            <div class="hist-card">
-                <div class="hist-avatar">A</div>
-                <div class="hist-info">
-                    <p class="hist-name">Ana Costa</p>
-                    <p class="hist-detail">Calculadora: Toxina Botulínica</p>
-                </div>
-                <p class="hist-date">08/05<br>09:15</p>
-            </div>
-            <div class="hist-card">
-                <div class="hist-avatar">R</div>
-                <div class="hist-info">
-                    <p class="hist-name">Renata Souza</p>
-                    <p class="hist-detail">Protocolo: Preenchimento · 2 sessões</p>
-                </div>
-                <p class="hist-date">07/05<br>16:45</p>
-            </div>
-            <div class="hist-card">
-                <div class="hist-avatar">C</div>
-                <div class="hist-info">
-                    <p class="hist-name">Carla Mendes</p>
-                    <p class="hist-detail">Protocolo: Bioestimulador · 4 sessões</p>
-                </div>
-                <p class="hist-date">06/05<br>11:20</p>
-            </div>
+            {% for paciente in pacientes %}
+                <a href="{% url 'historico_paciente' paciente.id %}" class="hist-card" style="text-decoration: none; color: inherit;">
+                    <div class="hist-avatar">{{ paciente.nome_completo|first }}</div>
+                    <div class="hist-info">
+                        <p class="hist-name">{{ paciente.nome_completo }}</p>
+                        <p class="hist-detail">{{ paciente.data_nascimento|date:"d/m/Y" }}</p>
+                    </div>
+                </a>
+            {% empty %}
+                <p style="color: #777; font-size: 14px;">Nenhum paciente cadastrado.</p>
+            {% endfor %}
         </div>
 
         <!-- Carrossel/peek mobile -->
         <div class="historico-peek" id="histMobile">
             <div class="historico-scroll">
-                <div class="hist-card">
-                    <div class="hist-avatar">M</div>
-                    <div class="hist-info">
-                        <p class="hist-name">Maria Silva</p>
-                        <p class="hist-detail">Protocolo: Anti-aging · 3 sessões</p>
-                    </div>
-                    <p class="hist-date">Hoje<br>14:30</p>
-                </div>
-                <div class="hist-card">
-                    <div class="hist-avatar">J</div>
-                    <div class="hist-info">
-                        <p class="hist-name">Joana Ferreira</p>
-                        <p class="hist-detail">Protocolo: Hidratação · 1 sessão</p>
-                    </div>
-                    <p class="hist-date">Ontem<br>10:00</p>
-                </div>
-                <div class="hist-card">
-                    <div class="hist-avatar">A</div>
-                    <div class="hist-info">
-                        <p class="hist-name">Ana Costa</p>
-                        <p class="hist-detail">Calculadora: Toxina Botulínica</p>
-                    </div>
-                    <p class="hist-date">08/05<br>09:15</p>
-                </div>
-                <div class="hist-card">
-                    <div class="hist-avatar">R</div>
-                    <div class="hist-info">
-                        <p class="hist-name">Renata Souza</p>
-                        <p class="hist-detail">Protocolo: Preenchimento · 2 sessões</p>
-                    </div>
-                    <p class="hist-date">07/05<br>16:45</p>
-                </div>
-                <div class="hist-card">
-                    <div class="hist-avatar">C</div>
-                    <div class="hist-info">
-                        <p class="hist-name">Carla Mendes</p>
-                        <p class="hist-detail">Protocolo: Bioestimulador · 4 sessões</p>
-                    </div>
-                    <p class="hist-date">06/05<br>11:20</p>
-                </div>
+                {% for paciente in pacientes %}
+                    <a href="{% url 'historico_paciente' paciente.id %}" class="hist-card" style="text-decoration: none; color: inherit;">
+                        <div class="hist-avatar">{{ paciente.nome_completo|first }}</div>
+                        <div class="hist-info">
+                            <p class="hist-name">{{ paciente.nome_completo }}</p>
+                            <p class="hist-detail">{{ paciente.data_nascimento|date:"d/m/Y" }}</p>
+                        </div>
+                    </a>
+                {% empty %}
+                    <p style="color: #777; font-size: 14px;">Nenhum paciente cadastrado.</p>
+                {% endfor %}
             </div>
+            <div class="peek-fade"></div>
+        </div>
+        
             <!-- gradiente fade indicando mais conteúdo abaixo -->
             <div class="peek-fade"></div>
         </div>
