@@ -107,3 +107,5 @@ def fluxograma_sedacao(request):
     return render(request, 'protocolos/fluxograma_sedacao.html')
 
 
+def calculadora_dosagens(request):
+    return render(request, 'protocolos/calculadora.html')
