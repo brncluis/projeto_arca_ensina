@@ -198,7 +198,7 @@
         <button class="modal-cadastro-fechar" onclick="fecharConsulta()">✕</button>
         <h2>Deseja cadastrar um novo paciente?</h2>
         <div class="modal-cadastro-botoes">
-            <button class="btn-cadastro-confirmar" onclick="abrirCadastrar()">Sim</button>
+            <button class="btn-cadastro-confirmar" onclick="window.location.href='{% url 'cadastrar_paciente' %}'">Sim</button>
             <button class="btn-cadastro-cancelar" onclick="window.location.href='{% url 'pacientes' %}'">Não</button>
         </div>
     </div>

@@ -1,0 +1,100 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Novo Prontuário</title>
+    <link rel="stylesheet" href="{% static 'dashboard/cadastrar.css' %}">
+</head>
+<body>
+    <div class="pagina">
+
+    <header class="cabecalho">
+        <a href="{% url 'dashboard' %}" class="btn-voltar">
+            <img src="{% static 'dashboard/icons/Seta_sair_vetorizada.png' %}" alt="Voltar">
+        </a>
+        <div>
+            <h1>Novo Prontuário</h1>
+            <p>Data da consulta: {{ today }}</p>
+        </div>
+    </header>
+
+    <form method="POST" action="{% url 'cadastrar_paciente' %}">
+    {% csrf_token %}
+
+    <!-- INFORMAÇÕES DO PACIENTE -->
+    <section>
+        <h2>Informações do paciente</h2>
+        <input type="text" name="nome_completo" placeholder="Nome completo">
+        <input type="date" name="data_nascimento">
+        <select name="genero">
+            <option value="M">Masculino</option>
+            <option value="F">Feminino</option>
+        </select>
+        <input type="number" name="peso" placeholder="Peso (kg)" step="0.01">
+        <input type="number" name="altura" placeholder="Altura (m)" step="0.01">
+        <input type="text" name="nome_mae" placeholder="Nome da mãe">
+        <input type="text" name="nome_pai" placeholder="Nome do pai">
+    </section>
+
+    <!-- HISTÓRICO MÉDICO -->
+    <section>
+        <h2>Histórico médico</h2>
+        <textarea name="alergias" placeholder="Alergias"></textarea>
+        <textarea name="doencas_cronicas" placeholder="Doenças crônicas"></textarea>
+        <textarea name="cirurgias_anteriores" placeholder="Cirurgias anteriores"></textarea>
+        <textarea name="medicamentos_uso_continuo" placeholder="Medicamentos de uso contínuo"></textarea>
+    </section>
+
+    <!-- QUEIXA PRINCIPAL -->
+    <section>
+        <h2>Queixa principal</h2>
+        <input type="text" name="queixa_principal" placeholder="Queixa principal">
+    </section>
+
+    <!-- HISTÓRICO DA DOENÇA ATUAL -->
+    <section>
+        <h2>Histórico da doença atual</h2>
+        <textarea name="historico_doenca_atual" placeholder="Descreva o histórico"></textarea>
+    </section>
+
+    <!-- EXAME FÍSICO -->
+    <section>
+        <h2>Exame físico</h2>
+        <input type="text" name="pressao_arterial" placeholder="Pressão arterial (PA)">
+        <input type="text" name="frequencia_cardiaca" placeholder="Frequência cardíaca (FC)">
+        <input type="text" name="frequencia_respiratoria" placeholder="Frequência respiratória (FR)">
+        <input type="text" name="temperatura" placeholder="Temperatura">
+        <input type="text" name="saturacao" placeholder="Saturação">
+        <input type="text" name="ausculta_pulmonar" placeholder="Ausculta pulmonar">
+        <input type="text" name="estado_geral" placeholder="Estado geral">
+    </section>
+
+    <!-- EXAMES SOLICITADOS -->
+    <section>
+        <h2>Exames solicitados</h2>
+        <textarea name="exames_solicitados" placeholder="Exames solicitados"></textarea>
+    </section>
+
+    <!-- DIAGNÓSTICO PROVISÓRIO -->
+    <section>
+        <h2>Diagnóstico provisório</h2>
+        <input type="text" name="diagnostico_provisorio" placeholder="Diagnóstico provisório">
+    </section>
+
+    <!-- CONDUTA E TRATAMENTO -->
+    <section>
+        <h2>Conduta e tratamento</h2>
+        <textarea name="conduta_tratamento" placeholder="Descreva a conduta"></textarea>
+    </section>
+
+    <!-- BOTÃO SALVAR -->
+    <button type="submit">Salvar</button>
+
+</form>
+</div>
+
+</body>
+</html>
