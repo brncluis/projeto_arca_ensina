@@ -1,0 +1,85 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #cce8f4;
+    font-family: Arial, sans-serif;
+    color: #1a1a1a;
+}
+
+.pagina {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.cabecalho {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.btn-voltar {
+    font-size: 20px;
+    text-decoration: none;
+    color: #1a1a1a;
+}
+
+.cabecalho h1 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.cabecalho p {
+    font-size: 13px;
+    color: #555;
+}
+
+section {
+    margin-bottom: 25px;
+}
+
+section h2 {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 8px 0;
+    margin-bottom: 8px;
+    border: none;
+    border-bottom: 1px dashed #888;
+    background: transparent;
+    font-size: 14px;
+    color: #1a1a1a;
+    outline: none;
+}
+
+textarea {
+    resize: none;
+    min-height: 40px;
+}
+
+button[type="submit"] {
+    background-color: #f5c800;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 30px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+button[type="submit"]:hover {
+    background-color: #e0b800;
+}
