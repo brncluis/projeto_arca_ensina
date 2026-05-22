@@ -15,6 +15,11 @@ def historico_paciente(request, id):
     consulta_paciente = Consulta.objects.filter(paciente=paciente)
     return render(request, 'dashboard/historico.html', {'paciente': paciente, 'consultas': consulta_paciente})
 
+def prontuario_paciente(request, id):
+    paciente = Paciente.objects.get(id=id)
+    consulta = Consulta.objects.filter(paciente=paciente).first()
+    return render(request, 'dashboard/prontuario.html', {'paciente': paciente, 'consulta': consulta})
+    
 def cadastrar_paciente(request):
     if request.method == 'POST': 
         nome = request.POST.get('nome_completo')
@@ -76,4 +81,3 @@ def cadastrar_paciente(request):
         return redirect('dashboard')
     
     return render(request, 'dashboard/cadastrar.html', {'today': date.today()})
-        

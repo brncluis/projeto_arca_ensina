@@ -37,11 +37,22 @@ body {
 }
 
 .btn-voltar {
-    cursor: pointer;
-    transition: transform 0.2s;
+    font-size: 20px;
     text-decoration: none;
-    display: flex;
-    flex-shrink: 0;
+    color: #1a1a1a;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-voltar img {
+    width: 45px;
+    height: 45px;
+    transition: transform 0.2s ease;
+}
+
+.btn-voltar img:hover {
+    transform: scale(1.15);
 }
 
 .btn-voltar:hover {

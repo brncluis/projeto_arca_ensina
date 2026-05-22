@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Prontuário — {{ paciente.nome_completo }}</title>
+    <link rel="stylesheet" href="{% static 'dashboard/prontuario.css' %}">
+</head>
+<body>
+<div class="pagina">
+
+    <header class="cabecalho">
+        <a href="{% url 'historico_paciente' paciente.id %}" class="btn-voltar">
+            <img src="{% static 'dashboard/icons/Seta_sair_vetorizada.png' %}" alt="Voltar">
+        </a>
+        <div>
+            <h1>Prontuário — {{ paciente.nome_completo }}</h1>
+            <p>Data da consulta: {{ consulta.data_consulta|date:"d/m/Y" }}</p>
+        </div>
+
+        <div class="cabecalho-botoes">
+            <a href="#" class="btn-acao">
+                <img src="{% static 'dashboard/icons/Add_Plus_Circle.png' %}" alt="Editar"> Editar
+            </a>
+            <a href="#" class="btn-acao">
+                <img src="{% static 'dashboard/icons/External_Link.png' %}" alt="Exportar"> Exportar
+            </a>
+        </div>
+    </header>
+
+    <!-- INFORMAÇÕES DO PACIENTE -->
+    <section>
+        <h2>Informações do paciente</h2>
+        <p><strong>Data de nascimento:</strong> {{ paciente.data_nascimento|date:"d/m/Y" }}</p>
+        <p><strong>Sexo:</strong> {{ paciente.get_genero_display }}</p>
+        <p><strong>Peso:</strong> {{ paciente.peso }} kg</p>
+        <p><strong>Altura:</strong> {{ paciente.altura }} m</p>
+    </section>
+
+    <!-- HISTÓRICO MÉDICO -->
+    <section>
+        <h2>Histórico médico</h2>
+        <p><strong>Alergias:</strong> {{ consulta.alergias }}</p>
+        <p><strong>Doenças crônicas:</strong> {{ consulta.doencas_cronicas }}</p>
+        <p><strong>Cirurgias anteriores:</strong> {{ consulta.cirurgias_anteriores }}</p>
+        <p><strong>Medicamentos de uso contínuo:</strong> {{ consulta.medicamentos_uso_continuo }}</p>
+        <p><strong>Mãe:</strong> {{ paciente.nome_mae }}</p>
+        <p><strong>Pai:</strong> {{ paciente.nome_pai }}</p>
+    </section>
+
+    <!-- QUEIXA PRINCIPAL -->
+    <section>
+        <h2>Queixa principal</h2>
+        <p>{{ consulta.queixa_principal }}</p>
+    </section>
+
+    <!-- HISTÓRICO DA DOENÇA ATUAL -->
+    <section>
+        <h2>Histórico da doença atual</h2>
+        <p>{{ consulta.historico_de_doenca_atual }}</p>
+    </section>
+
+    <!-- EXAME FÍSICO -->
+    <section>
+        <h2>Exame físico</h2>
+        <p><strong>PA:</strong> {{ consulta.pressao_arterial }}</p>
+        <p><strong>FC:</strong> {{ consulta.frequencia_cardiaca }}</p>
+        <p><strong>FR:</strong> {{ consulta.frequencia_respiratoria }}</p>
+        <p><strong>Temperatura:</strong> {{ consulta.temperatura }}</p>
+        <p><strong>Saturação:</strong> {{ consulta.saturacao }}</p>
+        <p><strong>Ausculta pulmonar:</strong> {{ consulta.ausculta_pulmonar }}</p>
+        <p><strong>Estado geral:</strong> {{ consulta.estado_geral }}</p>
+    </section>
+
+    <!-- EXAMES SOLICITADOS -->
+    <section>
+        <h2>Exames solicitados</h2>
+        <p>{{ consulta.exames_solicitados }}</p>
+    </section>
+
+    <!-- DIAGNÓSTICO PROVISÓRIO -->
+    <section>
+        <h2>Diagnóstico provisório</h2>
+        <p>{{ consulta.diagnostico_provisorio }}</p>
+    </section>
+
+    <!-- CONDUTA E TRATAMENTO -->
+    <section>
+        <h2>Conduta e tratamento</h2>
+        <p>{{ consulta.conduta_tratamento }}</p>
+    </section>
+
+</div>
+</body>
+</html>

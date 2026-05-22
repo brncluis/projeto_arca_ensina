@@ -38,7 +38,7 @@
 
         <!-- Cards de consultas -->
         {% for consulta in consultas %}
-            <a href="#" class="card-consulta">
+            <a href="{% url 'prontuario_paciente' paciente.id %}" class="card-consulta">
                 <div>
                     <p class="consulta-label">Data da consulta</p>
                     <p class="consulta-data">{{ consulta.data_consulta|date:"d/m/Y" }}</p>
