@@ -12,7 +12,9 @@
     <div class="pagina">
 
     <header class="cabecalho">
-        <a href="{% url 'dashboard' %}" class="btn-voltar">&#8592;</a>
+        <a href="{% url 'dashboard' %}" class="btn-voltar">
+            <img src="{% static 'dashboard/icons/Seta_sair_vetorizada.png' %}" alt="Voltar">
+        </a>
         <div>
             <h1>Novo Prontuário</h1>
             <p>Data da consulta: {{ today }}</p>
