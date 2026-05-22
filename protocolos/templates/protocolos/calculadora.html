@@ -1,0 +1,105 @@
+{% load static %}
+
+<!DOCTYPE html> 
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Dosagens</title>
+    <link rel="stylesheet" href="{% static 'protocolos/style.css' %}">
+    <link rel="stylesheet" href="{% static 'protocolos/modal.css' %}">
+    
+</head>
+
+<body>
+<div class="container">
+
+    <div class="header">
+        <a href="{% url 'dashboard' %}">
+            <button class="voltar-botton">
+                <span class="seta"></span>
+            </button>
+        </a>
+        <h1 class="titulo">Calculadora de Dosagens</h1>
+    </div>
+
+    <div class="calc-layout">
+
+        <div class="calc-coluna-esq">
+
+            <div class="calc-subtitulo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+                <span>Dados do Paciente</span>
+            </div>
+
+            <div class="calc-campo">
+                <label>Peso (Kg)</label>
+                <input type="number" id="peso" placeholder="Ex: 50.5" class="calc-input">
+            </div>
+
+            <div class="calc-campo">
+                <label>Altura (cm)</label>
+                <input type="number" id="altura" placeholder="Ex: 130" class="calc-input">
+            </div>
+
+            <div class="calc-campo">
+                <label>Medicação</label>
+                <select id="medicacao" class="calc-select">
+                    <option value="">Selecione uma medicação</option>
+                </select>
+            </div>
+
+            <div class="calc-botoes">
+                <button class="calc-btn calc-btn-secundario" id="btn-calcular" onclick="calcular()">Calcular</button>
+                <button class="calc-btn calc-btn-secundario" id="btn-prescrever">Prescrever</button>
+                <button class="calc-btn calc-btn-preto">Salvar</button>
+            </div>
+
+        </div>
+
+        <div class="calc-coluna-dir">
+
+            <div id="calculadora-placeholder" class="calc-placeholder">
+                <p class="calc-placeholder-titulo">Pronto para Calcular</p>
+                <p class="calc-placeholder-texto">Preencha o peso do paciente e selecione uma medicação para ver as dosagens calculadas.</p>
+            </div>
+
+            <div id="calculadora-resultado" class="calc-resultado" style="display:none;">
+
+                <div class="calc-res-header">
+                    <h2 id="resultado-nome-farmaco">—</h2>
+                    <span class="calc-tag-tipo" id="resultado-tipo-farmaco">—</span>
+                </div>
+
+                <div class="calc-card">
+                    <p class="calc-res-dose-label">Dose calculada: <strong id="resultado-dose">—</strong></p>
+                </div>
+
+                <div class="calc-card">
+                    <p id="resultado-efeito">—</p>
+                </div>
+
+                <div class="calc-card calc-card-dica" id="bloco-dica">
+                    <p><strong>ⓘ Dica de Segurança</strong></p>
+                    <p>Sempre verifique cálculos críticos com outro profissional antes da administração.</p>
+                </div>
+
+                <div class="calc-card calc-card-prescricao" id="bloco-prescricao" style="display:none;">
+                    <p><strong>Informações sobre a prescrição</strong><br>
+                    (nome do medicamento, dosagem, tempo de administração, via de administração)</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script src="{% static 'protocolos/js/calculadora.js' %}"></script>
+</body>
+</html>

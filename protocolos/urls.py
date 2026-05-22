@@ -7,4 +7,6 @@ urlpatterns = [
     path('fluxograma/', views.fluxograma, name='fluxograma'),
     path('detalhes_sedacao/', views.detalhes_protocolo_sedacao, name='detalhes_sedacao'),
     path('fluxograma_sedacao/', views.fluxograma_sedacao, name='fluxograma_sedacao'),
+    path('calculadora/', views.calculadora_dosagens, name='calculadora_dosagens'),
 ]
+
