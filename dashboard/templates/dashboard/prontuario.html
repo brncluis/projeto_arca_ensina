@@ -20,7 +20,7 @@
         </div>
 
         <div class="cabecalho-botoes">
-            <a href="#" class="btn-acao">
+            <a href="{% url 'editar_paciente' paciente.id %}" class="btn-acao">
                 <img src="{% static 'dashboard/icons/Add_Plus_Circle.png' %}" alt="Editar"> Editar
             </a>
             <a href="#" class="btn-acao">
