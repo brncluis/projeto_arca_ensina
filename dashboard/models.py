@@ -14,6 +14,7 @@ class Paciente (models.Model):
     altura = models.DecimalField(max_digits=4, decimal_places=2)
     nome_mae = models.CharField(max_length=100)
     nome_pai = models.CharField(max_length=100)
+    ultimo_acesso = models.DateTimeField(null=True, blank=True)
     
     def __str__(self):
         return self.nome_completo

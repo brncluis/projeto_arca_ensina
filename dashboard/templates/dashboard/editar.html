@@ -22,16 +22,27 @@
     {% csrf_token %}
     <section>
         <h2>Informações do paciente</h2>
-        <input type="text" name="nome_completo" value="{{ paciente.nome_completo }}">
-        <input type="date" name="data_nascimento" value="{{ paciente.data_nascimento|date:'Y-m-d' }}">
+        <input type="text" name="nome_completo" value="{{ paciente.nome_completo }}" class="{% if erros.nome_completo %}campo-invalido{% endif %}">
+        {% if erros.nome_completo %}<span class="erro">{{ erros.nome_completo }}</span>{% endif %}
+
+        <input type="date" name="data_nascimento" value="{{ paciente.data_nascimento|date:'Y-m-d' }}" class="{% if erros.data_nascimento %}campo-invalido{% endif %}">
+        {% if erros.data_nascimento %}<span class="erro">{{ erros.data_nascimento }}</span>{% endif %}
+
         <select name="genero">
             <option value="M" {% if paciente.genero == 'M' %}selected{% endif %}>Masculino</option>
             <option value="F" {% if paciente.genero == 'F' %}selected{% endif %}>Feminino</option>
         </select>
-        <input type="number" name="peso" value="{{ paciente.peso }}" step="0.01">
-        <input type="number" name="altura" value="{{ paciente.altura }}" step="0.01">
+
+        <input type="number" name="peso" value="{{ paciente.peso }}" step="0.01" class="{% if erros.peso %}campo-invalido{% endif %}">
+        {% if erros.peso %}<span class="erro">{{ erros.peso }}</span>{% endif %}
+
+        <input type="number" name="altura" value="{{ paciente.altura }}" step="0.01" class="{% if erros.altura %}campo-invalido{% endif %}">
+        {% if erros.altura %}<span class="erro">{{ erros.altura }}</span>{% endif %}
+
         <input type="text" name="nome_mae" value="{{ paciente.nome_mae }}">
+        
         <input type="text" name="nome_pai" value="{{ paciente.nome_pai }}">
+
     </section>
     <section>
         <h2>Histórico médico</h2>

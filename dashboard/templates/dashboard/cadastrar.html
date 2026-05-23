@@ -27,15 +27,25 @@
     <!-- INFORMAÇÕES DO PACIENTE -->
     <section>
         <h2>Informações do paciente</h2>
-        <input type="text" name="nome_completo" placeholder="Nome completo">
-        <input type="date" name="data_nascimento">
+        <input type="text" name="nome_completo" placeholder="Nome completo" value="{{ dados.nome_completo }}" class="{% if erros.nome_completo %}campo-invalido{% endif %}">
+        {% if erros.nome_completo %}<span class="erro">{{ erros.nome_completo }}</span>{% endif %}
+
+        <input type="date" name="data_nascimento" value="{{ dados.data_nascimento }}" class="{% if erros.data_nascimento %}campo-invalido{% endif %}">
+        {% if erros.data_nascimento %}<span class="erro">{{ erros.data_nascimento }}</span>{% endif %}
+
         <select name="genero">
             <option value="M">Masculino</option>
             <option value="F">Feminino</option>
         </select>
-        <input type="number" name="peso" placeholder="Peso (kg)" step="0.01">
-        <input type="number" name="altura" placeholder="Altura (m)" step="0.01">
+
+        <input type="number" name="peso" placeholder="Peso (kg)" step="0.01" value="{{ dados.peso }}" class="{% if erros.peso %}campo-invalido{% endif %}">
+        {% if erros.peso %}<span class="erro">{{ erros.peso }}</span>{% endif %}
+
+        <input type="number" name="altura" placeholder="Altura (m)" step="0.01" value="{{ dados.altura }}" class="{% if erros.altura %}campo-invalido{% endif %}">
+        {% if erros.altura %}<span class="erro">{{ erros.altura }}</span>{% endif %}
+
         <input type="text" name="nome_mae" placeholder="Nome da mãe">
+
         <input type="text" name="nome_pai" placeholder="Nome do pai">
     </section>
 

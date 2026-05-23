@@ -3,7 +3,7 @@
     --bg:         #8FBFFA;
     --card-cat:   #BEE6FF;   /* fundo dos cards de categoria */
     --circle-cat: #ffffff;   /* círculo foto dentro do card */
-    --hist-bg:    #ffffff;
+    --hist-bg:    #BEE6FF;
     --dark:       #000000;
     --mid:        #464545;
     --azul:       #4285F4;
@@ -214,7 +214,7 @@ body {
 }
 
 /* ══════════════════════════════
-   HISTÓRICO — DESKTOP (lista)
+   Último atendimento — DESKTOP (lista)
 ══════════════════════════════ */
 .historico-list {
     display: flex;
@@ -222,10 +222,10 @@ body {
     gap: 10px;
 }
 
-/* Histórico mobile — oculto no desktop */
+/* Último atendimento mobile — oculto no desktop */
 .historico-peek { display: none; }
 
-/* ── Card histórico ── */
+/* ── Card Último atendimento ── */
 .hist-card {
     background: var(--hist-bg);
     border-radius: 16px;
@@ -342,7 +342,7 @@ body {
     .categories-grid     { display: none; }
     .categories-carousel { display: flex; }
 
-    /* Histórico: esconde lista desktop, mostra peek mobile */
+    /* Último atendimento: esconde lista desktop, mostra peek mobile */
     .historico-list { display: none; }
 
     .historico-peek {
