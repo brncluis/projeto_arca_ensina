@@ -1,11 +1,13 @@
 /* ── RESET & VARS ── */
 :root {
-    --bg:         #ffffff;
-    --card-cat:   #9e9e9e;   /* fundo dos cards de categoria */
-    --circle-cat: #c5c5c5;   /* círculo foto dentro do card */
-    --hist-dark:  #2a2a2a;   /* fundo pill do histórico */
-    --dark:       #1a1a1a;
-    --mid:        #555;
+    --bg:         #8FBFFA;
+    --card-cat:   #BEE6FF;   /* fundo dos cards de categoria */
+    --circle-cat: #ffffff;   /* círculo foto dentro do card */
+    --hist-bg:    #ffffff;
+    --dark:       #000000;
+    --mid:        #464545;
+    --azul:       #4285F4;
+    --azul-escuro:#1C3AA9;
     --radius-xl:  22px;
     --radius-pill:50px;
     --shadow-sm:  0 2px 10px rgba(0,0,0,0.08);
@@ -37,8 +39,7 @@ body {
 ══════════════════════════════ */
 .header {
     width: 100%;
-    background: #ffffff;
-    border-bottom: 1.5px solid #e0e0e0;
+    background: var(--bg);
     padding: 24px 32px;
     display: flex;
     align-items: center;
@@ -52,27 +53,19 @@ body {
     gap: 20px;
 }
 
-/* Círculo logo */
 .header-logo {
     width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background: #d9d9d9;
+    height: 58px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    font-size: 12px;
-    font-weight: bold;
-    color: #888;
+    background: transparent;
 }
 
-/* Linha divisória vertical */
-.header-divider {
-    width: 1.5px;
-    height: 56px;
-    background: #d0d0d0;
-    flex-shrink: 0;
+.header-logo img {
+    width: 64px;
+    height: 64px;
 }
 
 .header-text .greeting {
@@ -101,8 +94,8 @@ body {
     width: 52px;
     height: 52px;
     border-radius: 50%;
-    background: #f0f0f0;
-    border: 1.5px solid #d0d0d0;
+    background: #ffffffcd;
+    border: 1.5px solid rgba(255,255,255,0.8);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -113,7 +106,7 @@ body {
 
 .avatar-btn:hover {
     transform: scale(1.07);
-    background: #e4e4e4;
+    background: rgba(255,255,255,0.85);
 }
 
 .avatar-btn svg {
@@ -167,7 +160,7 @@ body {
 
 /* ── Card de categoria ── */
 .cat-card {
-    background: #b0b0b0;
+    background: var(--card-cat);
     border-radius: 18px;
     padding: 20px 14px;
     display: flex;
@@ -191,7 +184,7 @@ body {
     width: 65%;
     aspect-ratio: 1;
     border-radius: 50%;
-    background: #d0d0d0;
+    background: var(--circle-cat);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -201,7 +194,7 @@ body {
 .photo-circle svg {
     width: 38%;
     height: 38%;
-    stroke: #5a5a5a;
+    stroke: var(--dark);
 }
 
 .cat-label {
@@ -209,7 +202,7 @@ body {
     font-weight: bold;
     text-align: center;
     line-height: 1.3;
-    color: #1a1a1a;
+    color: var(--dark);
 }
 
 /* Carrossel: tamanho fixo por card */
@@ -234,21 +227,20 @@ body {
 
 /* ── Card histórico ── */
 .hist-card {
-    background: #ffffff;
+    background: var(--hist-bg);
     border-radius: 16px;
     padding: 14px 18px;
     display: flex;
     align-items: center;
     gap: 14px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-    border: 1px solid #eeeeee;
+    box-shadow: var(--shadow-sm);
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .hist-card:hover {
     transform: translateX(4px);
-    box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+    box-shadow: var(--shadow);
 }
 
 /* Avatar com inicial */
@@ -256,14 +248,14 @@ body {
     width: 46px;
     height: 46px;
     border-radius: 50%;
-    background: #e0e0e0;
+    background: var(--circle-cat);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     font-size: 18px;
     font-weight: bold;
-    color: #555;
+    color: var(--azul-escuro);
     letter-spacing: 0;
 }
 
@@ -272,7 +264,7 @@ body {
 .hist-name {
     font-weight: bold;
     font-size: 14px;
-    color: #1a1a1a;
+    color: var(--dark);
     margin-bottom: 3px;
     white-space: nowrap;
     overflow: hidden;
@@ -281,7 +273,7 @@ body {
 
 .hist-detail {
     font-size: 12px;
-    color: #777;
+    color: var(--mid);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -289,7 +281,7 @@ body {
 
 .hist-date {
     font-size: 11px;
-    color: #aaa;
+    color: var(--mid);
     text-align: right;
     white-space: nowrap;
     line-height: 1.5;
@@ -394,7 +386,7 @@ body {
         left: 0;
         right: 0;
         height: 72px;
-        background: linear-gradient(to bottom, transparent, #ffffff);
+        background: linear-gradient(to bottom, transparent, var(--bg));
         pointer-events: none;
     }
 }
@@ -431,7 +423,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -440,14 +432,15 @@ body {
 
 .modal-cadastro-box {
     background: white;
-    border-radius: 16px;
-    padding: 24px;
+    border-radius: 20px;
+    padding: 28px 24px;
     width: 90%;
-    max-width: 400px;
+    max-width: 360px;
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
 }
 
 .modal-cadastro-fechar {
@@ -458,12 +451,15 @@ body {
     border: none;
     font-size: 18px;
     cursor: pointer;
-    color: #555;
+    color: var(--mid);
 }
 
 .modal-cadastro-box h2 {
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: bold;
     margin: 0;
+    text-align: center;
+    color: var(--dark);
 }
 
 .modal-cadastro-box label {
@@ -489,30 +485,40 @@ body {
 
 .modal-cadastro-botoes {
     display: flex;
-    gap: 10px;
-    margin-top: 8px;
+    gap: 12px;
+    margin-top: 4px;
 }
 
 .btn-cadastro-confirmar {
     flex: 1;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 12px;
+    border-radius: 12px;
     border: none;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    background: #a0a0a0;
-    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    background: var(--azul);
+    color: #ffffff;
+    transition: background 0.2s;
+}
+
+.btn-cadastro-confirmar:hover {
+    background: var(--azul-escuro);
 }
 
 .btn-cadastro-cancelar {
     flex: 1;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 12px;
+    border-radius: 12px;
     border: none;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    background: #e0e0e0;
-    color: #333;
+    font-size: 15px;
+    font-weight: 600;
+    background: var(--mid);
+    color: white;
+    transition: background 0.2s;
+}
+
+.btn-cadastro-cancelar:hover {
+    background: var(--dark);
 }

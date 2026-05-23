@@ -26,16 +26,7 @@
 
     <!-- GRID DE CARDS -->
     <div class="cards-grid">
-
-        <!-- Card do paciente (destaque) -->
-        <div class="card-paciente">
-            <div>
-                <p class="card-nome">{{ paciente.nome_completo }}</p>
-                <p class="card-data">{{ paciente.data_nascimento|date:"d/m/Y" }}</p>
-            </div>
-            <span class="card-plus">+</span>
-        </div>
-
+        
         <!-- Cards de consultas -->
         {% for consulta in consultas %}
             <a href="{% url 'prontuario_paciente' paciente.id %}" class="card-consulta">
