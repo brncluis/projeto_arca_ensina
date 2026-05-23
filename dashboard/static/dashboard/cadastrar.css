@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: #BEE6FF;
+    background-color: #8FBFFA;
     font-family: Arial, sans-serif;
     color: #000000;
 }
@@ -105,4 +105,18 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
     background-color: #1C3AA9;
+}
+
+.erro {
+    color: red;
+    font-size: 12px;
+    display: block;
+    margin-top: -6px;
+    margin-bottom: 8px;
+}
+
+input.campo-invalido, 
+select.campo-invalido {
+    border: 1.5px solid red !important;
+    background-color: #fff0f0 !important;
 }

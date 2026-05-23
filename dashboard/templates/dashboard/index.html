@@ -50,7 +50,7 @@
         <!-- Grid desktop (4 colunas) -->
         <div class="categories-grid" id="catGrid">
 
-            <div class="cat-card" data-name="protocolos" onclick="abrirConsulta()">
+            <a href="{% url 'protocolos' %}" class="cat-card" data-name="protocolos">
                 <div class="photo-circle">
                     <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
                         <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
@@ -60,7 +60,7 @@
                     </svg>
                 </div>
                 <span class="cat-label">Protocolos</span>
-            </div>
+            </a>
 
             <a href="#" class="cat-card" data-name="historico">
                 <div class="photo-circle">
@@ -102,7 +102,7 @@
         <!-- Carrossel mobile -->
         <div class="categories-carousel" id="catCarousel">
 
-            <div class="cat-card" data-name="protocolos" onclick="abrirConsulta()">
+            <a href="{% url 'protocolos' %}" class="cat-card" data-name="protocolos">
                 <div class="photo-circle">
                     <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
                         <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
@@ -112,7 +112,7 @@
                     </svg>
                 </div>
                 <span class="cat-label">Protocolos</span>
-            </div>
+            </a>
 
             <a href="#" class="cat-card" data-name="historico">
                 <div class="photo-circle">

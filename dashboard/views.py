@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
 from .models import Paciente, Consulta
 from datetime import date
+from django.utils import timezone
 
 def dashboard(request):
-    pacientes = Paciente.objects.all()
+    pacientes = Paciente.objects.filter(
+        ultimo_acesso__isnull=False
+    ).order_by('-ultimo_acesso')[:3]
     return render(request, 'dashboard/index.html', {'pacientes': pacientes})
 
 def lista_pacientes(request):
@@ -12,6 +15,8 @@ def lista_pacientes(request):
 
 def historico_paciente(request, id):
     paciente = Paciente.objects.get(id=id)
+    paciente.ultimo_acesso = timezone.now()
+    paciente.save()
     consulta_paciente = Consulta.objects.filter(paciente=paciente)
     return render(request, 'dashboard/historico.html', {'paciente': paciente, 'consultas': consulta_paciente})
 
@@ -25,11 +30,34 @@ def editar_paciente(request, id):
     consulta = Consulta.objects.filter(paciente=paciente).first()
 
     if request.method == 'POST':
-        paciente.nome_completo = request.POST.get('nome_completo')
-        paciente.data_nascimento = request.POST.get('data_nascimento')
-        paciente.peso = request.POST.get('peso')
+        nome = request.POST.get('nome_completo')
+        data_nascimento = request.POST.get('data_nascimento')
+        peso = request.POST.get('peso')
+        altura = request.POST.get('altura')
+
+        erros = {}
+
+        if not nome:
+            erros['nome_completo'] = 'Nome completo é obrigatório.'
+        if not data_nascimento:
+            erros['data_nascimento'] = 'Data de nascimento é obrigatória.'
+        if not peso:
+            erros['peso'] = 'Peso é obrigatório.'
+        if not altura:
+            erros['altura'] = 'Altura é obrigatória.'
+
+        if erros:
+            return render(request, 'dashboard/editar.html', {
+                'paciente': paciente,
+                'consulta': consulta,
+                'erros': erros,
+            })
+
+        paciente.nome_completo = nome
+        paciente.data_nascimento = data_nascimento
+        paciente.peso = peso
         paciente.genero = request.POST.get('genero')
-        paciente.altura = request.POST.get('altura')
+        paciente.altura = altura
         paciente.nome_mae = request.POST.get('nome_mae')
         paciente.nome_pai = request.POST.get('nome_pai')
         paciente.save()
@@ -65,6 +93,24 @@ def cadastrar_paciente(request):
         altura = request.POST.get('altura')
         nome_mae = request.POST.get('nome_mae')
         nome_pai = request.POST.get('nome_pai') 
+
+        erros = {}
+
+        if not nome:
+            erros['nome_completo'] = 'Nome completo é obrigatório.'
+        if not data_nascimento:
+            erros['data_nascimento'] = 'Data de nascimento é obrigatória.'
+        if not peso:
+            erros['peso'] = 'Peso é obrigatório.'
+        if not altura:
+            erros['altura'] = 'Altura é obrigatória.'
+
+        if erros:
+            return render(request, 'dashboard/cadastrar.html', {
+                'today': date.today(),
+                'erros': erros,
+                'dados': request.POST,
+            })
         
         paciente = Paciente.objects.create(
             nome_completo=nome,
