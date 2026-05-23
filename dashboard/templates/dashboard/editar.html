@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Editar Prontuário</title>
+    <link rel="stylesheet" href="{% static 'dashboard/cadastrar.css' %}">
+</head>
+<body>
+    <div class="pagina">
+    <header class="cabecalho">
+        <a href="{% url 'prontuario_paciente' paciente.id %}" class="btn-voltar">
+            <img src="{% static 'dashboard/icons/Seta_sair_vetorizada.png' %}" alt="Voltar">
+        </a>
+        <div>
+            <h1>Editar Prontuário</h1>
+            <p>Data da consulta: {{ consulta.data_consulta|date:"d/m/Y" }}</p>
+        </div>
+    </header>
+    <form method="POST" action="{% url 'editar_paciente' paciente.id %}">
+    {% csrf_token %}
+    <section>
+        <h2>Informações do paciente</h2>
+        <input type="text" name="nome_completo" value="{{ paciente.nome_completo }}">
+        <input type="date" name="data_nascimento" value="{{ paciente.data_nascimento|date:'Y-m-d' }}">
+        <select name="genero">
+            <option value="M" {% if paciente.genero == 'M' %}selected{% endif %}>Masculino</option>
+            <option value="F" {% if paciente.genero == 'F' %}selected{% endif %}>Feminino</option>
+        </select>
+        <input type="number" name="peso" value="{{ paciente.peso }}" step="0.01">
+        <input type="number" name="altura" value="{{ paciente.altura }}" step="0.01">
+        <input type="text" name="nome_mae" value="{{ paciente.nome_mae }}">
+        <input type="text" name="nome_pai" value="{{ paciente.nome_pai }}">
+    </section>
+    <section>
+        <h2>Histórico médico</h2>
+        <textarea name="alergias">{{ consulta.alergias }}</textarea>
+        <textarea name="doencas_cronicas">{{ consulta.doencas_cronicas }}</textarea>
+        <textarea name="cirurgias_anteriores">{{ consulta.cirurgias_anteriores }}</textarea>
+        <textarea name="medicamentos_uso_continuo">{{ consulta.medicamentos_uso_continuo }}</textarea>
+    </section>
+    <section>
+        <h2>Queixa principal</h2>
+        <input type="text" name="queixa_principal" value="{{ consulta.queixa_principal }}">
+    </section>
+    <section>
+        <h2>Histórico da doença atual</h2>
+        <textarea name="historico_doenca_atual">{{ consulta.historico_de_doenca_atual }}</textarea>
+    </section>
+    <section>
+        <h2>Exame físico</h2>
+        <input type="text" name="pressao_arterial" value="{{ consulta.pressao_arterial }}">
+        <input type="text" name="frequencia_cardiaca" value="{{ consulta.frequencia_cardiaca }}">
+        <input type="text" name="frequencia_respiratoria" value="{{ consulta.frequencia_respiratoria }}">
+        <input type="text" name="temperatura" value="{{ consulta.temperatura }}">
+        <input type="text" name="saturacao" value="{{ consulta.saturacao }}">
+        <input type="text" name="ausculta_pulmonar" value="{{ consulta.ausculta_pulmonar }}">
+        <input type="text" name="estado_geral" value="{{ consulta.estado_geral }}">
+    </section>
+    <section>
+        <h2>Exames solicitados</h2>
+        <textarea name="exames_solicitados">{{ consulta.exames_solicitados }}</textarea>
+    </section>
+    <section>
+        <h2>Diagnóstico provisório</h2>
+        <input type="text" name="diagnostico_provisorio" value="{{ consulta.diagnostico_provisorio }}">
+    </section>
+    <section>
+        <h2>Conduta e tratamento</h2>
+        <textarea name="conduta_tratamento">{{ consulta.conduta_tratamento }}</textarea>
+    </section>
+    <button type="submit">Salvar</button>
+</form>
+</div>
+</body>
+</html>
