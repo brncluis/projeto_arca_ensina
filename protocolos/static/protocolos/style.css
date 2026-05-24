@@ -1,5 +1,18 @@
 /* style.css*/
-
+:root {
+    --bg:         #8FBFFA;
+    --card-cat:   #BEE6FF;   /* fundo dos cards de categoria */
+    --circle-cat: #ffffff;   /* círculo foto dentro do card */
+    --hist-bg:    #BEE6FF;
+    --dark:       #000000;
+    --mid:        #464545;
+    --azul:       #4285F4;
+    --azul-escuro:#1C3AA9;
+    --radius-xl:  22px;
+    --radius-pill:50px;
+    --shadow-sm:  0 2px 10px rgba(0,0,0,0.08);
+    --shadow:     0 6px 24px rgba(0,0,0,0.13);
+}
 /*Orrico*/
 *{
     margin: 0;
@@ -20,7 +33,7 @@ body {
     width: 100%;
     max-width: 1920px;
     height: 100%;
-    background: #ffffff;
+    background: var(--bg);
     box-shadow: 0px -4px 24px rgba(0,0,0,0.10);
 }
 
@@ -33,14 +46,14 @@ body {
     display: flex;
     align-items: center;
     gap: 14px;
-    background: #ffffff;
+    background: var(--bg);
     padding: 6px 0 16px;
     font-size: large;
 }
 
 .titulo{
     margin-left: 20px;
-    color: #a5a4a4;
+    color: white;
     font-weight: bolder;
 }
 
@@ -50,20 +63,20 @@ body {
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    border: 2px solid black;
+    border: 2px solid white;
     background: transparent;
 
     display: flex;
     align-items: center;
     justify-content: center;
- 
+
 }
 
 .seta{
     width: 10px;
     height: 10px;
-    border-left: 2px solid black;
-    border-bottom: 2px solid black;
+    border-left: 2px solid white;
+    border-bottom: 2px solid white;
     transform: rotate(45deg);
     margin-left: 4px;
 }
@@ -658,7 +671,6 @@ a {
     width: 40%;
     min-width: 280px;
     padding: 24px 28px;
-    border-right: 1px solid #e0e0e0;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -668,7 +680,7 @@ a {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #888;
+    color: white;
     font-size: 13px;
     margin-bottom: 4px;
 }
@@ -687,7 +699,7 @@ a {
     padding: 12px 14px;
     border-radius: 8px;
     border: none;
-    background-color: #FFE600;
+    background-color: white;
     color: #000;
     font-weight: bold;
     font-size: 14px;
@@ -728,12 +740,12 @@ a {
 .calc-btn:hover { opacity: 0.85; }
 
 .calc-btn-secundario {
-    background-color: #D9D9D9;
+    background-color: white;
     color: #333;
 }
 
 .calc-btn-primario {
-    background-color: #FFE600;
+    background-color: white;
     color: #000;
 }
 
@@ -744,10 +756,13 @@ a {
 
 .calc-coluna-dir {
     flex: 1;
+    height: 550px;
     padding: 24px 32px;
-    background-color: #f7f7f7;
+    background-color: var(--card-cat);
     display: flex;
-    align-items: flex-start;
+    align-items: center;
+    border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px;
 }
 
 .calc-placeholder {
@@ -758,7 +773,9 @@ a {
     justify-content: center;
     text-align: center;
     padding: 60px 40px;
-    color: #888;
+    color: black;
+    background-color: white;
+    border-radius: 30px;
 }
 
 .calc-placeholder-titulo {
@@ -766,6 +783,7 @@ a {
     font-weight: bold;
     color: #333;
     margin-bottom: 10px;
+    
 }
 
 .calc-placeholder-texto {
@@ -788,20 +806,20 @@ a {
 .calc-res-header h2 {
     font-size: 22px;
     font-weight: bold;
-    color: #111;
+    color: white;
     margin-bottom: 6px;
 }
 
 .calc-tag-tipo {
-    background-color: #A6A6A6;
-    color: #fff;
+    background-color: white;
+    color: black;
     padding: 4px 10px;
     border-radius: 4px;
     font-size: 12px;
 }
 
 .calc-card {
-    background-color: #fff;
+    background-color: white;
     border-radius: 10px;
     padding: 16px;
     font-size: 14px;
@@ -820,11 +838,11 @@ a {
 }
 
 .calc-card-dica {
-    background-color: #fff;
+    background-color: var(--bg);
 }
 
 .calc-card-prescricao {
-    background-color: #FFE600;
+    background-color: white;
     color: #000;
 }
 
@@ -836,7 +854,7 @@ a {
     .calc-coluna-esq {
         width: 100%;
         border-right: none;
-        border-bottom: 1px solid #e0e0e0;
+        border-bottom: 1px solid white;
     }
 
     .calc-coluna-dir {
