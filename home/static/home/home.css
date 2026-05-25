@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: white;
+    background-color: #8FBFFA;
     font-family: Arial, Helvetica, sans-serif;
 
     display: flex;
@@ -17,7 +17,7 @@ body {
 
 .container {
 
-    background-color: white;
+    background-color: #8FBFFA;
     width: 100%;
     max-width: 1200px;
     height: 600px;
@@ -44,6 +44,13 @@ body {
     align-items: center;
 }
 
+.texto {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
 .circulo span {
     color: white;
     font-size: 24px;
@@ -51,27 +58,28 @@ body {
 }
 
 .titulo {
-    color: black;
+    color: rgb(255, 255, 255);
     font-size: 32px;
     font-weight: bold;
+    align-self: flex-start;
 }
 
 .slogan {
-    color: black;
-    font-size: 18px;
+    color: rgb(255, 255, 255);
+    font-size: 27px;
     font-weight: bold;
-    text-align: center;
+    text-align: left;
 
-    margin-top: 4px;
+    margin-top: 50px;
 }
 
 .botao {
-    margin-top: 20px;
+    margin-top: 100px;
 
-    background-color: hsl(0, 2%, 68%);
-    color: black;
+    background-color: #1C3AA9;
+    color: rgb(255, 255, 255);
 
-    padding: 10px 28px;
+    padding: 15px 200px;
     border-radius: 40px;
 
     font-size: 15px;
@@ -82,5 +90,5 @@ body {
 
 .botao:hover {
     transform: scale(1.05);
-    background-color: #ececec;
+    background-color: #152c7e;
 }
