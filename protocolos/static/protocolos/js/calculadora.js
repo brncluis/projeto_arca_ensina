@@ -53,61 +53,45 @@ const lista_medicamentos = [
 
 function mostrarAlerta(mensagem) {
     let alertBox = document.getElementById('alerta-sucesso-flutuante');
-
     if (!alertBox) {
         alertBox = document.createElement('div');
         alertBox.id = 'alerta-sucesso-flutuante';
         alertBox.className = 'alerta-confirmacao';
         document.body.appendChild(alertBox);
     }
-
     alertBox.innerHTML = `<span>✅</span> ${mensagem}`;
     alertBox.classList.add('mostrar');
-
-    setTimeout(() => {
-        alertBox.classList.remove('mostrar');
-    }, 3000);
+    setTimeout(() => { alertBox.classList.remove('mostrar'); }, 3000);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Preencher select de medicamentos
     const select = document.getElementById('medicacao');
-    lista_medicamentos.forEach(med => {
-        const opcao = document.createElement('option');
-        opcao.value = med.id;
-        opcao.textContent = med.nome;
-        select.appendChild(opcao);
-    });
+    if (select) {
+        lista_medicamentos.forEach(med => {
+            const opcao = document.createElement('option');
+            opcao.value = med.id;
+            opcao.textContent = med.nome;
+            select.appendChild(opcao);
+        });
+    }
 
     const btnCalcular = document.getElementById('btn-calcular');
     const btnPrescrever = document.getElementById('btn-prescrever');
     const btnSalvar = document.getElementById('btn-salvar');
 
-    if (btnCalcular) {
-        btnCalcular.addEventListener('click', () => {
-            calcular();
-        });
-    }
+    if (btnCalcular) btnCalcular.addEventListener('click', calcular);
 
     if (btnPrescrever) {
         btnPrescrever.addEventListener('click', () => {
-            const resultado = document.getElementById('calculadora-resultado');
-            if (resultado.style.display === 'none') return;
-
             const dica = document.getElementById('bloco-dica');
             const prescricao = document.getElementById('bloco-prescricao');
             const ativo = prescricao.style.display !== 'none';
-
             if (ativo) {
                 prescricao.style.display = 'none';
                 dica.style.display = 'block';
-                btnPrescrever.className = 'calc-btn calc-btn-secundario';
-                btnCalcular.className = 'calc-btn calc-btn-primario';
             } else {
                 dica.style.display = 'none';
                 prescricao.style.display = 'block';
-                btnPrescrever.className = 'calc-btn calc-btn-primario';
-                btnCalcular.className = 'calc-btn calc-btn-secundario';
             }
         });
     }
@@ -131,8 +115,7 @@ function calcular() {
     const medicamento = lista_medicamentos.find(m => m.id === id_medicamento);
     if (!medicamento) return;
 
-    const dose_minima = Math.min(medicamento.dose_min * peso,medicamento.dose_maxima_absoluta).toFixed(2);
-
+    const dose_minima = Math.min(medicamento.dose_min * peso, medicamento.dose_maxima_absoluta).toFixed(2);
     const dose_maxima = Math.min(medicamento.dose_max * peso, medicamento.dose_maxima_absoluta).toFixed(2);
 
     document.getElementById('resultado-nome-farmaco').textContent = medicamento.nome;
@@ -140,13 +123,28 @@ function calcular() {
     document.getElementById('resultado-dose').textContent = `${dose_minima} – ${dose_maxima} ${medicamento.unidade}`;
     document.getElementById('resultado-efeito').textContent = medicamento.efeito;
 
-    document.getElementById('calculadora-resultado').style.display = 'flex';
-    document.getElementById('calculadora-placeholder').style.display = 'none';
-
     document.getElementById('bloco-dica').style.display = 'block';
     document.getElementById('bloco-prescricao').style.display = 'none';
-    document.getElementById('btn-prescrever').className = 'calc-btn calc-btn-secundario';
-    document.getElementById('btn-calcular').className = 'calc-btn calc-btn-primario';
 
     mostrarAlerta('Cálculo realizado com sucesso!');
+}
+
+function abrirCalculadora() {
+    const modal = document.getElementById('modal-calculadora');
+    if (modal) modal.style.display = 'flex';
+
+    const select = document.getElementById('medicacao');
+    if (select && select.options.length <= 1) {
+        lista_medicamentos.forEach(med => {
+            const opcao = document.createElement('option');
+            opcao.value = med.id;
+            opcao.textContent = med.nome;
+            select.appendChild(opcao);
+        });
+    }
+}
+
+function fecharCalculadora() {
+    const modal = document.getElementById('modal-calculadora');
+    if (modal) modal.style.display = 'none';
 }

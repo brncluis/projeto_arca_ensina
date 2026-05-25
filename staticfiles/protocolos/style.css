@@ -1,5 +1,22 @@
 /* style.css*/
 
+
+/* :root {
+    --bg:         #8FBFFA;
+    --card-cat:   #BEE6FF;   
+    --circle-cat: #ffffff;   
+    --hist-bg:    #BEE6FF;
+    --dark:       #000000;
+    --mid:        #464545;
+    --azul:       #4285F4;
+    --azul-escuro:#1C3AA9;
+    --radius-xl:  22px;
+    --radius-pill:50px;
+    --shadow-sm:  0 2px 10px rgba(0,0,0,0.08);
+    --shadow:     0 6px 24px rgba(0,0,0,0.13);
+}
+*/
+
 /*Orrico*/
 *{
     margin: 0;
@@ -8,7 +25,7 @@
 }
 
 body {
-    background: rgb(255, 255, 255);
+    background: #8FBFFA;
     min-height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
     display: flex;
@@ -20,8 +37,7 @@ body {
     width: 100%;
     max-width: 1920px;
     height: 100%;
-    background: #ffffff;
-    box-shadow: 0px -4px 24px rgba(0,0,0,0.10);
+    background: #8FBFFA;
 }
 
 .container::-webkit-scrollbar {
@@ -33,14 +49,14 @@ body {
     display: flex;
     align-items: center;
     gap: 14px;
-    background: #ffffff;
+    background: #8FBFFA;
     padding: 6px 0 16px;
     font-size: large;
 }
 
 .titulo{
     margin-left: 20px;
-    color: #a5a4a4;
+    color: #ffffff;
     font-weight: bolder;
 }
 
@@ -50,7 +66,7 @@ body {
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    border: 2px solid black;
+    border: 2px solid rgb(255, 255, 255);
     background: transparent;
 
     display: flex;
@@ -62,8 +78,8 @@ body {
 .seta{
     width: 10px;
     height: 10px;
-    border-left: 2px solid black;
-    border-bottom: 2px solid black;
+    border-left: 2px solid rgb(255, 255, 255);
+    border-bottom: 2px solid rgb(255, 255, 255);
     transform: rotate(45deg);
     margin-left: 4px;
 }
@@ -74,7 +90,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    background: #a0a0a0;
+    background: #ffffff;
     border-radius: 8px;
     padding: 15px 16px;
     box-shadow: 0px 2px 10px rgba(0,0,0,0.08);
@@ -92,20 +108,20 @@ body {
     border: none;
     background: transparent;
     font-size: 15px;
-    color: #333;
+    color: #000000;
     outline: none;
     width: 100%;
 }
 
 .busca input::placeholder {
-    color: #ebebeb;
+    color: #000000;
     font-weight: bold;
 }
 
 .tabs {
     display: flex;
     align-items: center;
-    background: #a0a0a0;
+    background: #ffffff;
     border-radius: 8px;
     padding: 4px;
     margin: 30px 16px 16px;
@@ -133,7 +149,7 @@ body {
 }
 
 .tab.ativo {
-    background: white;
+    background: #BEE6FF;
     border-radius: 8px;
     font-weight: 700;
     box-shadow: 0 1px 4px rgba(0,0,0,.15);
@@ -145,7 +161,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    background: #a0a0a0;
+    background: #ffffff;
     border-radius: 8px;
     padding: 15px 16px;
     margin: 16px auto 12px 16px;
@@ -170,7 +186,7 @@ body {
 .tabs2 {
     display: flex;
     align-items: center;
-    background: #a0a0a0;
+    background: #ffffff;
     border-radius: 8px;
     padding: 3px;
     margin: 30px 16px 16px;
@@ -198,7 +214,7 @@ body {
 }
 
 .tab.ativo2 {
-    background: white;
+    background: #BEE6FF;
     border-radius: 8px;
     font-weight: 700;
     box-shadow: 0 1px 4px rgba(0,0,0,.15);
@@ -215,7 +231,7 @@ body {
 }
 
 .sub_header_interna{
-    background: #a0a0a0;
+    background: white;
     padding: 12px 16px;
     border-radius: 16px;
     box-shadow: 0px 4px 15px rgba(0,0,0,0.08);
@@ -223,7 +239,7 @@ body {
 }
 
 .sub_header_interna_interna{
-    background: white;
+    background: #BEE6FF;
     border-radius: 12px;
     padding: 12px 14px;
     font-size: 16px;
@@ -235,7 +251,6 @@ body {
 
 .sub_header_interna:hover{
     transform: scale(1.01);
-    background: #b8b8b8;
 
 }
 
@@ -248,7 +263,7 @@ body {
 }
 
 .sub_header_interna2{
-    background: #a0a0a0;
+    background: #ffffff;
     padding: 12px 16px;
     border-radius: 16px;
     box-shadow: 0px 4px 15px rgba(0,0,0,0.08);
@@ -256,7 +271,7 @@ body {
 }
 
 .sub_header_interna_interna2{
-    background: white;
+    background: #BEE6FF;
     border-radius: 12px;
     padding: 12px 14px;
     font-size: 16px;
@@ -606,12 +621,12 @@ a {
 
 .btn-filtrar {
     padding: 15px 16px;
-    background: #a0a0a0;
+    background: #ffffff;
     border-radius: 8px;
     font-weight: bold;
 
     text-decoration: none;
-    color: #000;
+    color: #000000;
 
     white-space: nowrap;
     flex-shrink: 0;
@@ -645,6 +660,8 @@ a {
     color: #555;
     margin-bottom: 1.25rem;
 }
+
+/* sofia*/
 .calc-layout {
     display: flex;
     gap: 0;
