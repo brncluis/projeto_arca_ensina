@@ -66,41 +66,31 @@
 
     <div class="sub_header2" data-categoria="infectologia" data-ordem="1">
         <div class="sub_header_interna2">
-            <div class="sub_header_interna_interna2">
-                Informações
-            </div>
+            <div class="sub_header_interna_interna2">Informações</div>
         </div>
     </div>
 
     <div class="sub_header2" data-categoria="infectologia" data-ordem="1">
         <div class="sub_header_interna2">
-            <div class="sub_header_interna_interna2">
-                Informações
-            </div>
+            <div class="sub_header_interna_interna2">Informações</div>
         </div>
     </div>
 
     <div class="sub_header2" data-categoria="infectologia" data-ordem="1">
         <div class="sub_header_interna2">
-            <div class="sub_header_interna_interna2">
-                Informações
-            </div>
+            <div class="sub_header_interna_interna2">Informações</div>
         </div>
     </div>
 
     <div class="sub_header2" data-categoria="infectologia" data-ordem="1">
         <div class="sub_header_interna2">
-            <div class="sub_header_interna_interna2">
-                Informações
-            </div>
+            <div class="sub_header_interna_interna2">Informações</div>
         </div>
     </div>
 
     <div class="sub_header2" data-categoria="infectologia" data-ordem="1">
         <div class="sub_header_interna2">
-            <div class="sub_header_interna_interna2">
-                Informações
-            </div>
+            <div class="sub_header_interna_interna2">Informações</div>
         </div>
     </div>
 
@@ -115,10 +105,10 @@
         <button class="modal-fechar" onclick="fecharCalculadora()">✕</button>
 
         <div class="modal-grid-colunas">
-            
+
             <div class="coluna-esquerda">
                 <h2><span></span> Calculadora de Dosagens</h2>
-                
+
                 <div class="modal-subtitulo-box">
                     <span class="titulo-dados">Dados do Paciente</span>
                 </div>
@@ -137,8 +127,6 @@
                     <label>Medicação *</label>
                     <select id="medicacao" class="input-estado-ativo">
                         <option value="">Selecione uma medicação</option>
-                        <option value="med1">Medicação 1</option>
-                        <option value="med2">Medicação 2</option>
                     </select>
                 </div>
 
@@ -151,15 +139,15 @@
 
             <div class="coluna-direita">
                 <div class="painel-info-farmaco">
-                    
+
                     <div class="cabecalho-farmaco">
-                        <h2 id="info-nome-farmaco">Nome do Fármaco</h2>
-                        <span class="tag-tipo">Tipo do fármaco</span>
+                        <h2 id="resultado-nome-farmaco">Nome do Fármaco</h2>
+                        <span class="tag-tipo" id="resultado-tipo-farmaco">Tipo do fármaco</span>
                     </div>
 
                     <div class="card-detalhe">
                         <span class="tag-processo">Nome do processo</span>
-                        <p class="texto-dose">Dose calculada: <strong id="info-valor-dose">Valor tanto - Valor tanto</strong></p>
+                        <p class="texto-dose">Dose calculada: <strong id="resultado-dose">Valor tanto - Valor tanto</strong></p>
                         <hr class="linha-separadora">
                         <p class="texto-via-titulo">Via aplicada</p>
                         <p class="texto-via-nome"><strong id="info-nome-via">Nome da via</strong></p>
@@ -167,7 +155,7 @@
                     </div>
 
                     <div class="card-detalhe">
-                        <p><strong id="info-efeito">Efeito do fármaco na utilização em determinada situação</strong></p>
+                        <p><strong id="resultado-efeito">Efeito do fármaco na utilização em determinada situação</strong></p>
                     </div>
 
                     <div id="card-dinamico-alerta" class="card-detalhe card-estado-branco">
