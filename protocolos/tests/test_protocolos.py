@@ -17,7 +17,7 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
         super().setUpClass()
         chrome_options = Options()
         
-        chrome_options.add_argument('--window-size=1920,1080')
+        chrome_options.add_argument('--window-size=1280,960')
 
         service = Service(ChromeDriverManager().install())
         cls.selenium = webdriver.Chrome(service=service, options=chrome_options)
@@ -26,6 +26,7 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
 
     @classmethod
     def tearDownClass(cls):
+
         cls.selenium.quit()
         super().tearDownClass()
 
@@ -33,17 +34,13 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
         self.url_calculadora = self.live_server_url + '/protocolos/calculadora/'
     
     def tearDown(self):
-        """Roda após cada teste para fechar qualquer alerta que tenha ficado travado."""
         try:
             self.selenium.switch_to.alert.accept()
         except:
             pass
 
     def test_alerta_erro_ao_calcular_sem_peso(self):
-        """
-        Tenta calcular selecionando a medicação, mas sem informar o peso.
-        Deve exibir um alert() nativo do navegador.
-        """
+
         self.selenium.get(self.url_calculadora)
 
         select_element = WebDriverWait(self.selenium, 5).until(
@@ -69,10 +66,7 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
             self.fail("O alerta nativo de erro não foi exibido na tela.")
 
     def test_popup_sucesso_verde_ao_preencher_tudo(self):
-        """
-        Preenche peso e seleciona medicamento.
-        Deve exibir a div verde (alerta-sucesso-flutuante).
-        """
+
         self.selenium.get(self.url_calculadora)
 
         campo_peso = self.selenium.find_element(By.ID, "peso")
