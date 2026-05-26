@@ -104,7 +104,10 @@ def fluxograma(request):
     })
 
 def fluxograma_sedacao(request):
-    return render(request, 'protocolos/fluxograma_sedacao.html')
+    categorias = Categoria.objects.all()
+    return render(request, 'protocolos/fluxograma_sedacao.html', {
+        'categorias': categorias,
+    })
 
 
 def calculadora_dosagens(request):

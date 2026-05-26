@@ -529,7 +529,7 @@ a {
         border: none;
         border-radius: 14px;
         padding: 12px 16px;
-        background: #c8c8c8;
+        background: white;
         font-size: 15px;
         font-weight: 600;
         color: #1a1a1a;
@@ -537,7 +537,7 @@ a {
         box-shadow: 0px 2px 10px rgba(0,0,0,0.08);
         transition: transform 0.2s, background 0.2s;
     }
-    .btn-resetar:hover { transform: scale(1.02); background: #b8b8b8; }
+    .btn-resetar:hover { transform: scale(1.02); background: white; }
  
     .progresso-contador {
         display: flex;
@@ -546,7 +546,7 @@ a {
         gap: 8px;
         border-radius: 14px;
         padding: 12px 16px;
-        background: #c8c8c8;
+        background: white;
         font-size: 15px;
         font-weight: 600;
         color: #1a1a1a;
@@ -570,7 +570,7 @@ a {
 
  
     .card-fluxo-wrap {
-        background: #a0a0a0;
+        background: white;
         border-radius: 16px;
         padding: 12px 16px;
         box-shadow: 0px 4px 15px rgba(0,0,0,0.08);
@@ -578,10 +578,10 @@ a {
         user-select: none;
         transition: transform 0.2s, background 0.2s;
     }
-    .card-fluxo-wrap:hover { transform: scale(1.02); background: #b8b8b8; }
+    .card-fluxo-wrap:hover { transform: scale(1.02); background: white; }
  
     .card-fluxo-interno {
-        background: white;
+        background:#CEECFF;
         border-radius: 12px;
         padding: 12px 14px;
         font-size: 16px;
@@ -595,14 +595,14 @@ a {
         transition: background 0.2s, color 0.2s;
     }
  
-    .card-fluxo-wrap.concluido                        { background: #b6d9b6; }
-    .card-fluxo-wrap.concluido:hover                  { background: #a5cc9f; }
-    .card-fluxo-wrap.concluido .card-fluxo-interno    { background: #e6f4e6; color: #2e7d32; }
+    .card-fluxo-wrap.concluido                        { background: #5990e7; }
+    .card-fluxo-wrap.concluido:hover                  { background: #5990e7; }
+    .card-fluxo-wrap.concluido .card-fluxo-interno    { background: #CEECFF; color: black; }
  
     .card-check {
         width: 24px;
         height: 24px;
-        border: 2px solid #ccc;
+        border: 2px solid white;
         border-radius: 50%;
         flex-shrink: 0;
         display: flex;
@@ -613,8 +613,8 @@ a {
         transition: border-color 0.2s, background 0.2s, color 0.2s;
     }
     .card-fluxo-wrap.concluido .card-check {
-        border-color: #388e3c;
-        background: #388e3c;
+        border-color: #5990e7;
+        background: #5990e7;
         color: white;
     }
 
