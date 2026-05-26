@@ -85,7 +85,7 @@ body {
 }
 
 .busca {
-    flex: 1;
+    flex: 2;
     min-width: 0; 
     display: flex;
     align-items: center;
@@ -307,7 +307,7 @@ body {
     border: none;
     cursor: pointer;
     font-size: 16px;
-    filter: brightness(0) invert(0.90);
+    filter: invert(1) sepia(1) saturate(5) hue-rotate(180deg) brightness(0.5);
     color: #a5a4a4;
 }
 
@@ -388,13 +388,14 @@ a {
 .alinhamento{
     display: flex;
     align-items: center;
-    gap: 45px;
-    margin: 16px 16px 12px;
+    gap: 10px;
+    margin: 16px;
 }
 
 .alinhamento .busca2{
     margin: 0;
-    flex: 1;
+    flex: 2;
+    width: auto;
 }
 
 /*PARTE DA CALCULADORA (ORRICO)*/
@@ -620,18 +621,15 @@ a {
 /*FITLRO FLUXOGRAMA (LULA)*/
 
 .btn-filtrar {
+    flex: 1;
+    text-align: center;
     padding: 15px 16px;
     background: #ffffff;
     border-radius: 8px;
     font-weight: bold;
-
-    text-decoration: none;
-    color: #000000;
-
-    white-space: nowrap;
-    flex-shrink: 0;
     border: none;
-    outline: none;
+    cursor: pointer;
+    white-space: nowrap;
 }
 
 .hidden {

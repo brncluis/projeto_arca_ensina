@@ -3,9 +3,9 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+ 
 body {
-    background-color: white;
+    background-color: #8FBFFA;
     font-family: Arial, Helvetica, sans-serif;
     min-height: 100vh;
 }
@@ -17,9 +17,9 @@ form {
 
 header {
     width: 100%;
-    border-bottom: 2px solid #d9d9d9;
-    padding: 15px 0;
-    margin-bottom: 50px;
+    padding: 30px 0;
+    margin-bottom: none;
+    background-color: #8FBFFA;
 }
 
 .header-content {
@@ -43,7 +43,7 @@ header {
 
 .login-card {
     width: min(480px, 95vw);
-    background-color: white;
+    background-color: #8fbffa;
     border-radius: 16px;
     padding: 40px 30px;
     display: flex;
@@ -69,7 +69,7 @@ header {
 
 /* Título no header (LUMUS) — centralizado */
 .titulo {
-    color: black;
+    color: #1a1a1a;
     font-size: 20px;
     font-weight: bold;
     display: flex;
@@ -109,13 +109,13 @@ header {
     border-radius: 10px;
     padding: 0 20px;
     font-size: 13px;
-    background-color: rgb(174, 170, 170);
+    background-color: #7aaef5;
     color: white;
 }
 
 .form-group input:focus {
     outline: none;
-    border: 2px solid #999;
+    border: 2px solid #4285F4;
 }
 
 input::placeholder {
@@ -124,7 +124,7 @@ input::placeholder {
 
 .link-forgot {
     font-size: 13px;
-    color: black;
+    color: #1a1a1a;
     text-decoration: none;
     margin-top: 15px;
     display: flex;
@@ -147,13 +147,13 @@ input::placeholder {
     cursor: pointer;
     margin-top: 10px;
     transition: background-color 0.3s, transform 0.2s;
-    background-color: #1a1a1a;
+    background-color: #1C3AA9;
     color: white;
 }
 
 .btn-primary:hover {
     transform: scale(1.02);
-    background-color: #333;
+    background-color: #152c7e;
 }
 
 /* Texto de termos abaixo do botão */
@@ -167,22 +167,22 @@ input::placeholder {
 
 /* Rodapé do card */
 .login-signup {
-    margin-top: 20px;
-    border-top: 1px solid #d9d9d9;
+    margin-top: 0px;
+    /* border-top: 1px solid #7aaef5; */
     padding: 20px 0 5px 0;
     text-align: center;
     font-size: 13px;
-    color: #444;
+    color: #1a1a1a;
     line-height: 1.8;
 }
 
 .login-signup strong {
     font-weight: bold;
-    color: black;
+    color: white;
 }
 
 .login-signup a {
-    color: black;
+    color: #1a1a1a;
     font-weight: bold;
     text-decoration: none;
     display: block;
@@ -194,8 +194,8 @@ input::placeholder {
 }
 
 .login-error {
-    background-color: white;
-    color: #000;
+    background-color: #7aaef5;
+    color: white;
     font-size: 13px;
     padding: 10px 15px;
     border-radius: 12px;

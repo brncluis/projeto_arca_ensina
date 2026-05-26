@@ -5,16 +5,16 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
     <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dengue</title>
-    <link rel="stylesheet" href="{% static 'protocolos/style.css' %}">
-    <link rel="stylesheet" href="{% static 'protocolos/modal.css' %}">
-    
-    <script src="{% static 'protocolos/js/calculadora.js' %}"></script>
-    <script defer src="{% static 'protocolos/js/fluxograma.js' %}"></script>
-    <script defer src="{% static 'protocolos/js/filtrar.js' %}"></script>
-</head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dengue</title>
+        <link rel="stylesheet" href="{% static 'protocolos/style.css' %}">
+        <link rel="stylesheet" href="{% static 'protocolos/modal.css' %}">
+        <script defer src="{% static 'protocolos/js/calculadora.js' %}"></script>
+        <script defer src="{% static 'protocolos/js/fluxograma.js' %}"></script>
+        <script defer src="{% static 'protocolos/js/filtro.js' %}"></script>
+        <script defer src="{% static 'protocolos/js/modalFiltro.js' %}"></script>
+    </head>
 
 <body>
 
@@ -39,20 +39,9 @@
             <input type="text" placeholder="Buscar protocolos..." oninput="buscarProtocolo(this.value)">
         </div>
 
-        <div class="calculadora_icone" onclick="abrirCalculadora()">
-            <div class="tela"></div>
-            <div class="botoes">
-                <div class="botao"></div>
-                <div class="botao"></div>
-                <div class="botao"></div>
-                <div class="botao"></div>
-                <div class="botao"></div>
-                <div class="botao"></div>
-                <div class="botao"></div>
-                <div class="botao"></div>
-                <div class="botao"></div>
-            </div>
-        </div>
+        <button id="abrirFiltro" class="btn-filtrar">Filtrar Protocolos</button>
+        <button class="btn-filtrar">Mesclar paciente</button>
+        <button class="btn-filtrar" onclick="abrirCalculadora()">Calculadora</button>
     </div>
 
 
@@ -84,79 +73,87 @@
 </div>
 
 
+<!-- Modal do filtro -->
+{% include 'protocolos/components/filtro_modal.html' %}
+
+<!-- Modal calculadora -->
 <div id="modal-calculadora" class="modal-overlay" style="display:none;">
     <div class="modal-box modal-duplo">
 
         <button class="modal-fechar" onclick="fecharCalculadora()">✕</button>
 
-        <div class="modal-grid-colunas">
-            
-            <div class="coluna-esquerda">
-                <h2><span></span> Calculadora de Dosagens</h2>
-                
-                <div class="modal-subtitulo-box">
-                    <span class="titulo-dados">Dados do Paciente</span>
+        <div class="calc-layout">
+
+            <div class="calc-coluna-esq">
+
+                <div class="calc-subtitulo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                        fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                    <span>Dados do Paciente</span>
                 </div>
 
-                <div class="campo">
-                    <label>Peso (kg) *</label>
-                    <input type="number" placeholder="Ex: 15.5" id="peso" class="input-estado-ativo">
+                <div class="calc-campo">
+                    <label>Peso (Kg)</label>
+                    <input type="number" id="peso" placeholder="Ex: 50.5" class="calc-input">
                 </div>
 
-                <div class="campo">
-                    <label>Altura (cm) *</label>
-                    <input type="number" placeholder="Ex: 100" id="altura" class="input-estado-ativo">
+                <div class="calc-campo">
+                    <label>Altura (cm)</label>
+                    <input type="number" id="altura" placeholder="Ex: 130" class="calc-input">
                 </div>
 
-                <div class="campo">
-                    <label>Medicação *</label>
-                    <select id="medicacao" class="input-estado-ativo">
+                <div class="calc-campo">
+                    <label>Medicação</label>
+                    <select id="medicacao" class="calc-select">
                         <option value="">Selecione uma medicação</option>
-                        <option value="med1">Medicação 1</option>
-                        <option value="med2">Medicação 2</option>
                     </select>
                 </div>
 
-                <div class="modal-botoes acoes-triplas">
-                    <button class="btn-acao btn-primario" id="btn-calcular">Calcular</button>
-                    <button class="btn-acao btn-secundario" id="btn-prescrever">Prescrever</button>
-                    <button class="btn-acao btn-secundario" id="btn-salvar">Salvar</button>
+                <div class="calc-botoes">
+                    <button class="calc-btn calc-btn-secundario" id="btn-calcular" onclick="calcular()">Calcular</button>
+                    <button class="calc-btn calc-btn-secundario" id="btn-prescrever">Prescrever</button>
+                    <button class="calc-btn calc-btn-preto">Salvar</button>
                 </div>
+
             </div>
 
-            <div class="coluna-direita">
-                <div class="painel-info-farmaco">
-                    
-                    <div class="cabecalho-farmaco">
-                        <h2 id="info-nome-farmaco">Nome do Fármaco</h2>
-                        <span class="tag-tipo">Tipo do fármaco</span>
+            <div class="calc-coluna-dir">
+
+                <div id="calculadora-placeholder" class="calc-placeholder">
+                    <p class="calc-placeholder-titulo">Pronto para Calcular</p>
+                    <p class="calc-placeholder-texto">Preencha o peso do paciente e selecione uma medicação para ver as dosagens calculadas.</p>
+                </div>
+
+                <div id="calculadora-resultado" class="calc-resultado" style="display:none;">
+
+                    <div class="calc-res-header">
+                        <h2 id="resultado-nome-farmaco">—</h2>
+                        <span class="calc-tag-tipo" id="resultado-tipo-farmaco">—</span>
                     </div>
 
-                    <div class="card-detalhe">
-                        <span class="tag-processo">Nome do processo</span>
-                        <p class="texto-dose">Dose calculada: <strong id="info-valor-dose">Valor tanto - Valor tanto</strong></p>
-                        <hr class="linha-separadora">
-                        <p class="texto-via-titulo">Via aplicada</p>
-                        <p class="texto-via-nome"><strong id="info-nome-via">Nome da via</strong></p>
-                        <p class="texto-via-base" id="info-base-via">Base: nº x base (de tanto a tanto)</p>
+                    <div class="calc-card">
+                        <p class="calc-res-dose-label">Dose calculada: <strong id="resultado-dose">—</strong></p>
                     </div>
 
-                    <div class="card-detalhe">
-                        <p><strong id="info-efeito">Efeito do fármaco na utilização em determinada situação</strong></p>
+                    <div class="calc-card">
+                        <p id="resultado-efeito">—</p>
                     </div>
 
-                    <div id="card-dinamico-alerta" class="card-detalhe card-estado-branco">
-                        <div id="bloco-dica">
-                            <p><strong>ⓘ Dica de Segurança</strong></p>
-                            <p>Sempre verifique cálculos críticos com outro profissional antes da administração.</p>
-                        </div>
-                        <div id="bloco-prescricao" style="display: none;">
-                            <p><strong>Informações sobre a prescrição</strong><br>
-                            (nome do medicamento, dosagem, tempo de administração, via de administração)</p>
-                        </div>
+                    <div class="calc-card calc-card-dica" id="bloco-dica">
+                        <p><strong>ⓘ Dica de Segurança</strong></p>
+                        <p>Sempre verifique cálculos críticos com outro profissional antes da administração.</p>
+                    </div>
+
+                    <div class="calc-card calc-card-prescricao" id="bloco-prescricao" style="display:none;">
+                        <p><strong>Informações sobre a prescrição</strong><br>
+                        (nome do medicamento, dosagem, tempo de administração, via de administração)</p>
                     </div>
 
                 </div>
+
             </div>
 
         </div>
