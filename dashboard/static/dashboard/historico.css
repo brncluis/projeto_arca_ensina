@@ -177,23 +177,18 @@ body {
     }
 
     .cards-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
         gap: 10px;
     }
 }
 
 @media (max-width: 480px) {
     .page-title h1 {
-        font-size: 19px;
+        font-size: 20px;
     }
 
     .page-title .paciente-id {
         font-size: 12px;
-    }
-
-    .cards-grid {
-        grid-template-columns: 1fr;
-        gap: 10px;
     }
 
     .card-paciente,
