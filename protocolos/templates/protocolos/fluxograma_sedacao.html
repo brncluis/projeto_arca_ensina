@@ -40,7 +40,9 @@
         </div>
 
         <button id="abrirFiltro" class="btn-filtrar">Filtrar Protocolos</button>
-        <button class="btn-filtrar">Mesclar paciente</button>
+        <button class="btn-filtrar" onclick="abrirModalPaciente()">
+                Mesclar paciente
+        </button>
         <button class="btn-filtrar" onclick="abrirCalculadora()">Calculadora</button>
     </div>
 
@@ -60,7 +62,12 @@
             
             <button class="btn-resetar" onclick="resetarFluxograma()">🔄️Resetar</button>
             <div class="progresso-contador">
-                <span>⏱</span>
+                <img
+                    src="{% static 'protocolos/icons/Timer.svg' %}"
+                    alt="Tempo"
+                    class="icone-timer-header"
+                >
+
                 <span id="texto-progresso">0 / 10 concluídos</span>
             </div>
         </div>
@@ -172,6 +179,118 @@
         <button class="btn-calcular" onclick="fecharAvisoPulado()">Ok</button>
     </div>
 </div>
+
+<div id="modal-paciente" class="modal-overlay" style="display:none;">
+    <div class="modal-box">
+
+        <button class="modal-fechar" onclick="fecharModalPaciente()">
+            ✕
+        </button>
+
+        <h2>Mesclar protocolo ao paciente</h2>
+
+        <div class="busca-paciente-modal">
+            <input
+                type="text"
+                id="busca-paciente"
+                placeholder="Buscar paciente pelo nome..."
+                oninput="filtrarPacientes()"
+            >
+        </div>
+
+        <div class="lista-pacientes-modal">
+
+            {% for paciente in pacientes %}
+
+                <button
+                    type="button"
+                    class="paciente-item"
+                    data-nome="{{ paciente.nome_completo|lower }}"
+                    onclick="selecionarPaciente(this, {{ paciente.id }})"
+                >
+                    {{ paciente.nome_completo }}
+                </button>
+
+            {% empty %}
+
+                <p>Nenhum paciente atendido encontrado.</p>
+
+            {% endfor %}
+
+        </div>
+
+        <button
+            type="button"
+            class="btn-confirmar-paciente"
+            onclick="confirmarMesclagem()"
+        >
+            Confirmar
+        </button>
+
+    </div>
+</div>
+
+<script>
+    let pacienteSelecionado = null;
+
+    function abrirModalPaciente() {
+        document.getElementById("modal-paciente").style.display = "flex";
+    }
+
+    function fecharModalPaciente() {
+        document.getElementById("modal-paciente").style.display = "none";
+        pacienteSelecionado = null;
+
+        document.querySelectorAll(".paciente-item").forEach(item => {
+            item.classList.remove("ativo");
+            item.style.display = "block";
+        });
+
+        const campoBusca = document.getElementById("busca-paciente");
+
+        if (campoBusca) {
+            campoBusca.value = "";
+        }
+    }
+
+    function selecionarPaciente(botao, pacienteId) {
+        pacienteSelecionado = pacienteId;
+
+        document.querySelectorAll(".paciente-item").forEach(item => {
+            item.classList.remove("ativo");
+        });
+
+        botao.classList.add("ativo");
+    }
+
+    function filtrarPacientes() {
+        const termo = document.getElementById("busca-paciente").value.toLowerCase();
+
+        document.querySelectorAll(".paciente-item").forEach(item => {
+            const nome = item.dataset.nome;
+
+            if (nome.includes(termo)) {
+                item.style.display = "block";
+            } else {
+                item.style.display = "none";
+            }
+        });
+    }
+
+    function confirmarMesclagem() {
+        if (!pacienteSelecionado) {
+            alert("Selecione um paciente primeiro.");
+            return;
+        }
+
+        const url = "{% url 'mesclar_paciente' protocolo.id 0 %}".replace(
+            "/0/",
+            "/" + pacienteSelecionado + "/"
+        );
+
+        window.location.href = url;
+    }
+</script>
 
 </body>
 </html>

@@ -1,6 +1,7 @@
-from django.shortcuts import render
-from .models import Protocolo, Categoria, Sintoma
+from django.shortcuts import render, redirect, get_object_or_404
 
+from .models import Protocolo, Categoria, Sintoma
+from dashboard.models import Paciente, Consulta
 
 
 def criar_dados_iniciais():
@@ -28,8 +29,6 @@ def criar_dados_iniciais():
     for nome, categoria in sintomas:
         Sintoma.objects.get_or_create(nome=nome, categoria=categoria)
 
-    # PROTOCOLO DENGUE
-
     dengue, _ = Protocolo.objects.get_or_create(
         titulo="Dengue",
         defaults={
@@ -42,8 +41,6 @@ def criar_dados_iniciais():
     )
 
     dengue.sintomas.set(sintomas_dengue)
-
-    # PROTOCOLO SEDAÇÃO
 
     sedacao, _ = Protocolo.objects.get_or_create(
         titulo="Sedação",
@@ -74,6 +71,7 @@ def protocolos_home(request):
     categorias = Categoria.objects.all()
 
     mensagem = None
+
     if sintomas_ids and not protocolos.exists():
         mensagem = "Nenhum protocolo encontrado com esses sintomas"
 
@@ -86,25 +84,114 @@ def protocolos_home(request):
 
 
 def detalhes_protocolo(request):
+    criar_dados_iniciais()
+
+    protocolo = get_object_or_404(
+        Protocolo,
+        titulo="Dengue"
+    )
+
     categorias = Categoria.objects.all()
+
+    pacientes = Paciente.objects.filter(
+        consulta__isnull=False
+    ).distinct().order_by('-ultimo_acesso', 'nome_completo')
+
     return render(request, 'protocolos/detalhes.html', {
         'categorias': categorias,
+        'protocolo': protocolo,
+        'pacientes': pacientes,
     })
+
 
 def detalhes_protocolo_sedacao(request):
+    criar_dados_iniciais()
+
+    protocolo = get_object_or_404(
+        Protocolo,
+        titulo="Sedação"
+    )
+
     categorias = Categoria.objects.all()
+
+    pacientes = Paciente.objects.filter(
+        consulta__isnull=False
+    ).distinct().order_by('-ultimo_acesso', 'nome_completo')
+
     return render(request, 'protocolos/detalhes_sedacao.html', {
         'categorias': categorias,
+        'protocolo': protocolo,
+        'pacientes': pacientes,
     })
+
+
+def mesclar_paciente(request, protocolo_id, paciente_id):
+    protocolo = get_object_or_404(
+        Protocolo,
+        id=protocolo_id
+    )
+
+    paciente = get_object_or_404(
+        Paciente,
+        id=paciente_id
+    )
+
+    consulta = Consulta.objects.filter(
+        paciente=paciente
+    ).first()
+
+    if consulta:
+        consulta.protocolos_utilizados.add(protocolo)
+
+    return redirect(request.META.get('HTTP_REFERER', 'protocolos'))
+
 
 def fluxograma(request):
+    criar_dados_iniciais()
+
+    protocolo = get_object_or_404(
+        Protocolo,
+        titulo="Dengue"
+    )
+
     categorias = Categoria.objects.all()
+
+    pacientes = Paciente.objects.filter(
+        consulta__isnull=False
+    ).distinct().order_by(
+        '-ultimo_acesso',
+        'nome_completo'
+    )
+
     return render(request, 'protocolos/fluxograma.html', {
         'categorias': categorias,
+        'protocolo': protocolo,
+        'pacientes': pacientes,
     })
 
+
 def fluxograma_sedacao(request):
-    return render(request, 'protocolos/fluxograma_sedacao.html')
+    criar_dados_iniciais()
+
+    protocolo = get_object_or_404(
+        Protocolo,
+        titulo="Sedação"
+    )
+
+    categorias = Categoria.objects.all()
+
+    pacientes = Paciente.objects.filter(
+        consulta__isnull=False
+    ).distinct().order_by(
+        '-ultimo_acesso',
+        'nome_completo'
+    )
+
+    return render(request, 'protocolos/fluxograma_sedacao.html', {
+        'categorias': categorias,
+        'protocolo': protocolo,
+        'pacientes': pacientes,
+    })
 
 
 def calculadora_dosagens(request):

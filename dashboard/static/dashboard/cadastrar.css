@@ -88,24 +88,40 @@ textarea {
     min-height: 80px;
 }
 
-button[type="submit"] {
-    background-color: #4285F4;
-    color: #ffffff;
-    border: none;
-    border-radius: 10px;
-    padding: 12px 30px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    float: right;
-    margin-top: 10px;
-    margin-bottom: 30px;
-    transition: background 0.2s;
+/* BOTÃO SALVAR */
+
+.btn-salvar{
+
+    background-color:#4285F4;
+
+    color:#ffffff;
+
+    border:none;
+
+    border-radius:10px;
+
+    padding:12px 30px;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    display:block;
+
+    margin-top:20px;
+
+    margin-left:auto;
+
+    transition:0.2s;
 }
 
-button[type="submit"]:hover {
-    background-color: #1C3AA9;
+.btn-salvar:hover{
+
+    background-color:#1C3AA9;
 }
+
 
 .erro {
     color: red;
@@ -119,4 +135,176 @@ input.campo-invalido,
 select.campo-invalido {
     border: 1.5px solid red !important;
     background-color: #fff0f0 !important;
+}
+
+.conduta-inicial{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.box-critica{
+
+    background:#fff4f4;
+
+    border:2px solid #ffd3d3;
+
+    border-radius:18px;
+
+    padding:16px;
+}
+
+.checkbox-critica{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:14px;
+
+    cursor:pointer;
+}
+
+.checkbox-critica input{
+
+    width:18px;
+
+    height:18px;
+
+    margin-top:2px;
+
+    accent-color:#d62828;
+
+    flex-shrink:0;
+}
+
+.texto-critica{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:4px;
+}
+
+.titulo-critica-checkbox{
+
+    font-size:15px;
+
+    font-weight:700;
+
+    color:#d62828;
+}
+
+.texto-critica small{
+
+    color:#666;
+
+    font-size:13px;
+
+    line-height:1.4;
+}
+
+.btn-adicionar-conduta{
+
+    background-color:#4285F4;
+
+    color:#ffffff;
+
+    border:none;
+
+    border-radius:10px;
+
+    padding:12px 30px;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    width:fit-content;
+
+    transition:0.2s;
+}
+
+.form-conduta{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:16px;
+}
+
+/* LISTA DE CONDUTAS */
+
+#lista-condutas{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-top:10px;
+}
+
+/* CARD */
+
+.card-conduta{
+    background:#BEE6FF;
+    border-radius:18px;
+    padding:16px 18px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.08);
+
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+/* CARD CRÍTICO */
+
+.card-conduta.critica{
+    background:#fff1f1;
+}
+
+/* TOPO DO CARD */
+
+.topo-conduta{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+/* BADGE */
+
+.badge-critica{
+    background:#d62828;
+    color:white;
+
+    padding:6px 12px;
+
+    border-radius:999px;
+
+    font-size:12px;
+    font-weight:bold;
+}
+
+.horario-conduta{
+    font-size:12px;
+    color:#464545;
+}
+
+/* TEXTO SEM CONDUTA */
+
+.sem-conduta{
+    color:#666;
+    font-size:14px;
+}
+
+/* BOX NOVA CONDUTA */
+
+.nova-conduta-box{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-top:20px;
 }

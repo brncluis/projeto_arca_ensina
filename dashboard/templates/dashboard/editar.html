@@ -1,88 +1,473 @@
 {% load static %}
+{% load l10n %}
+
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    />
+
     <title>Editar Prontuário</title>
-    <link rel="stylesheet" href="{% static 'dashboard/cadastrar.css' %}">
+
+    <link
+        rel="stylesheet"
+        href="{% static 'dashboard/cadastrar.css' %}"
+    >
+
 </head>
+
 <body>
-    <div class="pagina">
+
+<div class="pagina">
+
+    <!-- CABEÇALHO -->
     <header class="cabecalho">
-        <a href="{% url 'prontuario_paciente' paciente.id %}" class="btn-voltar">
-            <img src="{% static 'dashboard/icons/Seta_sair_vetorizada.png' %}" alt="Voltar">
+
+        <a
+            href="{% url 'prontuario_paciente' paciente.id %}"
+            class="btn-voltar"
+        >
+
+            <img
+                src="{% static 'dashboard/icons/Seta_sair_vetorizada.png' %}"
+                alt="Voltar"
+            >
+
         </a>
+
         <div>
+
             <h1>Editar Prontuário</h1>
-            <p>Data da consulta: {{ consulta.data_consulta|date:"d/m/Y" }}</p>
+
+            <p>
+                Data da consulta:
+                {{ consulta.data_consulta|date:"d/m/Y" }}
+            </p>
+
         </div>
+
     </header>
-    <form method="POST" action="{% url 'editar_paciente' paciente.id %}">
-    {% csrf_token %}
-    <section>
-        <h2>Informações do paciente</h2>
-        <input type="text" name="nome_completo" value="{{ paciente.nome_completo }}" class="{% if erros.nome_completo %}campo-invalido{% endif %}">
-        {% if erros.nome_completo %}<span class="erro">{{ erros.nome_completo }}</span>{% endif %}
 
-        <input type="date" name="data_nascimento" value="{{ paciente.data_nascimento|date:'Y-m-d' }}" class="{% if erros.data_nascimento %}campo-invalido{% endif %}">
-        {% if erros.data_nascimento %}<span class="erro">{{ erros.data_nascimento }}</span>{% endif %}
+    <!-- FORM PRINCIPAL -->
+    <form
+        method="POST"
+        action="{% url 'editar_paciente' paciente.id %}"
+    >
 
-        <select name="genero">
-            <option value="M" {% if paciente.genero == 'M' %}selected{% endif %}>Masculino</option>
-            <option value="F" {% if paciente.genero == 'F' %}selected{% endif %}>Feminino</option>
-        </select>
+        {% csrf_token %}
 
-        <input type="number" name="peso" value="{{ paciente.peso }}" step="0.01" class="{% if erros.peso %}campo-invalido{% endif %}">
-        {% if erros.peso %}<span class="erro">{{ erros.peso }}</span>{% endif %}
+        <!-- INFORMAÇÕES -->
+        <section>
 
-        <input type="number" name="altura" value="{{ paciente.altura }}" step="0.01" class="{% if erros.altura %}campo-invalido{% endif %}">
-        {% if erros.altura %}<span class="erro">{{ erros.altura }}</span>{% endif %}
+            <h2>Informações do paciente</h2>
 
-        <input type="text" name="nome_mae" value="{{ paciente.nome_mae }}">
-        
-        <input type="text" name="nome_pai" value="{{ paciente.nome_pai }}">
+            <input
+                type="text"
+                name="nome_completo"
+                value="{{ paciente.nome_completo }}"
+                placeholder="Nome completo"
+                class="{% if erros.nome_completo %}campo-invalido{% endif %}"
+            >
 
-    </section>
-    <section>
-        <h2>Histórico médico</h2>
-        <textarea name="alergias">{{ consulta.alergias }}</textarea>
-        <textarea name="doencas_cronicas">{{ consulta.doencas_cronicas }}</textarea>
-        <textarea name="cirurgias_anteriores">{{ consulta.cirurgias_anteriores }}</textarea>
-        <textarea name="medicamentos_uso_continuo">{{ consulta.medicamentos_uso_continuo }}</textarea>
-    </section>
-    <section>
-        <h2>Queixa principal</h2>
-        <input type="text" name="queixa_principal" value="{{ consulta.queixa_principal }}">
-    </section>
-    <section>
-        <h2>Histórico da doença atual</h2>
-        <textarea name="historico_doenca_atual">{{ consulta.historico_de_doenca_atual }}</textarea>
-    </section>
-    <section>
-        <h2>Exame físico</h2>
-        <input type="text" name="pressao_arterial" value="{{ consulta.pressao_arterial }}">
-        <input type="text" name="frequencia_cardiaca" value="{{ consulta.frequencia_cardiaca }}">
-        <input type="text" name="frequencia_respiratoria" value="{{ consulta.frequencia_respiratoria }}">
-        <input type="text" name="temperatura" value="{{ consulta.temperatura }}">
-        <input type="text" name="saturacao" value="{{ consulta.saturacao }}">
-        <input type="text" name="ausculta_pulmonar" value="{{ consulta.ausculta_pulmonar }}">
-        <input type="text" name="estado_geral" value="{{ consulta.estado_geral }}">
-    </section>
-    <section>
-        <h2>Exames solicitados</h2>
-        <textarea name="exames_solicitados">{{ consulta.exames_solicitados }}</textarea>
-    </section>
-    <section>
-        <h2>Diagnóstico provisório</h2>
-        <input type="text" name="diagnostico_provisorio" value="{{ consulta.diagnostico_provisorio }}">
-    </section>
-    <section>
-        <h2>Conduta e tratamento</h2>
-        <textarea name="conduta_tratamento">{{ consulta.conduta_tratamento }}</textarea>
-    </section>
-    <button type="submit">Salvar</button>
-</form>
+            {% if erros.nome_completo %}
+                <span class="erro">
+                    {{ erros.nome_completo }}
+                </span>
+            {% endif %}
+
+            <input
+                type="date"
+                name="data_nascimento"
+                value="{{ paciente.data_nascimento|date:'Y-m-d' }}"
+                class="{% if erros.data_nascimento %}campo-invalido{% endif %}"
+            >
+
+            {% if erros.data_nascimento %}
+                <span class="erro">
+                    {{ erros.data_nascimento }}
+                </span>
+            {% endif %}
+
+            <select name="genero">
+
+                <option
+                    value="M"
+                    {% if paciente.genero == 'M' %}selected{% endif %}
+                >
+                    Masculino
+                </option>
+
+                <option
+                    value="F"
+                    {% if paciente.genero == 'F' %}selected{% endif %}
+                >
+                    Feminino
+                </option>
+
+            </select>
+
+            <input
+                type="number"
+                name="peso"
+                value="{{ paciente.peso|unlocalize }}"
+                placeholder="Peso"
+                step="0.01"
+                class="{% if erros.peso %}campo-invalido{% endif %}"
+            >
+
+            {% if erros.peso %}
+                <span class="erro">
+                    {{ erros.peso }}
+                </span>
+            {% endif %}
+
+            <input
+                type="number"
+                name="altura"
+                value="{{ paciente.altura|unlocalize }}"
+                placeholder="Altura"
+                step="0.01"
+                class="{% if erros.altura %}campo-invalido{% endif %}"
+            >
+
+            {% if erros.altura %}
+                <span class="erro">
+                    {{ erros.altura }}
+                </span>
+            {% endif %}
+
+            <input
+                type="text"
+                name="nome_mae"
+                value="{{ paciente.nome_mae }}"
+                placeholder="Nome da mãe"
+            >
+
+            <input
+                type="text"
+                name="nome_pai"
+                value="{{ paciente.nome_pai }}"
+                placeholder="Nome do pai"
+            >
+
+        </section>
+
+        <!-- HISTÓRICO -->
+        <section>
+
+            <h2>Histórico médico</h2>
+
+            <textarea
+                name="alergias"
+                placeholder="Alergias"
+            >{{ consulta.alergias }}</textarea>
+
+            <textarea
+                name="doencas_cronicas"
+                placeholder="Doenças crônicas"
+            >{{ consulta.doencas_cronicas }}</textarea>
+
+            <textarea
+                name="cirurgias_anteriores"
+                placeholder="Cirurgias anteriores"
+            >{{ consulta.cirurgias_anteriores }}</textarea>
+
+            <textarea
+                name="medicamentos_uso_continuo"
+                placeholder="Medicamentos de uso contínuo"
+            >{{ consulta.medicamentos_uso_continuo }}</textarea>
+
+        </section>
+
+        <!-- QUEIXA -->
+        <section>
+
+            <h2>Queixa principal</h2>
+
+            <input
+                type="text"
+                name="queixa_principal"
+                value="{{ consulta.queixa_principal }}"
+                placeholder="Queixa principal"
+            >
+
+        </section>
+
+        <!-- HISTÓRICO DA DOENÇA -->
+        <section>
+
+            <h2>Histórico da doença atual</h2>
+
+            <textarea
+                name="historico_doenca_atual"
+                placeholder="Descreva o histórico da doença atual"
+            >{{ consulta.historico_de_doenca_atual }}</textarea>
+
+        </section>
+
+        <!-- EXAME -->
+        <section>
+
+            <h2>Exame físico</h2>
+
+            <input
+                type="text"
+                name="pressao_arterial"
+                value="{{ consulta.pressao_arterial }}"
+                placeholder="Pressão arterial"
+            >
+
+            <input
+                type="text"
+                name="frequencia_cardiaca"
+                value="{{ consulta.frequencia_cardiaca }}"
+                placeholder="Frequência cardíaca"
+            >
+
+            <input
+                type="text"
+                name="frequencia_respiratoria"
+                value="{{ consulta.frequencia_respiratoria }}"
+                placeholder="Frequência respiratória"
+            >
+
+            <input
+                type="text"
+                name="temperatura"
+                value="{{ consulta.temperatura }}"
+                placeholder="Temperatura"
+            >
+
+            <input
+                type="text"
+                name="saturacao"
+                value="{{ consulta.saturacao }}"
+                placeholder="Saturação"
+            >
+
+            <input
+                type="text"
+                name="ausculta_pulmonar"
+                value="{{ consulta.ausculta_pulmonar }}"
+                placeholder="Ausculta pulmonar"
+            >
+
+            <input
+                type="text"
+                name="estado_geral"
+                value="{{ consulta.estado_geral }}"
+                placeholder="Estado geral"
+            >
+
+        </section>
+
+        <!-- EXAMES -->
+        <section>
+
+            <h2>Exames solicitados</h2>
+
+            <textarea
+                name="exames_solicitados"
+                placeholder="Exames solicitados"
+            >{{ consulta.exames_solicitados }}</textarea>
+
+        </section>
+
+        <!-- DIAGNÓSTICO -->
+        <section>
+
+            <h2>Diagnóstico provisório</h2>
+
+            <input
+                type="text"
+                name="diagnostico_provisorio"
+                value="{{ consulta.diagnostico_provisorio }}"
+                placeholder="Diagnóstico provisório"
+            >
+
+        </section>
+
+        <!-- CONDUTAS -->
+        <section>
+
+            <h2>Condutas</h2>
+
+            <div id="lista-condutas">
+
+                {% for conduta in consulta.condutas.all %}
+
+                    <div class="card-conduta {% if conduta.critica %}critica{% endif %}">
+
+                        <div class="topo-conduta">
+
+                            {% if conduta.critica %}
+                                <span class="badge-critica">
+                                    CRÍTICA
+                                </span>
+                            {% endif %}
+
+                            <span class="horario-conduta">
+                                {{ conduta.criada_em|date:"H:i" }}
+                            </span>
+
+                        </div>
+
+                        <p>{{ conduta.descricao }}</p>
+
+                    </div>
+
+                {% empty %}
+
+                    <p class="sem-conduta">
+                        Nenhuma conduta registrada.
+                    </p>
+
+                {% endfor %}
+
+            </div>
+
+            <!-- NOVA CONDUTA -->
+            <div class="nova-conduta-box">
+
+                <textarea
+                    id="nova-conduta"
+                    placeholder="Digite uma nova conduta..."
+                ></textarea>
+
+                <div class="box-critica">
+
+                    <label class="checkbox-critica">
+
+                        <input
+                            type="checkbox"
+                            id="conduta-critica"
+                        >
+
+                        <div class="texto-critica">
+
+                            <span class="titulo-critica-checkbox">
+                                🚨 Marcar como crítica
+                            </span>
+
+                            <small>
+                                Essa conduta será destacada no prontuário
+                            </small>
+
+                        </div>
+
+                    </label>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="btn-adicionar-conduta"
+                    onclick="adicionarConduta()"
+                >
+                    + Conduta
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- INPUTS ESCONDIDOS -->
+        <div id="inputs-condutas"></div>
+
+        <!-- SALVAR -->
+        <button
+            type="submit"
+            class="btn-salvar"
+        >
+            Salvar alterações
+        </button>
+
+    </form>
+
 </div>
+
+<script>
+
+function adicionarConduta() {
+
+    const textarea = document.getElementById("nova-conduta");
+
+    const critica = document.getElementById("conduta-critica");
+
+    const lista = document.getElementById("lista-condutas");
+
+    const inputs = document.getElementById("inputs-condutas");
+
+    const descricao = textarea.value.trim();
+
+    if (!descricao) {
+        return;
+    }
+
+    const vazio = document.querySelector(".sem-conduta");
+
+    if (vazio) {
+        vazio.remove();
+    }
+
+    const card = document.createElement("div");
+
+    card.className = critica.checked
+        ? "card-conduta critica"
+        : "card-conduta";
+
+    card.innerHTML = `
+        <div class="topo-conduta">
+
+            ${
+                critica.checked
+                ? `<span class="badge-critica">CRÍTICA</span>`
+                : ``
+            }
+
+            <span class="horario-conduta">
+                Agora
+            </span>
+
+        </div>
+
+        <p>${descricao}</p>
+    `;
+
+    lista.prepend(card);
+
+    const inputDescricao = document.createElement("input");
+
+    inputDescricao.type = "hidden";
+
+    inputDescricao.name = "condutas[]";
+
+    inputDescricao.value = descricao;
+
+    inputs.appendChild(inputDescricao);
+
+    const inputCritica = document.createElement("input");
+
+    inputCritica.type = "hidden";
+
+    inputCritica.name = "condutas_criticas[]";
+
+    inputCritica.value = critica.checked ? "true" : "false";
+
+    inputs.appendChild(inputCritica);
+
+    textarea.value = "";
+
+    critica.checked = false;
+}
+
+</script>
+
 </body>
 </html>

@@ -94,14 +94,52 @@
         <input type="text" name="diagnostico_provisorio" placeholder="Diagnóstico provisório">
     </section>
 
-    <!-- CONDUTA E TRATAMENTO -->
-    <section>
-        <h2>Conduta e tratamento</h2>
-        <textarea name="conduta_tratamento" placeholder="Descreva a conduta"></textarea>
-    </section>
+
+
+<!-- CONDUTA -->
+<section class="conduta-inicial">
+
+    <h2>Conduta inicial (opcional)</h2>
+
+    <textarea
+        name="descricao_conduta"
+        placeholder="Digite uma conduta..."
+    ></textarea>
+
+    <div class="box-critica">
+
+        <label class="checkbox-critica">
+
+            <input
+                type="checkbox"
+                name="critica"
+            >
+
+            <div class="texto-critica">
+
+                <span class="titulo-critica-checkbox">
+                    🚨 Marcar como crítica
+                </span>
+
+                <small>
+                    Essa conduta será destacada no prontuário
+                </small>
+
+            </div>
+
+        </label>
+
+    </div>
+
+</section>
 
     <!-- BOTÃO SALVAR -->
-    <button type="submit">Salvar</button>
+    <button
+    type="submit"
+    class="btn-salvar"
+    >
+    Salvar
+    </button>
 
 </form>
 </div>

@@ -85,11 +85,64 @@
         <p>{{ consulta.diagnostico_provisorio }}</p>
     </section>
 
-    <!-- CONDUTA E TRATAMENTO -->
-    <section>
-        <h2>Conduta e tratamento</h2>
-        <p>{{ consulta.conduta_tratamento }}</p>
-    </section>
+<section class="secao-condutas">
+
+    <h2 class="titulo-critico">🚨 Condutas críticas</h2>
+
+    <div class="condutas-container">
+
+        {% for conduta in consulta.condutas.all %}
+
+            {% if conduta.critica %}
+
+                <div class="card-conduta critica">
+                    <div class="topo-conduta">
+                        <span class="horario-conduta">{{ conduta.criada_em|date:"d/m/Y" }}</span>
+                    </div>
+                    <p>{{ conduta.descricao }}</p>
+
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+</section>
+
+<section class="secao-condutas">
+    <h2>Outras condutas</h2>
+
+    <div class="condutas-container">
+
+        {% for conduta in consulta.condutas.all %}
+
+            {% if not conduta.critica %}
+                <div class="card-conduta">
+                    <div class="topo-conduta">
+                        <span class="horario-conduta">{{ conduta.criada_em|date:"d/m/Y" }}</span>
+
+                    </div>
+                    <p>{{ conduta.descricao }}</p>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</section>
+
+<section>
+    <h2>Protocolos utilizados</h2>
+
+    {% for protocolo in consulta.protocolos_utilizados.all %}
+
+        <div class="card-conduta">
+            <p>{{ protocolo.titulo }}</p>
+        </div>
+
+    {% empty %}
+
+        <p>Nenhum protocolo utilizado.</p>
+
+    {% endfor %}
+</section>
 
 </div>
 </body>

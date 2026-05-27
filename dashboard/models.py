@@ -37,8 +37,32 @@ class Consulta (models.Model):
     estado_geral = models.CharField(max_length=50)
     exames_solicitados = models.CharField(max_length=100)
     diagnostico_provisorio = models.CharField(max_length=100)
-    conduta_tratamento = models.TextField()
+    #conduta_tratamento = models.TextField()
     medicamentos = models.ManyToManyField('protocolos.Medicamento', blank=True)
+
+    protocolos_utilizados = models.ManyToManyField(
+    'protocolos.Protocolo',
+    blank=True
+    )
 
     def __str__(self):
         return f'{self.paciente.nome_completo} - {self.data_consulta}'
+
+
+#Davi: Criei essa classe para salvar as Condutas Críticas dos pacientes
+class Conduta(models.Model):
+
+    consulta = models.ForeignKey(
+        Consulta,
+        on_delete=models.CASCADE,
+        related_name='condutas'
+    )
+
+    descricao = models.TextField()
+
+    critica = models.BooleanField(default=False)
+
+    criada_em = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.descricao

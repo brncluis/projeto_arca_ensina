@@ -552,3 +552,84 @@
 .modal-box.modal-duplo .calc-coluna-esq {
     border-right: none;
 }
+
+
+
+.busca-paciente-modal {
+    margin-top: 18px;
+    margin-bottom: 14px;
+}
+
+.busca-paciente-modal input {
+    width: 100%;
+    padding: 14px 18px;
+    border: none;
+    border-radius: 999px;
+    background: #BEE6FF;
+    font-size: 15px;
+    outline: none;
+}
+
+.busca-paciente-modal input:focus {
+    background: #9bd6f8;
+}
+
+.lista-pacientes-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 280px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-top: 16px;
+}
+
+.paciente-item {
+    background: #BEE6FF;
+    border: none;
+    border-radius: 999px;
+    padding: 14px 18px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    color: #000;
+    transition: background 0.2s ease;
+}
+
+.paciente-item:hover {
+    background: #9bd6f8;
+}
+
+.paciente-item.ativo {
+    background: #8FBFFA;
+}
+
+.btn-confirmar-paciente {
+    margin-top: 20px;
+    margin-left: auto;
+    display: block;
+    background: #4285F4;
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 12px 22px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-confirmar-paciente:hover {
+    background: #1C3AA9;
+}
+
+#modal-paciente .modal-box{
+    width: 95%;
+    max-width: 700px;
+
+    background: white;
+
+    border-radius: 28px;
+
+    padding: 28px;
+}
