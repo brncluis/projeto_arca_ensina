@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from .models import Protocolo, Categoria, Sintoma
 
 
@@ -58,7 +59,7 @@ def criar_dados_iniciais():
 
     sedacao.sintomas.set(sintomas_sedacao)
 
-
+@login_required
 def protocolos_home(request):
     criar_dados_iniciais()
 
@@ -97,6 +98,7 @@ def detalhes_protocolo_sedacao(request):
         'categorias': categorias,
     })
 
+@login_required
 def fluxograma(request):
     categorias = Categoria.objects.all()
     return render(request, 'protocolos/fluxograma.html', {

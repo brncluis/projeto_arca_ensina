@@ -57,3 +57,11 @@ function limparFiltros() {
         cb.checked = false;
     });
 }
+
+function aplicarFiltros() {
+    const marcados = document.querySelectorAll('input[name="sintomas"]:checked');
+    if (marcados.length === 0) {
+        return;
+    }
+    document.querySelector('#modal-filtro form').submit();
+}
