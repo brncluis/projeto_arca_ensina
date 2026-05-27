@@ -1,3 +1,5 @@
+@import url('/static/base.css');
+
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +8,7 @@
  
 body {
     background-color: #8FBFFA;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'CreatoDisplay', Arial, sans-serif;
     min-height: 100vh;
 }
 
@@ -70,6 +72,8 @@ header {
 /* Título no header (LUMUS) — centralizado */
 .titulo {
     color: #1a1a1a;
+    font-family: 'CreatoDisplay', Arial, sans-serif; 
+    font-weight: 700;
     font-size: 20px;
     font-weight: bold;
     display: flex;
@@ -83,6 +87,8 @@ header {
 
 /* Título dentro do card — alinhado à esquerda */
 .titulo-form {
+    font-family: 'CreatoDisplay', Arial, sans-serif; 
+    font-weight: 700;
     justify-content: flex-start;
     font-size: 22px;
     margin-bottom: 10px;

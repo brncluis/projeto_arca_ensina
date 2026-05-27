@@ -1,3 +1,5 @@
+@import url('/static/base.css');
+
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +8,7 @@
 
 body {
     background-color: #8FBFFA;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'CreatoDisplay', Arial, sans-serif;
 
     display: flex;
     justify-content: center;
@@ -59,6 +61,7 @@ body {
 
 .titulo {
     color: rgb(255, 255, 255);
+    font-family: 'Recline', Arial, sans-serif;
     font-size: 32px;
     font-weight: bold;
     align-self: flex-start;
@@ -66,6 +69,7 @@ body {
 
 .slogan {
     color: rgb(255, 255, 255);
+    font-family: 'CreatoDisplay', Arial, sans-serif;
     font-size: 27px;
     font-weight: bold;
     text-align: left;
