@@ -824,6 +824,50 @@ a {
 /* RESPONSIVIDADE */
 
 @media (max-width: 640px) {
+
+    .busca-container {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .busca {
+        flex: unset;
+        width: 100%;
+    }
+
+    .btn-filtrar {
+        flex: 1;
+        padding: 12px 8px;
+        font-size: 13px;
+    }
+
+    .tabs {
+        margin: 16px 16px 12px;
+    }
+
+    .tab {
+        font-size: 13px;
+        padding: 8px 6px;
+    }
+
+    .sub_header {
+        padding: 8px 16px;
+        gap: 10px;
+    }
+
+    .sub_header_interna {
+        border-radius: 14px;
+    }
+
+    .sub_header_interna_interna {
+        min-height: 80px;
+        font-size: 14px;
+    }
+
+    .primeiro_card h2 {
+        font-size: 17px;
+    }
+
     .alinhamento {
         flex-direction: column;
         align-items: stretch;
@@ -852,4 +896,3 @@ a {
         min-width: 76px;
     }
 }
-
