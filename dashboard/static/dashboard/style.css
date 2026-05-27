@@ -34,9 +34,7 @@ body {
     min-height: 100vh;
 }
 
-/* ══════════════════════════════
-   HEADER
-══════════════════════════════ */
+/* HEADER */
 .header {
     width: 100%;
     background: var(--bg);
