@@ -1,3 +1,5 @@
+@import url('/static/base.css');
+
 /* fundo mais escuro */
 .modal-overlay {
     display: none;
@@ -228,6 +230,8 @@
 }
 
 .cabecalho-farmaco h2 {
+    font-family: 'CreatoDisplay', Arial, sans-serif;
+    font-weight: 700;
     margin-bottom: 5px;
     color: #333;
 }
@@ -287,7 +291,14 @@
 }
 
 .cabecalho-farmaco { margin-bottom: 20px; }
-.cabecalho-farmaco h2 { margin-bottom: 5px; color: #333; font-size: 22px; font-weight: bold; }
+
+.cabecalho-farmaco h2 { 
+    font-family: 'CreatoDisplay', Arial, sans-serif;
+    font-weight: 700;
+    margin-bottom: 5px; 
+    color: #333; 
+    font-size: 22px; 
+}
 
 .tag-tipo { background-color: #A6A6A6; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 12px; }
 .tag-processo { background-color: #fff; color: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 10px; }
@@ -485,8 +496,9 @@
 }
 
 .calc-res-header h2 {
+    font-family: 'CreatoDisplay', Arial, sans-serif;
+    font-weight: 700;
     font-size: 22px;
-    font-weight: bold;
     color: white;
     margin-bottom: 6px;
 }
