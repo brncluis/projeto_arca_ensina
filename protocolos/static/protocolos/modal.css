@@ -28,43 +28,59 @@
 
 .modal-container {
     width: 90%;
-    max-width: 600px;
+    max-width: 480px;
     height: 90%;
-
-    background: #f5f5f5;
-    border-radius: 12px;
-
+    background: #ffffff;
+    border-radius: 24px;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
 }
 
 /* header */
 .modal-header {
     display: flex;
     align-items: center;
-    gap: 10px;
-
-    padding: 15px;
-    background: #eaeaea;
-    border-bottom: 1px solid #ccc;
+    justify-content: space-between;
+    padding: 20px 24px;
+    background: #ffffff;
+    border-bottom: 1px solid #e8e8e8;
+    border-radius: 24px 24px 0 0;
 }
 
 /* scroll */
 .modal-body {
-    padding: 20px;
+    padding: 20px 24px;
     overflow-y: auto;
+}
+
+.modal-body h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #000000;
+}
+
+.modal-body .sub {
+    font-size: 13px;
+    color: #464545;
+    margin-bottom: 16px;
 }
 
 /* busca */
 .barra-busca input {
     width: 100%;
-    padding: 10px;
-
-    border-radius: 8px;
+    padding: 12px 16px;
+    border-radius: 999px;
     border: none;
-    background: #cfcfcf;
-
+    background: #BEE6FF;
+    font-size: 14px;
+    outline: none;
     margin-bottom: 20px;
+}
+
+.barra-busca input:focus {
+    background: #8FBFFA;
 }
 
 .acoes-filtro{
@@ -85,15 +101,48 @@
     margin-bottom: 20px;
 }
 
-.grupo-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
+.grupo-header strong {
+    font-size: 14px;
+    font-weight: 700;
+    color: #000000;
+}
+
+.modal-header h2 {
+    font-family: 'CreatoDisplay', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: #000000;
+}
+
+.modal-header button {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #464545;
+    padding: 4px 8px;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.modal-header button:hover {
+    background: #f0f0f0;
 }
 
 .grupo label {
-    display: block;
-    margin: 5px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+    font-size: 14px;
+    color: #000000;
+    cursor: pointer;
+}
+
+.grupo label input[type="checkbox"] {
+    accent-color: #4285F4;
+    width: 16px;
+    height: 16px;
 }
 
 .modal-footer {
@@ -104,7 +153,8 @@
 
 .acoes-filtro {
     display: flex;
-    gap: 10px;
+    gap: 12px;
+    margin-top: 20px;
 }
 
 /* botoes */
@@ -119,31 +169,42 @@
 
 
 .btn-limpar {
-    background-color: #f1f1f1;
-    color: #333;
-    padding: 8px 14px;
-    font-size: 13px;
-    max-width: 200px;
+    flex: 1;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    background: #f0f0f0;
+    color: #464545;
+    transition: background 0.2s;
+    max-width: none;
 }
 
 .btn-limpar:hover {
-    background-color: #b8b8b8;
+    background: #e0e0e0;
 }
 
 
 .btn-aplicar {
-    margin-left: auto;
-    background-color: #a0a0a0;
-    color: white;
-    font-weight: 500;
-    padding: 10px 22px;
+    flex: 1;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
     font-size: 14px;
+    font-weight: 700;
+    background: #4285F4;
+    color: #ffffff;
+    transition: background 0.2s;
+    margin-left: 0;
+    max-width: none;
     flex-grow: 1;
-    max-width: 200px;
 }
 
 .btn-aplicar:hover {
-    background-color: #858383;
+    background: #1C3AA9;
 }
 
 .btn:focus {
@@ -547,7 +608,7 @@
     .calc-coluna-esq {
         width: 100%;
         border-right: none;
-        border-bottom: 1px solid white;
+        border-bottom: none;
     }
 
     .calc-coluna-dir {
