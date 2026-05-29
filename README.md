@@ -1,8 +1,6 @@
-# Projeto arca ensina
-
-## lUMOS 
-
-- Projeto voltado para transformar atendimentos pediátricos em processos mais ágeis e precisos com a reformulação da aplicação Web da Arca Ensina que disponibiliza procedimentos médicos voltados para pediatras recém-formados.
+# lUMOS 
+## Olá, nós somos o Lumos!
+- Um Projeto voltado para transformar atendimentos pediátricos em processos mais ágeis e precisos com a reformulação da aplicação Web da Arca Ensina que disponibiliza procedimentos médicos voltados para pediatras recém-formados.
 
 ## Documentação
 - link das histórias: https://docs.google.com/document/d/1zGFzDu3PnlFmveNXsWsdLlEUHGExox8XbkJMA5MO7gU/edit?usp=sharing
