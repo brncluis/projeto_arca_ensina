@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Prontuário — {{ paciente.nome_completo }}</title>
     <link rel="stylesheet" href="{% static 'dashboard/prontuario.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboard/exportar_paciente.css' %}">
 </head>
 <body>
 <div class="pagina">
@@ -23,7 +24,7 @@
             <a href="{% url 'editar_paciente' paciente.id %}" class="btn-acao">
                 <img src="{% static 'dashboard/icons/Add_Plus_Circle.png' %}" alt="Editar"> Editar
             </a>
-            <a href="#" class="btn-acao">
+            <a href="#" class="btn-acao" onclick="abrirModalExportar(); return false;">
                 <img src="{% static 'dashboard/icons/External_Link.png' %}" alt="Exportar"> Exportar
             </a>
         </div>
@@ -85,65 +86,108 @@
         <p>{{ consulta.diagnostico_provisorio }}</p>
     </section>
 
-<section class="secao-condutas">
-
-    <h2 class="titulo-critico">🚨 Condutas críticas</h2>
-
-    <div class="condutas-container">
-
-        {% for conduta in consulta.condutas.all %}
-
-            {% if conduta.critica %}
-
-                <div class="card-conduta critica">
-                    <div class="topo-conduta">
-                        <span class="horario-conduta">{{ conduta.criada_em|date:"d/m/Y" }}</span>
+    <section class="secao-condutas">
+        <h2 class="titulo-critico">Atenção! Condutas críticas</h2>
+        <div class="condutas-container">
+            {% for conduta in consulta.condutas.all %}
+                {% if conduta.critica %}
+                    <div class="card-conduta critica">
+                        <div class="topo-conduta">
+                            <span class="horario-conduta">{{ conduta.criada_em|date:"d/m/Y" }}</span>
+                        </div>
+                        <p>{{ conduta.descricao }}</p>
                     </div>
-                    <p>{{ conduta.descricao }}</p>
-
-                </div>
-            {% endif %}
-        {% endfor %}
-    </div>
-
-</section>
-
-<section class="secao-condutas">
-    <h2>Outras condutas</h2>
-
-    <div class="condutas-container">
-
-        {% for conduta in consulta.condutas.all %}
-
-            {% if not conduta.critica %}
-                <div class="card-conduta">
-                    <div class="topo-conduta">
-                        <span class="horario-conduta">{{ conduta.criada_em|date:"d/m/Y" }}</span>
-
-                    </div>
-                    <p>{{ conduta.descricao }}</p>
-                </div>
-            {% endif %}
-        {% endfor %}
-    </div>
-</section>
-
-<section>
-    <h2>Protocolos utilizados</h2>
-
-    {% for protocolo in consulta.protocolos_utilizados.all %}
-
-        <div class="card-conduta">
-            <p>{{ protocolo.titulo }}</p>
+                {% endif %}
+            {% endfor %}
         </div>
+    </section>
 
-    {% empty %}
+    <section class="secao-condutas">
+        <h2>Outras condutas</h2>
+        <div class="condutas-container">
+            {% for conduta in consulta.condutas.all %}
+                {% if not conduta.critica %}
+                    <div class="card-conduta">
+                        <div class="topo-conduta">
+                            <span class="horario-conduta">{{ conduta.criada_em|date:"d/m/Y" }}</span>
+                        </div>
+                        <p>{{ conduta.descricao }}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </section>
 
-        <p>Nenhum protocolo utilizado.</p>
-
-    {% endfor %}
-</section>
+    <section>
+        <h2>Protocolos utilizados</h2>
+        {% for protocolo in consulta.protocolos_utilizados.all %}
+            <div class="card-conduta">
+                <p>{{ protocolo.titulo }}</p>
+            </div>
+        {% empty %}
+            <p>Nenhum protocolo utilizado.</p>
+        {% endfor %}
+    </section>
 
 </div>
+
+<!-- ===== MODAL EXPORTAR ===== -->
+<div id="modalExportar" class="modal-overlay" style="display:none;" onclick="if(event.target===this) fecharModalExportar()">
+    <div class="modal-box">
+
+        <!-- Cabeçalho: "Nome do médico:" + username + X -->
+        <div class="modal-header">
+            <div class="modal-header-left">
+                <span class="modal-title">Nome do médico:</span>
+                <span class="modal-username">{{ request.user.get_full_name|default:request.user.username }}</span>
+            </div>
+            <button class="modal-close" onclick="fecharModalExportar()">✕</button>
+        </div>
+
+        <!-- Campo de pesquisa -->
+        <div class="modal-search-wrapper">
+            <input
+                type="text"
+                id="campoPesquisaMedico"
+                class="modal-search-input"
+                placeholder="Pesquisar médico..."
+                oninput="filtrarMedicos()"
+                autocomplete="off"
+            />
+        </div>
+
+        <!-- Lista de médicos -->
+        <div class="modal-lista" id="listaMedicos">
+            {% for medico in medicos %}
+                <div
+                    class="medico-item"
+                    data-nome="{{ medico.nome|lower }}"
+                    onclick="selecionarMedico(this, {{ medico.id }}, '{{ medico.nome }}')"
+                >
+                    {{ medico.nome }}
+                </div>
+            {% endfor %}
+            <p class="sem-resultado" id="nenhumResultado" style="display:none;">Nenhum resultado</p>
+        </div>
+
+        <!-- Botão confirmar -->
+        <div class="modal-footer">
+            <button class="btn-confirmar" onclick="confirmarExportacao()">Confirmar</button>
+        </div>
+
+    </div><!-- fim .modal-box -->
+</div><!-- fim .modal-overlay -->
+
+<!-- ===== TOAST ===== -->
+<div id="toastConfirmacao" class="toast" style="display:none;"> Paciente foi exportado!</div>
+
+<!-- ===== JS ===== -->
+<script>
+    const PACIENTE_ID = {{ paciente.id }};
+    const EXPORTAR_URL = "{% url 'exportar_paciente' paciente.id %}";
+    const CSRF_TOKEN = "{{ csrf_token }}";
+</script>
+<script src="{% static 'dashboard/js/exportar.js' %}"></script>
+
 </body>
 </html>

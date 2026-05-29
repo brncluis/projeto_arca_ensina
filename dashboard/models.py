@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings #Leticia: Biblioteca para relacionar o usuario ao paciente exportado
 
 
 class Paciente (models.Model):
@@ -66,3 +67,51 @@ class Conduta(models.Model):
 
     def __str__(self):
         return self.descricao
+
+class Medico(models.Model):
+    
+    nome = models.CharField(max_length=200)
+    crm  = models.CharField(max_length=20, blank=True)
+    especialidade = models.CharField(max_length=100, blank=True)
+
+    class Meta:
+        ordering = ['nome']
+        verbose_name = 'Médico'
+        verbose_name_plural = 'Médicos'
+
+    def __str__(self):
+        return self.nome
+
+
+class PacienteExportado(models.Model):
+    
+    paciente       = models.ForeignKey(
+        'Paciente',                          # seu modelo de Paciente
+        on_delete=models.CASCADE,
+        related_name='exportacoes',
+        verbose_name='Paciente',
+    )
+    medico_destino = models.ForeignKey(
+        Medico,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='pacientes_recebidos',
+        verbose_name='Médico destino',
+    )
+    exportado_por = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='exportacoes_realizadas',
+        verbose_name='Exportado por',
+    )
+    data_exportacao = models.DateTimeField(auto_now_add=True, verbose_name='Data da exportação')
+
+    class Meta:
+        ordering = ['-data_exportacao']
+        verbose_name = 'Paciente Exportado'
+        verbose_name_plural = 'Pacientes Exportados'
+
+    def __str__(self):
+        medico = self.medico_destino.nome if self.medico_destino else 'Médico removido'
+        return f'{self.paciente} → {medico} ({self.data_exportacao:%d/%m/%Y %H:%M})'

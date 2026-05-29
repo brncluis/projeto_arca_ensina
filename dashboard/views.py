@@ -1,5 +1,10 @@
 from django.shortcuts import render, redirect
-from .models import Paciente, Consulta, Conduta
+import json
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.views.decorators.http import require_POST
+from .models import Paciente, Consulta, Conduta, Medico, PacienteExportado
 from datetime import date
 from django.utils import timezone
 
@@ -53,12 +58,15 @@ def prontuario_paciente(request, id):
         paciente=paciente
     ).first()
 
+    medicos = Medico.objects.all().order_by('nome')  # ← CORRIGIDO: passa médicos para o template
+
     return render(
         request,
         'dashboard/prontuario.html',
         {
             'paciente': paciente,
-            'consulta': consulta
+            'consulta': consulta,
+            'medicos': medicos,  # ← CORRIGIDO
         }
     )
 
@@ -125,7 +133,6 @@ def editar_paciente(request, id):
         consulta.diagnostico_provisorio = request.POST.get('diagnostico_provisorio')
         consulta.save()
 
-        # salva apenas as novas condutas adicionadas no front
         novas_condutas = request.POST.getlist('condutas[]')
         novas_criticas = request.POST.getlist('condutas_criticas[]')
 
@@ -234,3 +241,18 @@ def cadastrar_paciente(request):
         'dashboard/cadastrar.html',
         {'today': date.today()}
     )
+
+
+@login_required
+@require_POST
+def exportar_paciente(request, paciente_id):
+    body = json.loads(request.body)
+    medico_id = body.get('medico_id')
+    paciente = get_object_or_404(Paciente, pk=paciente_id)
+    medico = get_object_or_404(Medico, pk=medico_id)
+    PacienteExportado.objects.create(
+        paciente=paciente,
+        medico_destino=medico,
+        exportado_por=request.user,
+    )
+    return JsonResponse({'sucesso': True})

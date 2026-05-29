@@ -59,7 +59,7 @@ function mostrarAlerta(mensagem) {
         alertBox.className = 'alerta-confirmacao';
         document.body.appendChild(alertBox);
     }
-    alertBox.innerHTML = `<span>✅</span> ${mensagem}`;
+    alertBox.innerHTML = `<span></span> ${mensagem}`;
     alertBox.classList.add('mostrar');
     setTimeout(() => { alertBox.classList.remove('mostrar'); }, 3000);
 }

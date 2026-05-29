@@ -34,5 +34,9 @@ urlpatterns = [
         name='editar_paciente'
     ),
 
-
+    path(
+        'exportar/<int:paciente_id>/',
+        views.exportar_paciente,
+        name='exportar_paciente'
+    ),
 ]
