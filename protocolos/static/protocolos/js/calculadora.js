@@ -126,6 +126,9 @@ function calcular() {
     document.getElementById('bloco-dica').style.display = 'block';
     document.getElementById('bloco-prescricao').style.display = 'none';
 
+    document.getElementById('calculadora-placeholder').style.display = 'none';
+    document.getElementById('calculadora-resultado').style.display = 'block';
+
     mostrarAlerta('Cálculo realizado com sucesso!');
 }
 
