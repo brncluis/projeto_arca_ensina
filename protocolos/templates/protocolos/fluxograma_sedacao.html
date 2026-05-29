@@ -21,10 +21,8 @@
 <div class="container">
 
     <div class="header">
-        <a href="{% url 'protocolos' %}">
-            <button class="voltar-botton">
-                <span class= "seta"></span>
-            </button>
+        <a href="{% url 'protocolos' %}" class="btn-voltar">
+            <img src="{% static 'dashboard/icons/Seta_sair_vetorizada.png' %}" alt="Voltar">
         </a>
         <h1 class="titulo">Sedação</h1>
         <button class="estrela_de_favorito_2">⭐</button>
@@ -60,7 +58,7 @@
         <div class="fluxograma-header">
 
             
-            <button class="btn-resetar" onclick="resetarFluxograma()">🔄️Resetar</button>
+            <button class="btn-resetar" onclick="resetarFluxograma()">Resetar</button>
             <div class="progresso-contador">
                 <img
                     src="{% static 'protocolos/icons/Timer.svg' %}"

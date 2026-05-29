@@ -65,7 +65,7 @@ a {
 .titulo {
     font-family: 'CreatoDisplay', Arial, sans-serif;
     font-weight: 700;
-    margin-left: 20px;
+    margin-left: 0;
     color: #ffffff;
 }
 
@@ -75,7 +75,16 @@ a {
     color: #000000;
     background: none;
     border: none;
+    border-right: none;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.header a {
+    border: none;
+    outline: none;
+    text-decoration: none;
 }
 
 .btn-voltar img {
@@ -88,13 +97,18 @@ a {
     transform: scale(1.15);
 }
 
-.seta {
-    width: 10px;
-    height: 10px;
-    border-left: 2px solid #ffffff;
-    border-bottom: 2px solid #ffffff;
-    transform: rotate(45deg);
-    margin-left: 4px;
+.voltar-botton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 36px;
+    font-weight: 300;
+    color: #ffffff;
+    line-height: 1;
+    padding: 0 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .estrela_de_favorito,
