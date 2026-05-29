@@ -56,10 +56,47 @@ function confirmarExportacao() {
       fecharModalExportar();
       mostrarToast('Paciente foi exportado!');
     } else {
-      alert('Erro: ' + (data.erro || 'Tente novamente.'));
+      mostrarErro(data.erro || 'Tente novamente.');
     }
   })
-  .catch(() => alert('Erro de conexão.'));
+  .catch(() => mostrarErro('Erro de conexão.'));
+}
+
+function mostrarErro(mensagem) {
+  const erroExistente = document.getElementById('toastErro');
+  if (erroExistente) erroExistente.remove();
+
+  const erro = document.createElement('div');
+  erro.id = 'toastErro';
+  erro.textContent = mensagem;
+  erro.style.cssText = `
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #1a3a5c;
+    color: #fff;
+    padding: 13px 30px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 600;
+    z-index: 2000;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    font-family: 'Creato Display', 'Segoe UI', sans-serif;
+  `;
+  document.body.appendChild(erro);
+
+  void erro.offsetWidth;
+  erro.style.opacity = '1';
+  erro.style.transform = 'translateX(-50%) translateY(0)';
+
+  setTimeout(() => {
+    erro.style.opacity = '0';
+    erro.style.transform = 'translateX(-50%) translateY(20px)';
+    setTimeout(() => erro.remove(), 350);
+  }, 3500);
 }
 
 function mostrarToast(mensagem) {

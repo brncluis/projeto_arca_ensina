@@ -17,4 +17,3 @@ class PacienteExportadoAdmin(admin.ModelAdmin):
     search_fields  = ('paciente__nome', 'medico_destino__nome', 'exportado_por__username')
     readonly_fields = ('data_exportacao',)
     date_hierarchy  = 'data_exportacao'
- 

@@ -250,6 +250,18 @@ def exportar_paciente(request, paciente_id):
     medico_id = body.get('medico_id')
     paciente = get_object_or_404(Paciente, pk=paciente_id)
     medico = get_object_or_404(Medico, pk=medico_id)
+
+    ja_exportado = PacienteExportado.objects.filter(
+        paciente=paciente,
+        medico_destino=medico
+    ).exists()
+
+    if ja_exportado:
+        return JsonResponse({
+            'sucesso': False,
+            'erro': f'{paciente.nome_completo} já foi exportado para {medico.nome}.'
+        })
+
     PacienteExportado.objects.create(
         paciente=paciente,
         medico_destino=medico,
