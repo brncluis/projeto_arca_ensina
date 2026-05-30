@@ -39,4 +39,10 @@ urlpatterns = [
         views.exportar_paciente,
         name='exportar_paciente'
     ),
+
+    path(
+        'historico/',
+        views.historico,
+        name='historico'
+    ),
 ]

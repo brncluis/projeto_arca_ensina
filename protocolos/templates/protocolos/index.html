@@ -14,6 +14,7 @@
     <script defer src="{% static 'protocolos/js/fluxograma.js' %}"></script>
     <script defer src="{% static 'protocolos/js/filtro.js' %}"></script>
     <script defer src="{% static 'protocolos/js/modalFiltro.js' %}"></script>
+    <script defer src="{% static 'protocolos/js/favoritos.js' %}"></script>
 </head>
 
 
@@ -44,15 +45,15 @@
     </div>
 
     <div class="tabs">
-        <button class="tab ativo">Todos</button>
-        <button class="tab">Favoritos</button>
-        <button class="tab">Recentes</button>
+        <button class="tab ativo" onclick="mudarTab('todos', this)">Todos</button>
+        <button class="tab" onclick="mudarTab('favoritos', this)">Favoritos</button>
+        <button class="tab" onclick="mudarTab('recentes', this)">Recentes</button>
     </div>
 
     <div id="lista-protocolos">
 
     {% if mensagem %}
-        <p>{{ mensagem }}</p>
+        <p style="padding: 16px;">{{ mensagem }}</p>
     {% endif %}
 
     {% for protocolo in protocolos %}
@@ -65,15 +66,19 @@
             {% endif %}" 
             style="text-decoration: none;">
 
-            <div class="sub_header">
+            <div class="sub_header"
+            data-titulo="{{ protocolo.titulo }}"
+            data-id="{{ protocolo.id }}">
 
                 <div class="sub_header_interna">
 
                     <div class="primeiro_card">
                         <h2>{{ protocolo.titulo }}</h2>
 
-                        <button class="estrela_de_favorito">
-                            ⭐
+                        <button class="estrela_de_favorito" onclick="toggleFavorito(event, '{{ protocolo.id }}', '{{ protocolo.titulo }}')">
+                            <svg class="icone-estrela" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3b5fc0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
                         </button>
                     </div>
 
@@ -88,10 +93,11 @@
         </a>
 
     {% empty %}
-
-        <p>Nenhum protocolo encontrado.</p>
-
+        <p style="padding: 16px;">Nenhum protocolo encontrado.</p>
     {% endfor %}
+
+    <p id="msg-favoritos-vazio" style="display:none; padding: 16px;">Nenhum protocolo favoritado ainda.</p>
+    <p id="msg-recentes-vazio" style="display:none; padding: 16px;">Nenhum protocolo acessado recentemente.</p>
 
 </div> 
 

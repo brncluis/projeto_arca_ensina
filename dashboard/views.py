@@ -31,6 +31,15 @@ def lista_pacientes(request):
     )
 
 
+def historico(request):
+    pacientes = Paciente.objects.all().order_by('-ultimo_acesso')
+    return render(
+        request,
+        'dashboard/historico.html',
+        {'pacientes': pacientes}
+    )
+
+
 def historico_paciente(request, id):
     paciente = Paciente.objects.get(id=id)
 
