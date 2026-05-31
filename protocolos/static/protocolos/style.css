@@ -1058,3 +1058,159 @@ a {
         padding: 5px 8px;
     }
 }
+
+/* FLUXOGRAMA INTERATIVO - DENGUE */
+
+.fluxo-descricao {
+    background: rgba(255, 255, 255, 0.55);
+    border-radius: 12px;
+    padding: 14px 16px;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.6;
+
+    color: #1a1a1a;
+    white-space: pre-line;
+}
+
+.fluxo-opcoes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    margin-top: 4px;
+}
+
+.btn-opcao-fluxo {
+    width: 100%;
+
+    background: #ffffff;
+    color: #000000;
+
+    border: 2px solid transparent;
+    border-radius: 14px;
+
+    padding: 13px 16px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    text-align: left;
+    cursor: pointer;
+
+    transition: background 0.2s, border 0.2s, transform 0.2s;
+}
+
+.btn-opcao-fluxo:hover {
+    background: #dff3ff;
+    border-color: var(--azul);
+}
+
+.fluxo-escolha {
+    background: #ffffff;
+    border-left: 5px solid var(--azul-escuro);
+
+    border-radius: 12px;
+
+    padding: 12px 14px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    color: var(--azul-escuro);
+}
+
+.btn-voltar-etapa {
+    align-self: flex-start;
+
+    background: transparent;
+    color: var(--azul-escuro);
+
+    border: 2px solid var(--azul-escuro);
+    border-radius: 999px;
+
+    padding: 8px 14px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn-voltar-etapa:hover {
+    background: var(--azul-escuro);
+    color: #ffffff;
+}
+
+.fluxo-finalizado {
+    width: calc(100% - 32px);
+    margin: 18px auto 0;
+
+    background: #ffffff;
+    border-radius: 18px;
+
+    padding: 18px 20px;
+
+    box-shadow: var(--shadow);
+
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    text-align: center;
+}
+
+.fluxo-finalizado strong {
+    font-size: 18px;
+    color: #2e8b57;
+}
+
+.fluxo-finalizado span {
+    font-size: 14px;
+    color: #464545;
+}
+
+/* Ajuste para cards com mais conteúdo */
+
+.card-fluxo-interno {
+    gap: 16px;
+}
+
+.card-fluxo-wrap.concluido .fluxo-descricao {
+    background: rgba(255, 255, 255, 0.65);
+}
+
+.card-fluxo-wrap.concluido .fluxo-escolha {
+    border-left-color: #2e8b57;
+    color: #2e8b57;
+}
+
+/* Responsividade do fluxo interativo */
+
+@media (max-width: 640px) {
+    .fluxo-descricao {
+        font-size: 13px;
+        padding: 12px 14px;
+    }
+
+    .btn-opcao-fluxo {
+        font-size: 13px;
+        padding: 12px 14px;
+    }
+
+    .fluxo-card-topo {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .fluxo-etapa-titulo {
+        font-size: 15px;
+    }
+
+    .fluxo-finalizado {
+        width: calc(100% - 24px);
+    }
+}
