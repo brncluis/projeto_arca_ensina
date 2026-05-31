@@ -665,40 +665,78 @@ a {
     display: block;
 }
 
-.fluxograma-header {
-    display: flex;
-    gap: 10px;
-    padding: 16px 16px 4px;
+/* FOOTER DO FLUXOGRAMA */
+
+.fluxograma-footer {
+    padding: 12px 16px 16px;
 }
 
-.btn-resetar,
-.progresso-contador {
+.progresso-wrap {
     display: flex;
-    align-items: center;
-    gap: 8px;
-    border-radius: 14px;
-    padding: 12px 16px;
-    background: #ffffff;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px !important;
+}
+
+.progresso-titulo-row {
+    display: flex;
+    justify-content: space-between;
     font-size: 15px;
     font-weight: 600;
     color: #1a1a1a;
-    box-shadow: var(--shadow-sm);
 }
 
-.btn-resetar {
+.progresso-barra-bg {
+    width: 100%;
+    height: 10px;
+    background: #d0d8f0;
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.progresso-barra-fill {
+    height: 100%;
+    width: 0%;
+    background: #2d3db4;
+    border-radius: 99px;
+    transition: width 0.4s ease;
+}
+
+.btn-protocolo-concluido {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 13px;
+    background: #2d3db4;
+    color: #fff;
     border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: default;
+}
+
+.btn-reiniciar-protocolo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 13px;
+    background: #5b8cf5;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
     transition: background 0.2s;
 }
 
-.btn-resetar:hover {
-    background: #f1f1f1;
-}
-
-.icone-timer-header {
-    width: 16px;
-    height: 16px;
-    object-fit: contain;
+.btn-reiniciar-protocolo:hover {
+    background: #4a7be0;
 }
 
 /* LISTA DO FLUXOGRAMA */
@@ -927,15 +965,6 @@ a {
         font-size: 18px;
     }
 
-    .fluxograma-header {
-        padding: 12px 12px 12px;
-        gap: 8px;
-    }
-
-    .btn-resetar, .progresso-contador {
-        font-size: 13px;
-        padding: 10px 12px;
-    }
 }
 
 @media (max-width: 640px) {

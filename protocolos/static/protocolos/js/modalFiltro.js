@@ -51,9 +51,3 @@ function filtrarSintomas(termo) {
         grupo.style.display = temVisivel ? "block" : "none";
     });
 }
-
-function limparFiltros() {
-    document.querySelectorAll('input[name="sintomas"]').forEach(cb => {
-        cb.checked = false;
-    });
-}

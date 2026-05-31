@@ -185,14 +185,43 @@ function renderizarFluxograma() {
         });
 
         lista.appendChild(wrap);
+        
     });
+
+    // Footer de progresso
+        const footer = document.createElement("div");
+        footer.className = "fluxograma-footer";
+        footer.innerHTML = `
+            <div class="card-fluxo-wrap progresso-wrap">
+                <div class="progresso-titulo-row">
+                    <span>Progresso do protocolo</span>
+                    <span id="texto-progresso">${concluidos.filter(Boolean).length} / ${passos.length}</span>
+                </div>
+                <div class="progresso-barra-bg">
+                    <div class="progresso-barra-fill" id="progresso-barra" style="width: ${(concluidos.filter(Boolean).length / passos.length) * 100}%"></div>
+                </div>
+                ${concluidos.every(Boolean) ? `<button class="btn-protocolo-concluido" style="display:flex;" disabled>✔ Protocolo concluído</button>` : ""}
+                <button class="btn-reiniciar-protocolo" onclick="resetarFluxograma()">↺ Reiniciar protocolo</button>
+            </div>`;
+            
+        lista.appendChild(footer);
 }
 
 function atualizarProgresso() {
     const feitos = concluidos.filter(Boolean).length;
+    const total = passos.length;
 
-    document.getElementById("texto-progresso").textContent =
-        `${feitos} / ${passos.length} concluídos`;
+    document.getElementById("texto-progresso").textContent = `${feitos} / ${total}`;
+
+    const barra = document.getElementById("progresso-barra");
+    if (barra) {
+        barra.style.width = `${(feitos / total) * 100}%`;
+    }
+
+    const btnConcluido = document.getElementById("btn-protocolo-concluido");
+    if (btnConcluido) {
+        btnConcluido.style.display = feitos === total ? "flex" : "none";
+    }
 }
 
 function resetarFluxograma() {
@@ -206,6 +235,12 @@ function resetarFluxograma() {
     concluidos.fill(false);
     tempos.fill(0);
     etapaAtiva = null;
+
+    const barra = document.getElementById("progresso-barra");
+    if (barra) barra.style.width = "0%";
+
+    const btnConcluido = document.getElementById("btn-protocolo-concluido");
+    if (btnConcluido) btnConcluido.style.display = "none";
 
     atualizarProgresso();
     renderizarFluxograma();
