@@ -12,7 +12,7 @@ class Paciente (models.Model):
         ('F', 'Feminino')
     ]
     genero = models.CharField(max_length=1, choices=OPCOES)
-    altura = models.DecimalField(max_digits=4, decimal_places=2)
+    altura = models.DecimalField(max_digits=3, decimal_places=0)
     nome_mae = models.CharField(max_length=100)
     nome_pai = models.CharField(max_length=100)
     ultimo_acesso = models.DateTimeField(null=True, blank=True)

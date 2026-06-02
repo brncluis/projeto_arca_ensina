@@ -41,7 +41,7 @@
         <input type="number" name="peso" placeholder="Peso (kg)" step="0.01" value="{{ dados.peso }}" class="{% if erros.peso %}campo-invalido{% endif %}">
         {% if erros.peso %}<span class="erro">{{ erros.peso }}</span>{% endif %}
 
-        <input type="number" name="altura" placeholder="Altura (m)" step="0.01" value="{{ dados.altura }}" class="{% if erros.altura %}campo-invalido{% endif %}">
+        <input type="number" name="altura" placeholder="Altura (cm)" step="0.01" value="{{ dados.altura }}" class="{% if erros.altura %}campo-invalido{% endif %}">
         {% if erros.altura %}<span class="erro">{{ erros.altura }}</span>{% endif %}
 
         <input type="text" name="nome_mae" placeholder="Nome da mãe">
