@@ -686,21 +686,6 @@ a {
     color: #1a1a1a;
 }
 
-.progresso-barra-bg {
-    width: 100%;
-    height: 10px;
-    background: #d0d8f0;
-    border-radius: 99px;
-    overflow: hidden;
-}
-
-.progresso-barra-fill {
-    height: 100%;
-    width: 0%;
-    background: #2d3db4;
-    border-radius: 99px;
-    transition: width 0.4s ease;
-}
 
 .btn-protocolo-concluido {
     display: none;
@@ -755,6 +740,87 @@ a {
     height: 50px;
     font-size: 40px;
     color: #000000;
+}
+
+/* OPÇÕES DO FLUXOGRAMA */
+
+.fluxo-opcoes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.btn-opcao-fluxo {
+    width: 100%;
+    background: #4caf7d;
+    color: #ffffff;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.2s;
+}
+
+.btn-opcao-fluxo:hover {
+    background: #3a9e6a;
+}
+
+/* ESCOLHA REALIZADA */
+
+.fluxo-escolha {
+    background: #4caf7d;
+    color: #ffffff;
+    border-radius: 999px;
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+/* VOLTAR PARA ESTA ETAPA */
+
+.btn-voltar-etapa {
+    background: #4caf7d;
+    color: #ffffff;
+    border: none;
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: background 0.2s;
+    margin-top: 4px;
+}
+
+.btn-voltar-etapa:hover {
+    background: #3a9e6a;
+}
+
+/* DESCRIÇÃO DO CARD */
+
+.fluxo-descricao {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #1a1a1a;
+    line-height: 1.6;
+    white-space: pre-line;
+}
+
+/* RODAPÉ COM VOLTAR + CONCLUIR NAS EXTREMIDADES */
+
+.fluxo-card-rodape {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* CARD EXTERNO BRANCO */
