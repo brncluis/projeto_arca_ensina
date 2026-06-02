@@ -115,8 +115,8 @@ header {
     border-radius: 10px;
     padding: 0 20px;
     font-size: 13px;
-    background-color: #7aaef5;
-    color: white;
+    background-color: #ffffff;
+    color: #1a1a1a;
 }
 
 .form-group input:focus {
@@ -125,7 +125,7 @@ header {
 }
 
 input::placeholder {
-    color: white;
+    color: #000000;
 }
 
 .link-forgot {
@@ -174,10 +174,9 @@ input::placeholder {
 /* Rodapé do card */
 .login-signup {
     margin-top: 0px;
-    /* border-top: 1px solid #7aaef5; */
     padding: 20px 0 5px 0;
     text-align: center;
-    font-size: 13px;
+    font-size: 16px;
     color: #1a1a1a;
     line-height: 1.8;
 }
@@ -189,10 +188,12 @@ input::placeholder {
 
 .login-signup a {
     color: #1a1a1a;
-    font-weight: bold;
+    font-family: 'CreatoDisplay', Arial, sans-serif;
+    font-weight: 900;
     text-decoration: none;
     display: block;
     margin-top: 4px;
+    opacity: 0.7;
 }
 
 .login-signup a:hover {
@@ -239,8 +240,8 @@ input::placeholder {
     width: 20px;
     height: 20px;
     cursor: pointer;
-    opacity: 0.7;
-    filter: brightness(0) invert(1);
+    opacity: 1;
+    filter: brightness(0);
 }
 
 /* RESPONSIVIDADE MOBILE LOGIN E CADASTRO */
@@ -311,9 +312,9 @@ input::placeholder {
     .form-group input {
         height: 50px;
         border-radius: 25px;
-        background-color: #7aaef5;
+        background-color: #ffffff;
         font-size: 14px;
-        color: white;
+        color: #1a1a1a;
     }
 
     .btn-primary {
@@ -338,9 +339,9 @@ input::placeholder {
     }
 
     .login-signup {
-        font-size: 13px;
+        font-size: 16px;
         margin-top: 24px;
-        border-top: 1px solid rgba(255,255,255,0.5);
+        border-top: 1px solid #ffffff80;
         padding-top: 20px;
     }
 
@@ -349,6 +350,29 @@ input::placeholder {
         color: #1C3AA9;
         text-decoration: underline;
         display: inline;
+    }
+
+    .btn-login-secundario {
+        display: block;
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        background-color: #4285F4;
+        color: white !important;
+        border-radius: 25px;
+        font-size: 15px;
+        font-weight: bold;
+        text-decoration: none !important;
+        margin-top: 16px;
+        transition: background-color 0.3s, transform 0.2s;
+        opacity: 1 !important;
+        box-sizing: border-box;
+    }
+
+    .btn-login-secundario:hover {
+        background-color: #2c6fd4;
+        transform: scale(1.02);
     }
 }
 
@@ -379,6 +403,8 @@ input::placeholder {
     .form-group input {
         height: 48px;
         font-size: 13px;
+        background-color: #ffffff;
+        color: #1a1a1a;
     }
 
     .btn-primary {
@@ -393,6 +419,13 @@ input::placeholder {
     .link-forgot {
         font-size: 12px;
     }
+
+    .btn-login-secundario {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    font-size: 15px;
+}
 }
 
 @media (max-width: 360px) {
