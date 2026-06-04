@@ -125,7 +125,7 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  min-height: 150px;    /* ← adicione esta linha */
+  min-height: 150px; 
 }
 
 .modal-lista::-webkit-scrollbar { width: 4px; }
@@ -171,21 +171,22 @@
 }
 
 .btn-confirmar {
-  padding: 8px 28px;
-  background: #8FBFFA;
-  color: #000000;
-  border: none;
-  border-radius: 30px;          
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  font-family: 'Creato Display', 'Segoe UI', sans-serif;
-  transition: background 0.15s, transform 0.1s;
-  letter-spacing: 0.3px;
+    padding: 8px 28px;
+    background: #1C3AA9;
+    color: #ffffff;
+    border: none;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'CreatoDisplay', Arial, sans-serif;
+    transition: background 0.15s, transform 0.1s;
+    letter-spacing: 0.3px;
 }
+
 .btn-confirmar:hover {
-  background: #8FBFFA;
-  transform: translateY(-1px);
+    background: #4285F4;
+    transform: translateY(-1px);
 }
 .btn-confirmar:active {
   transform: translateY(0);
@@ -211,4 +212,55 @@
 .toast.visivel {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 768px) {
+    .modal-box {
+        width: 92vw;
+        border-radius: 16px;
+        min-height: 280px;
+    }
+
+    .modal-header {
+        padding: 14px 16px 12px;
+    }
+
+    .modal-search-wrapper {
+        padding: 12px 14px 6px;
+    }
+
+    .modal-lista {
+        padding: 6px 14px 10px;
+        min-height: 120px;
+    }
+
+    .modal-footer {
+        padding: 8px 14px 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-box {
+        width: 96vw;
+        border-radius: 14px;
+    }
+
+    .modal-header-left {
+        padding: 5px 14px;
+    }
+
+    .modal-title,
+    .modal-username {
+        font-size: 12px;
+    }
+
+    .medico-item {
+        font-size: 12px;
+        padding: 7px 14px;
+    }
+
+    .btn-confirmar {
+        font-size: 13px;
+        padding: 7px 22px;
+    }
 }

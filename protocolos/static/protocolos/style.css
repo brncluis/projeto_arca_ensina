@@ -65,8 +65,8 @@ a {
 .titulo {
     font-family: 'CreatoDisplay', Arial, sans-serif;
     font-weight: 700;
-    margin-left: 0;
-    color: #ffffff;
+    margin-left: 28px;
+    color: #1C3AA9;
 }
 
 .btn-voltar {
@@ -489,32 +489,38 @@ a {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: white;
-    font-size: 13px;
+    color: #1C3AA9;
+    font-size: 14px;
+    font-weight: 600;
     margin-bottom: 4px;
+}
+
+.calc-subtitulo svg {
+    stroke: #1C3AA9;
 }
 
 .calc-campo label {
     display: block;
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 6px;
-    color: #222;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #000000;
 }
 
 .calc-input,
 .calc-select {
     width: 100%;
-    padding: 12px 14px;
-    border-radius: 8px;
+    padding: 14px 16px;
+    border-radius: 12px;
     border: none;
     background-color: white;
     color: #000;
-    font-weight: bold;
-    font-size: 14px;
+    font-weight: 600;
+    font-size: 15px;
     appearance: none;
     -webkit-appearance: none;
     cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .calc-select {
@@ -546,6 +552,12 @@ a {
     transition: opacity 0.2s;
 }
 
+.calc-btn-ativo {
+    background-color: #4285F4;
+    color: #ffffff;
+    border: none;
+}
+
 .calc-btn:hover {
     opacity: 0.85;
 }
@@ -553,21 +565,25 @@ a {
 .calc-btn-secundario,
 .calc-btn-primario {
     background-color: white;
-    color: #333;
+    color: #000000;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 12px;
 }
 
 .calc-btn-preto {
-    background-color: #1a1a1a;
+    background-color: #1C3AA9;
     color: #fff;
+    border-radius: 12px;
 }
 
 .calc-coluna-dir {
     flex: 1;
-    height: 500px;
+    height: auto;
+    min-height: 400px;
     padding: 24px 32px;
-    background-color: var(--card-cat);
+    background-color: #BEE6FF;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 24px;
     margin-right: 24px;
     border-radius: 30px;
@@ -580,22 +596,24 @@ a {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 60px 40px;
+    padding: 40px 30px;
     color: black;
     background-color: white;
-    border-radius: 30px;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .calc-placeholder-titulo {
     font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 12px;
 }
 
 .calc-placeholder-texto {
     font-size: 14px;
     line-height: 1.6;
+    color: #464545;
     max-width: 280px;
 }
 
@@ -614,26 +632,27 @@ a {
     font-family: 'CreatoDisplay', Arial, sans-serif;
     font-weight: 700;
     font-size: 22px;
-    color: white;
+    color: #000000;
     margin-bottom: 6px;
 }
 
 .calc-tag-tipo {
-    background-color: white;
-    color: black;
+    background-color: #4285F4;
+    color: white;
     padding: 4px 10px;
-    border-radius: 4px;
+    border-radius: 20px;
     font-size: 12px;
+    font-weight: 600;
 }
 
 .calc-card {
     background-color: white;
-    border-radius: 10px;
+    border-radius: 14px;
     padding: 16px;
     font-size: 14px;
     color: #333;
     line-height: 1.5;
-    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .calc-res-dose-label {
@@ -647,7 +666,12 @@ a {
 }
 
 .calc-card-dica {
-    background-color: var(--bg);
+    background-color: #4285F4;
+    color: white;
+}
+
+.calc-card-dica p {
+    color: white;
 }
 
 .calc-card-prescricao {
@@ -975,112 +999,10 @@ a {
 
 @media (max-width: 768px) {
 
-    .header {
-        margin: 12px;
-        padding: 4px 0 12px;
-        gap: 10px;
-    }
-
     .titulo {
-        font-size: 20px;
+        font-size: 28px;
+        color: #1C3AA9;
         margin-left: 10px;
-    }
-
-    .busca-container {
-        flex-wrap: wrap;
-        gap: 8px;
-        width: calc(100% - 24px);
-        margin: 12px;
-    }
-
-    .busca {
-        width: 100%;
-        flex: unset;
-    }
-
-    .btn-filtrar {
-        flex: 1;
-        padding: 12px 8px;
-        font-size: 14px;
-    }
-
-    .tabs {
-        margin: 16px 12px 12px;
-    }
-
-    .tab {
-        font-size: 14px;
-        padding: 10px 6px;
-    }
-
-    .sub_header {
-        padding: 8px 12px;
-        gap: 10px;
-    }
-
-    .sub_header_interna {
-        border-radius: 14px;
-    }
-
-    .sub_header_interna_interna {
-        min-height: 80px;
-        font-size: 15px;
-    }
-
-    .primeiro_card h2 {
-        font-size: 18px;
-    }
-
-}
-
-@media (max-width: 640px) {
-
-    .busca-container {
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-
-    .busca {
-        flex: unset;
-        width: 100%;
-    }
-
-    .btn-filtrar {
-        flex: 1;
-        padding: 12px 8px;
-        font-size: 13px;
-    }
-
-    .tabs {
-        margin: 16px 16px 12px;
-    }
-
-    .tab {
-        font-size: 13px;
-        padding: 8px 6px;
-    }
-
-    .sub_header {
-        padding: 8px 16px;
-        gap: 10px;
-    }
-
-    .sub_header_interna {
-        border-radius: 14px;
-    }
-
-    .sub_header_interna_interna {
-        min-height: 80px;
-        font-size: 14px;
-    }
-
-    .primeiro_card h2 {
-        font-size: 17px;
-    }
-
-    .alinhamento {
-        flex-direction: column;
-        align-items: stretch;
     }
 
     .calc-layout {
@@ -1088,93 +1010,95 @@ a {
     }
 
     .calc-coluna-esq {
-        width: 100%;
-        border-bottom: none;
+        padding: 16px 12px;
+    }
+
+    .calc-campo label {
+        font-size: 15px;
+    }
+
+    .calc-input,
+    .calc-select {
+        padding: 14px 12px;
+        font-size: 14px;
+    }
+
+    .calc-botoes {
+        display: flex;
+        gap: 10px;
+        margin-top: 16px;
+    }
+
+    .calc-btn {
+        flex: 1;
+        padding: 14px 6px;
+        font-size: 14px;
+        border-radius: 12px;
     }
 
     .calc-coluna-dir {
-        height: auto;
-        margin: 0 20px 20px;
+        margin: 0 16px 24px;
         padding: 20px;
-    }
-
-    .fluxo-card-topo {
+        height: auto;
+        border-radius: 20px;
         align-items: flex-start;
     }
 
-    .timer-etapa {
-        min-width: 76px;
+    .calc-placeholder {
+        padding: 24px 20px;
+        border-radius: 16px;
     }
 
-    .modal-box.modal-duplo {
-    background: #ffffff;
-    padding: 0;
-    overflow: hidden;
+    .calc-placeholder-titulo {
+        font-size: 16px;
     }
 
-    .calc-coluna-esq {
-        padding: 20px;
+    .calc-resultado {
+        width: 100%;
     }
 
-    .calc-coluna-dir {
-        margin: 0 16px 16px;
-        padding: 16px;
-        height: auto;
+    .calc-res-header h2 {
+        font-size: 20px;
     }
-
 }
 
 @media (max-width: 480px) {
 
-    .header {
-        margin: 8px;
-    }
-
     .titulo {
-        font-size: 18px;
-        margin-left: 6px;
+        font-size: 24px;
     }
 
-    .busca-container {
-        margin: 8px;
-        width: calc(100% - 16px);
+    .calc-coluna-esq {
+        padding: 16px 12px;
     }
 
-    .btn-filtrar {
-        font-size: 13px;
-        padding: 10px 6px;
-    }
-
-    .tabs {
-        margin: 12px 8px 10px;
-    }
-
-    .tab {
-        font-size: 13px;
-        padding: 8px 4px;
-    }
-
-    .sub_header {
-        padding: 6px 8px;
-    }
-
-    .primeiro_card h2 {
-        font-size: 16px;
-    }
-
-    .sub_header_interna_interna {
-        font-size: 14px;
-        min-height: 70px;
-    }
-
-    .fluxo-etapa-titulo {
+    .calc-campo label {
         font-size: 15px;
     }
 
-    .timer-etapa {
-        font-size: 12px;
-        min-width: 70px;
-        padding: 5px 8px;
+    .calc-input,
+    .calc-select {
+        padding: 14px 12px;
+        font-size: 14px;
+    }
+
+    .calc-btn {
+        font-size: 13px;
+        padding: 12px 4px;
+    }
+
+    .calc-coluna-dir {
+        margin: 0 12px 20px;
+        padding: 16px;
+    }
+
+    .calc-res-header h2 {
+        font-size: 18px;
+    }
+
+    .calc-card {
+        padding: 14px;
+        font-size: 13px;
     }
 }
 
