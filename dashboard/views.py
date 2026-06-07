@@ -7,6 +7,7 @@ from django.views.decorators.http import require_POST
 from .models import Paciente, Consulta, Conduta, Medico, PacienteExportado
 from datetime import date
 from django.utils import timezone
+from .models import Paciente, Consulta, Conduta, Medico, PacienteExportado, Prescricao
 
 
 def dashboard(request):
@@ -277,3 +278,41 @@ def exportar_paciente(request, paciente_id):
         exportado_por=request.user,
     )
     return JsonResponse({'sucesso': True})
+@require_POST
+def prescrever(request):
+    try:
+        body        = json.loads(request.body)
+        paciente_id = body.get('paciente_id')
+        nome_med    = body.get('nome_medicamento', '').strip()
+        dose        = body.get('dose_calculada', '').strip()
+        peso        = body.get('peso_utilizado')
+
+        if not paciente_id or not nome_med or not dose or peso is None:
+            return JsonResponse({'sucesso': False, 'erro': 'Dados incompletos.'}, status=400)
+
+        paciente   = get_object_or_404(Paciente, pk=paciente_id)
+        prescricao = Prescricao.objects.create(
+            paciente         = paciente,
+            nome_medicamento = nome_med,
+            tipo_medicamento = body.get('tipo_medicamento', ''),
+            dose_calculada   = dose,
+            unidade          = body.get('unidade', ''),
+            peso_utilizado   = peso,
+        )
+
+        return JsonResponse({
+            'sucesso':  True,
+            'mensagem': f'{prescricao.dose_calculada} {prescricao.unidade} de {prescricao.nome_medicamento} foi prescrito para {paciente.nome_completo}.',
+        })
+
+    except (json.JSONDecodeError, ValueError) as e:
+        return JsonResponse({'sucesso': False, 'erro': str(e)}, status=400)
+
+
+def dados_paciente(request, paciente_id):
+    paciente = get_object_or_404(Paciente, pk=paciente_id)
+    return JsonResponse({
+        'nome':   paciente.nome_completo,
+        'peso':   float(paciente.peso),
+        'altura': float(paciente.altura),
+    })
