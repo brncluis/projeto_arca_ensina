@@ -45,4 +45,7 @@ urlpatterns = [
         views.historico,
         name='historico'
     ),
+
+    path('prescrever/', views.prescrever, name='prescrever'),
+    path('paciente/<int:paciente_id>/dados/', views.dados_paciente, name='dados_paciente'),
 ]
