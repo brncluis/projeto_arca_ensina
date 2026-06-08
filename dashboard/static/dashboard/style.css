@@ -78,16 +78,16 @@ body {
 }
 
 .header-text h1 {
-    font-size: 26px;
+    font-size: 32px;
     font-weight: bold;
-    color: var(--dark);
+    color: var(--azul-escuro);
     line-height: 1.2;
 }
 
 .header-text .cfm {
     margin-top: 4px;
     font-size: 13px;
-    color: var(--mid);
+    color: var(--azul-escuro);
     font-weight: 400;
 }
 
@@ -131,12 +131,8 @@ body {
     font-family: 'CreatoDisplay', Arial, sans-serif; 
     font-weight: 700;
     font-size: 24px;
-    color: var(--dark);
+    color: white;
     padding: 32px 0 18px;
-}
-
-.section-title--center {
-    text-align: center;
 }
 
 /* ══════════════════════════════
