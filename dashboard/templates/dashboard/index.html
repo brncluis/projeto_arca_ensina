@@ -25,8 +25,7 @@
             </div>
             <div class="header-divider"></div>
             <div class="header-text">
-                <p class="greeting">Bem-vindo(a)</p>
-                <h1>{{ request.user.username|capfirst }}</h1>
+                <h1>Dr.{{ request.user.username|capfirst }}</h1>
                 <p class="cfm">ID: {{ request.user.id_acesso }}</p>
             </div>
         </div>
@@ -149,7 +148,7 @@
         </div>
 
         <!-- HISTÓRICO -->
-        <p class="section-title section-title--center">Últimos atendimentos</p>
+        <p class="section-title">Últimos atendimentos</p>
 
         <!-- Lista desktop -->
         <div class="historico-list" id="histList">
