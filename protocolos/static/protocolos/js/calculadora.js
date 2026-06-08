@@ -101,6 +101,7 @@ function prescrever() {
     .then(data => {
         btn.disabled    = false;
         btn.textContent = 'Prescrever';
+        
         if (data.sucesso) {
             mostrarAlerta(`✅ ${data.mensagem}`);
             const bloco = document.getElementById('bloco-prescricao');

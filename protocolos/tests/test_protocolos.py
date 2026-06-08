@@ -12,7 +12,8 @@ from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import TimeoutException
 from datetime import date
 import time
-
+from usuarios.models import Usuario
+from dashboard.models import Prescricao
 from dashboard.models import Paciente, Consulta, Medico, PacienteExportado
 from protocolos.models import Protocolo
 from django.contrib.auth import get_user_model
@@ -426,3 +427,108 @@ class ExportarPacienteTests(StaticLiveServerTestCase):
 
         toast_erro = self.selenium.find_element(By.ID, 'toastErro')
         self.assertTrue(toast_erro.is_displayed())
+    
+
+class PrescreverMedicamentoTests(StaticLiveServerTestCase):
+
+    def setUp(self):
+        chrome_options = Options()
+        chrome_options.add_argument('--window-size=1280,960')
+        service = Service(ChromeDriverManager().install())
+        self.selenium = webdriver.Chrome(service=service, options=chrome_options)
+        self.selenium.implicitly_wait(5)
+
+        from usuarios.models import Usuario
+        self.usuario = Usuario.objects.create_superuser(
+            username='admin2',
+            email='admin2@teste.com',
+            password='admin123',
+            id_acesso='123456'
+        )
+
+        self.paciente = Paciente.objects.create(
+            nome_completo="Luis Top",
+            data_nascimento="2015-05-10",
+            peso=35.0, 
+            genero="F", 
+            altura=140,
+            nome_mae="Leticia", 
+            nome_pai="Davi"
+        )
+        
+        self.consulta = Consulta.objects.create(
+            paciente=self.paciente,
+            data_consulta=date.today(),
+            queixa_principal="Febre",
+            estado_geral="Regular"
+        )
+
+    def tearDown(self):
+        self.selenium.quit()
+
+    def login(self):
+        self.selenium.get(f'{self.live_server_url}/usuarios/login/')
+        time.sleep(1)
+        self.selenium.find_element(By.ID, 'id_acesso').clear()
+        self.selenium.find_element(By.ID, 'id_acesso').send_keys('123456')
+        self.selenium.find_element(By.ID, 'password').clear()
+        self.selenium.find_element(By.ID, 'password').send_keys('admin123')
+        self.selenium.find_element(By.CSS_SELECTOR, '[type=submit]').click()
+        time.sleep(2)
+
+    def test_fluxo_completo_prescrever_e_bloquear_repetido(self):
+        """Verifica o sucesso da prescrição, rola a página do prontuário, e depois testa o bloqueio de repetição."""
+        self.login()
+        
+        self.selenium.get(self.live_server_url + "/protocolos/calculadora/")
+        time.sleep(1)
+
+        select_paciente = Select(self.selenium.find_element(By.ID, "select-paciente"))
+        select_paciente.select_by_value(str(self.paciente.id))
+        time.sleep(2) 
+
+        select_med = Select(self.selenium.find_element(By.ID, "medicacao"))
+        select_med.select_by_value("dipirona")
+        time.sleep(1) 
+
+        btn_prescrever = self.selenium.find_element(By.ID, "btn-prescrever")
+        btn_prescrever.click()
+        time.sleep(2) 
+
+        url_prontuario = reverse('prontuario_paciente', args=[self.paciente.id])
+        self.selenium.get(self.live_server_url + url_prontuario)
+        time.sleep(2) 
+
+        self.selenium.execute_script("window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });")
+        time.sleep(3) 
+
+        body_text = self.selenium.find_element(By.TAG_NAME, "body").text
+        self.assertIn("Medicamentos prescritos", body_text)
+        self.assertIn("Dipirona", body_text)
+
+        self.selenium.get(self.live_server_url + "/protocolos/calculadora/")
+        time.sleep(1)
+
+        # Preenche tudo de novo
+        select_paciente = Select(self.selenium.find_element(By.ID, "select-paciente"))
+        select_paciente.select_by_value(str(self.paciente.id))
+        time.sleep(2)
+
+        select_med = Select(self.selenium.find_element(By.ID, "medicacao"))
+        select_med.select_by_value("dipirona")
+        time.sleep(1)
+
+        btn_prescrever = self.selenium.find_element(By.ID, "btn-prescrever")
+        btn_prescrever.click()
+        time.sleep(1.5) 
+
+        try:
+            toast_erro = WebDriverWait(self.selenium, 3).until(
+                EC.visibility_of_element_located((By.ID, "alerta-flutuante"))
+            )
+            
+            texto_erro = toast_erro.text
+            self.assertIn("já está prescrito", texto_erro.lower())
+            
+        except TimeoutException:
+            self.fail("O pop-up (toast) de erro não foi exibido na tela ao tentar prescrever repetido.")
