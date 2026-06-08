@@ -68,7 +68,9 @@ def prontuario_paciente(request, id):
         paciente=paciente
     ).first()
 
-    medicos = Medico.objects.all().order_by('nome')  # ← CORRIGIDO: passa médicos para o template
+    medicos = Medico.objects.all().order_by('nome')
+
+    prescricoes = paciente.prescricoes.all() 
 
     return render(
         request,
@@ -76,7 +78,8 @@ def prontuario_paciente(request, id):
         {
             'paciente': paciente,
             'consulta': consulta,
-            'medicos': medicos,  # ← CORRIGIDO
+            'medicos': medicos,
+            'prescricoes': prescricoes,  
         }
     )
 
@@ -278,6 +281,7 @@ def exportar_paciente(request, paciente_id):
         exportado_por=request.user,
     )
     return JsonResponse({'sucesso': True})
+
 @require_POST
 def prescrever(request):
     try:
@@ -290,7 +294,19 @@ def prescrever(request):
         if not paciente_id or not nome_med or not dose or peso is None:
             return JsonResponse({'sucesso': False, 'erro': 'Dados incompletos.'}, status=400)
 
-        paciente   = get_object_or_404(Paciente, pk=paciente_id)
+        paciente = get_object_or_404(Paciente, pk=paciente_id)
+
+        medicamento_ja_prescrito = Prescricao.objects.filter(
+            paciente=paciente,
+            nome_medicamento__iexact=nome_med
+        ).exists()
+
+        if medicamento_ja_prescrito:
+            return JsonResponse({
+                'sucesso': False, 
+                'erro': f'O medicamento "{nome_med}" já está prescrito para este paciente.'
+            }, status=400)
+
         prescricao = Prescricao.objects.create(
             paciente         = paciente,
             nome_medicamento = nome_med,
