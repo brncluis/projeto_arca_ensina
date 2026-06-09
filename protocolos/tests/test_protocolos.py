@@ -12,6 +12,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import TimeoutException
 from datetime import date
 import time
+import os
 from usuarios.models import Usuario
 from dashboard.models import Prescricao
 from dashboard.models import Paciente, Consulta, Medico, PacienteExportado
@@ -28,6 +29,11 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
 
         chrome_options = Options()
         chrome_options.add_argument('--window-size=1280,960')
+
+        if os.environ.get('CI') == 'true':
+            chrome_options.add_argument('--headless=new')
+            chrome_options.add_argument('--no-sandbox')
+            chrome_options.add_argument('--disable-dev-shm-usage')
 
         service = Service(ChromeDriverManager().install())
         cls.selenium = webdriver.Chrome(
@@ -223,6 +229,12 @@ class ExportarPacienteTests(StaticLiveServerTestCase):
     def setUp(self):
         chrome_options = Options()
         chrome_options.add_argument('--window-size=1280,960')
+
+        if os.environ.get('CI') == 'true':
+            chrome_options.add_argument('--headless=new')
+            chrome_options.add_argument('--no-sandbox')
+            chrome_options.add_argument('--disable-dev-shm-usage')
+
         service = Service(ChromeDriverManager().install())
         self.selenium = webdriver.Chrome(service=service, options=chrome_options)
         self.selenium.implicitly_wait(5)
@@ -373,6 +385,12 @@ class PrescreverMedicamentoTests(StaticLiveServerTestCase):
     def setUp(self):
         chrome_options = Options()
         chrome_options.add_argument('--window-size=1280,960')
+        
+        if os.environ.get('CI') == 'true':
+            chrome_options.add_argument('--headless=new')
+            chrome_options.add_argument('--no-sandbox')
+            chrome_options.add_argument('--disable-dev-shm-usage')
+
         service = Service(ChromeDriverManager().install())
         self.selenium = webdriver.Chrome(service=service, options=chrome_options)
         self.selenium.implicitly_wait(5)
@@ -479,6 +497,12 @@ class CadastrarPacienteTests(StaticLiveServerTestCase):
         # 1. Configuração do Chrome
         chrome_options = Options()
         chrome_options.add_argument('--window-size=1280,960')
+
+        if os.environ.get('CI') == 'true':
+            chrome_options.add_argument('--headless=new')
+            chrome_options.add_argument('--no-sandbox')
+            chrome_options.add_argument('--disable-dev-shm-usage')
+
         service = Service(ChromeDriverManager().install())
         self.selenium = webdriver.Chrome(service=service, options=chrome_options)
         self.selenium.implicitly_wait(5)
@@ -566,6 +590,12 @@ class BaseSeleniumTests(StaticLiveServerTestCase):
         super().setUpClass()
         chrome_options = Options()
         chrome_options.add_argument("--window-size=1280,960")
+        
+        if os.environ.get('CI') == 'true':
+            chrome_options.add_argument('--headless=new')
+            chrome_options.add_argument('--no-sandbox')
+            chrome_options.add_argument('--disable-dev-shm-usage')
+
         service = Service(ChromeDriverManager().install())
         cls.selenium = webdriver.Chrome(service=service, options=chrome_options)
         cls.selenium.implicitly_wait(5)
@@ -694,6 +724,12 @@ class FluxogramaTests(StaticLiveServerTestCase):
         super().setUpClass()
         chrome_options = Options()
         chrome_options.add_argument("--window-size=1280,960")
+        
+        if os.environ.get('CI') == 'true':
+            chrome_options.add_argument('--headless=new')
+            chrome_options.add_argument('--no-sandbox')
+            chrome_options.add_argument('--disable-dev-shm-usage')
+
         service = Service(ChromeDriverManager().install())
         cls.selenium = webdriver.Chrome(service=service, options=chrome_options)
         cls.selenium.implicitly_wait(5)
