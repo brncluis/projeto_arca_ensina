@@ -957,8 +957,13 @@ a {
     background: #142b7d;
 }
 
-.btn-concluir-etapa:disabled {
+.btn-concluir-etapa:enabled {
     background: #2e8b57;
+    cursor: default;
+}
+
+.btn-concluir-etapa:disabled {
+    background: #142b7d;
     cursor: default;
 }
 

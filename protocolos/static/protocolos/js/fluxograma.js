@@ -878,7 +878,7 @@ function renderizarFluxograma() {
                             <button
                                 type="button"
                                 class="btn-concluir-etapa"
-                                disabled
+                                
                             >
                                 ✓ Concluída
                             </button>
