@@ -753,6 +753,49 @@ class ListaProtocolosTests(BaseSeleniumTests):
 
         self.assertIn("/login/", self.selenium.current_url)
 
+    def test_busca_por_sintoma_exibe_protocolos_correspondentes(self):
+        """
+        Dado que o médico está autenticado no sistema e existem protocolos
+        cadastrados com aqueles sintomas no conteúdo,
+        Quando o médico informa um ou alguns sintomas do paciente,
+        Então o sistema deve exibir os protocolos que citam aqueles sintomas
+        informados.
+        """
+        self.selenium.get(self.url_protocolos)
+
+        campo_busca = WebDriverWait(self.selenium, 10).until(
+            EC.presence_of_element_located(
+                (By.CSS_SELECTOR, "input[placeholder='Buscar protocolos...']")
+            )
+        )
+
+        todos_os_cards = [
+            c
+            for c in self.selenium.find_elements(By.CLASS_NAME, "sub_header")
+            if c.is_displayed()
+        ]
+        total_sem_filtro = len(todos_os_cards)
+
+        campo_busca.send_keys("febre")
+        time.sleep(1)
+
+        cards_filtrados = [
+            c
+            for c in self.selenium.find_elements(By.CLASS_NAME, "sub_header")
+            if c.is_displayed()
+        ]
+
+        self.assertGreater(
+            len(cards_filtrados),
+            0,
+            "Nenhum protocolo foi exibido após informar o sintoma.",
+        )
+        self.assertLessEqual(
+            len(cards_filtrados),
+            total_sem_filtro,
+            "O filtro deveria reduzir ou manter o número de protocolos exibidos.",
+        )
+
     def test_sem_sintoma_informado_exibe_todos_os_protocolos(self):
         """
         Dado que o médico está autenticado no sistema,
