@@ -137,6 +137,7 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
         """
 
         self.selenium.get(self.url_calculadora)
+        time.sleep(1)
 
         select_element = WebDriverWait(self.selenium, 5).until(
             EC.presence_of_element_located((By.ID, "select-paciente"))
