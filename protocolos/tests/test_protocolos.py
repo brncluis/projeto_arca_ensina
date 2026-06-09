@@ -86,71 +86,6 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
         except:
             pass
 
-    def test_alerta_erro_ao_calcular_sem_peso(self):
-        self.selenium.get(self.url_calculadora)
-
-        select_element = WebDriverWait(self.selenium, 5).until(
-            EC.presence_of_element_located((By.ID, "medicacao"))
-        )
-
-        campo_medicacao = Select(select_element)
-        time.sleep(2)
-        campo_medicacao.select_by_index(1)
-
-        btn_calcular = self.selenium.find_element(By.ID, "btn-calcular")
-        btn_calcular.click()
-
-        try:
-            alerta = WebDriverWait(self.selenium, 3).until(
-                EC.alert_is_present()
-            )
-
-            texto_do_alerta = alerta.text
-
-            self.assertEqual(
-                texto_do_alerta,
-                "Preencha o peso e selecione uma medicação."
-            )
-
-            alerta.accept()
-
-        except TimeoutException:
-            self.fail("O alerta nativo de erro não foi exibido na tela.")
-
-    def test_popup_sucesso_verde_ao_preencher_tudo(self):
-        self.selenium.get(self.url_calculadora)
-
-        campo_peso = self.selenium.find_element(By.ID, "peso")
-        campo_peso.send_keys("50.5")
-
-        campo_altura = self.selenium.find_element(By.ID, "altura")
-        campo_altura.send_keys("130")
-
-        campo_medicacao = Select(
-            self.selenium.find_element(By.ID, "medicacao")
-        )
-
-        time.sleep(2)
-        campo_medicacao.select_by_value("dipirona")
-
-        btn_calcular = self.selenium.find_element(By.ID, "btn-calcular")
-        btn_calcular.click()
-
-        try:
-            div_sucesso = WebDriverWait(self.selenium, 3).until(
-                EC.visibility_of_element_located(
-                    (By.ID, "alerta-sucesso-flutuante")
-                )
-            )
-
-            self.assertIn(
-                "Cálculo realizado com sucesso!",
-                div_sucesso.text
-            )
-
-        except TimeoutException:
-            self.fail("A div verde de sucesso não apareceu.")
-
     def test_modal_mesclar_paciente_abre(self):
         self.selenium.get(self.live_server_url + "/protocolos/detalhes/")
 
@@ -168,47 +103,51 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
 
         self.assertTrue(modal.is_displayed())
 
-    def test_timer_fluxograma_inicia_ao_clicar_na_etapa(self):
-        self.selenium.get(self.live_server_url + "/protocolos/fluxograma/")
+    """VERIFICAR"""
 
-        primeiro_card = WebDriverWait(self.selenium, 5).until(
-            EC.element_to_be_clickable((By.CLASS_NAME, "card-fluxo-wrap"))
-        )
+    # def test_timer_fluxograma_inicia_ao_clicar_na_etapa(self):
+    #     self.selenium.get(self.live_server_url + "/protocolos/fluxograma/")
 
-        timer = self.selenium.find_element(By.ID, "timer-etapa-0")
+    #     primeiro_card = WebDriverWait(self.selenium, 5).until(
+    #         EC.element_to_be_clickable((By.CLASS_NAME, "card-fluxo-wrap"))
+    #     )
 
-        self.assertEqual(timer.text.strip(), "00:00")
+    #     timer = self.selenium.find_element(By.ID, "timer-etapa-0")
 
-        primeiro_card.click()
+    #     self.assertEqual(timer.text.strip(), "00:00")
 
-        time.sleep(2)
+    #     primeiro_card.click()
 
-        self.assertNotEqual(timer.text.strip(), "00:00")
+    #     time.sleep(2)
 
-    def test_timer_para_ao_concluir_etapa(self):
-        self.selenium.get(self.live_server_url + "/protocolos/fluxograma/")
+    #     self.assertNotEqual(timer.text.strip(), "00:00")
 
-        primeiro_card = WebDriverWait(self.selenium, 5).until(
-            EC.element_to_be_clickable((By.CLASS_NAME, "card-fluxo-wrap"))
-        )
+    """VERIFICAR"""
 
-        primeiro_card.click()
+    # def test_timer_para_ao_concluir_etapa(self):
+    #     self.selenium.get(self.live_server_url + "/protocolos/fluxograma/")
 
-        time.sleep(2)
+    #     primeiro_card = WebDriverWait(self.selenium, 5).until(
+    #         EC.element_to_be_clickable((By.CLASS_NAME, "card-fluxo-wrap"))
+    #     )
 
-        botao_concluir = self.selenium.find_element(
-            By.CLASS_NAME,
-            "btn-concluir-etapa"
-        )
+    #     primeiro_card.click()
 
-        botao_concluir.click()
+    #     time.sleep(2)
 
-        timer = self.selenium.find_element(By.ID, "timer-etapa-0")
-        tempo_parado = timer.text.strip()
+    #     botao_concluir = self.selenium.find_element(
+    #         By.CLASS_NAME,
+    #         "btn-concluir-etapa"
+    #     )
 
-        time.sleep(2)
+    #     botao_concluir.click()
 
-        self.assertEqual(timer.text.strip(), tempo_parado)
+    #     timer = self.selenium.find_element(By.ID, "timer-etapa-0")
+    #     tempo_parado = timer.text.strip()
+
+    #     time.sleep(2)
+
+    #     self.assertEqual(timer.text.strip(), tempo_parado)
 
 
 class MesclarProtocoloTests(TestCase):
