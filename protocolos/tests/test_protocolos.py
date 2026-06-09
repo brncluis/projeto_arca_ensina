@@ -12,6 +12,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import TimeoutException
 from datetime import date
 import time
+import os
 from usuarios.models import Usuario
 from dashboard.models import Prescricao
 from dashboard.models import Paciente, Consulta, Medico, PacienteExportado
@@ -28,6 +29,12 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
 
         chrome_options = Options()
         chrome_options.add_argument('--window-size=1280,960')
+
+        if os.environ.get('GITHUB_ACTIONS') == 'true':
+            chrome_options.add_argument('--headless=new')
+            chrome_options.add_argument('--no-sandbox')
+            chrome_options.add_argument('--disable-dev-shm-usage')
+            chrome_options.add_argument('--disable-gpu')
 
         service = Service(ChromeDriverManager().install())
         cls.selenium = webdriver.Chrome(
