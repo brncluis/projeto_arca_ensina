@@ -41,10 +41,10 @@
 - Antonio Gabriel Orrico:
 - Davi Maltez:
 - José Milton:
-- Letícia Siqueira:
+- Letícia Siqueira: lmss4@cesar.school
 - Luis Alves:
-- Luísa Fisher:
+- Luísa Fisher: lfvm@cesar.school
 - Luiz Costa:
 - Marcus Barbosa:
-- Sofia vilella:
+- Sofia villela: svv@cesar.school
 - Thiago Spinola:
