@@ -724,7 +724,12 @@ a {
     border-radius: 12px;
     font-size: 15px;
     font-weight: 600;
-    cursor: default;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-protocolo-concluido:hover {
+    background: #142b7d;
 }
 
 .btn-reiniciar-protocolo {
@@ -777,7 +782,7 @@ a {
 
 .btn-opcao-fluxo {
     width: 100%;
-    background: #4caf7d;
+    background: var(--azul-escuro);
     color: #ffffff;
     border: none;
     border-radius: 999px;
@@ -790,7 +795,12 @@ a {
 }
 
 .btn-opcao-fluxo:hover {
-    background: #3a9e6a;
+    background: #142b7d;
+}
+
+.btn-opcao-fluxo.selecionada {
+    background: #4caf7d;
+    outline: 3px solid #2e8b57;
 }
 
 /* ESCOLHA REALIZADA */
@@ -808,7 +818,7 @@ a {
 /* VOLTAR PARA ESTA ETAPA */
 
 .btn-voltar-etapa {
-    background: #4caf7d;
+    background: var(--azul-escuro);
     color: #ffffff;
     border: none;
     border-radius: 999px;
@@ -822,7 +832,7 @@ a {
 }
 
 .btn-voltar-etapa:hover {
-    background: #3a9e6a;
+    background: #142b7d;
 }
 
 /* DESCRIÇÃO DO CARD */
@@ -1145,4 +1155,17 @@ a {
 
 .sugestao-vazio:hover {
     background: none;
+}
+
+/* BANNER FLUXOGRAMA INTERATIVO */
+
+.fluxograma-banner {
+    background: #4285F4;
+    color: #ffffff;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 14px;
+    border-radius: 12px;
+    margin: 12px 16px 4px;
 }

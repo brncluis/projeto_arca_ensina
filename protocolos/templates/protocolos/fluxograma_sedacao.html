@@ -49,16 +49,15 @@
     </div>
 
 
-    <div class="tabs2">
-        <a href="{% url 'detalhes_sedacao' %}" class="tab2">Detalhes</a>
-        <button class="tab ativo2"       id="tab-fluxograma" onclick="mudarAba('fluxograma')">Fluxograma</button>
-    </div>
+
 
 <!--PARTE FLUXOGRAMA (LULA)-->
     <div class="tab-content" id="conteudo-fluxograma">
- 
+        <script>
+            const URL_PROTOCOLOS = "{% url 'protocolos' %}";
+        </script>
         <!-- Barra: Resetar + Contador -->
-         
+        <div class="fluxograma-banner">Fluxograma Interativo</div>
         <div class="fluxograma-header">
 
  
