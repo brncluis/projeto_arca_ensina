@@ -19,9 +19,6 @@ Usuario = get_user_model()
 def login_view(request):
 
     # impede usuário logado de acessar login novamente
-    '''if request.user.is_authenticated:
-
-        return redirect('dashboard')'''
 
     erro = None
 
@@ -162,10 +159,6 @@ def logout_view(request):
 # INDEX
 
 def index_view(request):
-
-    if not request.user.is_authenticated:
-
-        return redirect('login')
 
     return render(
 

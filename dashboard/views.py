@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 import json
-from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
@@ -256,7 +255,6 @@ def cadastrar_paciente(request):
     )
 
 
-@login_required
 @require_POST
 def exportar_paciente(request, paciente_id):
     body = json.loads(request.body)

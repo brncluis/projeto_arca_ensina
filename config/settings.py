@@ -15,6 +15,13 @@ if RENDER_EXTERNAL_HOSTNAME:
 
 AUTH_USER_MODEL = 'usuarios.Usuario'
 
+LOGIN_URL = 'login'
+
+LOGIN_REQUIRED_IGNORE_VIEW_NAMES = [
+    'login',
+    'register',
+]
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -26,6 +33,7 @@ INSTALLED_APPS = [
     'usuarios',
     'dashboard',
     'protocolos',
+    'login_required',
 ]
 
 MIDDLEWARE = [
@@ -37,6 +45,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'login_required.middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
