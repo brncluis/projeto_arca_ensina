@@ -2,7 +2,7 @@
 ### Olá, nós somos o Lumos!
 - Um Projeto voltado para transformar atendimentos pediátricos em processos mais ágeis e precisos com a reformulação da aplicação Web da Arca Ensina que disponibiliza procedimentos médicos voltados para pediatras recém-formados.
 - Descrição do projeto:
-- Link do LUMOS: 
+- Link do LUMOS: https://arca-ensina.onrender.com
 
 ### Tecnologias utilizadas:
 - Figma (Prototipação dos Wireframes)
@@ -16,26 +16,24 @@
 ## Entregas SR2
 #### 1. Histórias de Usuário
 - link: https://docs.google.com/document/d/1zGFzDu3PnlFmveNXsWsdLlEUHGExox8XbkJMA5MO7gU/edit?usp=sharing
-#### 2. Figma:
-- link dos wireframes: https://www.figma.com/design/OaOS5tW1X3IYxRWsAVFQYz/Arca-Ensina--Prot%C3%B3tipo-de-Alta-Fidelidade-?node-id=0-1&t=YcmoLWeNy6xCIx5W-1
-#### 3. Jira (Ferramenta Ágil)
+#### 2. Jira (Ferramenta Ágil)
 - link: https://davi-jira.atlassian.net/?continue=https%3A%2F%2Fdavi-jira.atlassian.net%2Fwelcome%2Fsoftware%3FprojectId%3D10034&atlOrigin=eyJpIjoiY2Y1MjU1NDliNTMxNDk4ZGJlM2Y5NzVhYTQ1Y2UyYWUiLCJwIjoiamlyYS1zb2Z0d2FyZSJ9
 - Fotos: 
-#### 4. Vídeo Do Protótipo:
-- link:
-#### 5. Deployment (RENDER):
-- Link do LUMOS:
+#### 3. Deployment (RENDER):
+- Link do LUMOS: https://arca-ensina.onrender.com
 - Screencast do sistema: 
-#### 6. Issue/Bug Tracker:
+#### 4. Issue/Bug Tracker:
 - Foto:
-#### 7. Testes Automatizados (E2E Selenium):
+#### 5. Testes Automatizados (E2E Selenium):
 - Link Screencast:
-#### 8. CI/CD: 
+#### 6. CI/CD: 
 - Link Screencast:
-#### 9. Pair Programming:
+#### 7. Pair Programming:
 - link: https://docs.google.com/document/d/1Om4YsJcrm7x5vpw2RjUWaLttKH6Gy_2jIVOOeKEQsLg/edit?tab=t.0
-#### 10. Materiais de Design e Organização do projeto: 
-- Links: 
+#### 8. Materiais de Design e Organização do projeto: 
+- Moodboard : https://www.figma.com/board/WSMSkAPx7e3ZNxxJGH7ehB/Moodboard-Arca?node-id=0-1&p=f&t=AuVnpxLQUxeZ1prR-0
+- Manual de marca:
+- Protótipos de alta e média fidelidade: https://www.figma.com/design/OaOS5tW1X3IYxRWsAVFQYz/Arca-Ensina--Prot%C3%B3tipo-de-Alta-Fidelidade-?node-id=0-1&t=YcmoLWeNy6xCIx5W-1
 
 
 ## Equipe
