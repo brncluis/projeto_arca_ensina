@@ -532,3 +532,90 @@ class PrescreverMedicamentoTests(StaticLiveServerTestCase):
             
         except TimeoutException:
             self.fail("O pop-up (toast) de erro não foi exibido na tela ao tentar prescrever repetido.")
+
+
+class CadastrarPacienteTests(StaticLiveServerTestCase):
+
+    def setUp(self):
+        # 1. Configuração do Chrome
+        chrome_options = Options()
+        chrome_options.add_argument('--window-size=1280,960')
+        service = Service(ChromeDriverManager().install())
+        self.selenium = webdriver.Chrome(service=service, options=chrome_options)
+        self.selenium.implicitly_wait(5)
+
+        from usuarios.models import Usuario
+        self.usuario = Usuario.objects.create_superuser(
+            username='medico_intensivista',
+            email='medico@teste.com',
+            password='admin123',
+            id_acesso='123456'
+        )
+
+    def tearDown(self):
+        self.selenium.quit()
+
+    def login(self):
+        """Função auxiliar para o robô fazer o login antes de testar"""
+        self.selenium.get(f'{self.live_server_url}/usuarios/login/')
+        time.sleep(1)
+        self.selenium.find_element(By.ID, 'id_acesso').clear()
+        self.selenium.find_element(By.ID, 'id_acesso').send_keys('123456')
+        self.selenium.find_element(By.ID, 'password').clear()
+        self.selenium.find_element(By.ID, 'password').send_keys('admin123')
+        self.selenium.find_element(By.CSS_SELECTOR, '[type=submit]').click()
+        time.sleep(2)
+
+    def test_cenario_positivo_cadastrar_novo_paciente(self):
+        """
+        Cenário Positivo:
+        Dado que o médico está cadastrado no sistema
+        Quando o médico abre a tela de cadastro e informa os dados do novo paciente
+        Então o sistema salva as informações e redireciona com sucesso
+        """
+        self.login()
+        
+        self.selenium.get(self.live_server_url + "/dashboard/cadastrar/")
+        time.sleep(1)
+
+        self.selenium.find_element(By.NAME, "nome_completo").send_keys("Carlos Eduardo")
+        self.selenium.find_element(By.NAME, "data_nascimento").send_keys("15/08/1985")
+        self.selenium.find_element(By.NAME, "peso").send_keys("80.5")
+        self.selenium.find_element(By.NAME, "altura").send_keys("180")
+        
+        select_genero = Select(self.selenium.find_element(By.NAME, "genero"))
+        select_genero.select_by_value("M")
+
+        botao_salvar = self.selenium.find_element(By.CSS_SELECTOR, "button[type='submit']")
+        botao_salvar.click()
+        time.sleep(2) 
+
+        quantidade_pacientes = Paciente.objects.count()
+        self.assertEqual(quantidade_pacientes, 1)
+        
+        paciente_salvo = Paciente.objects.first()
+        self.assertEqual(paciente_salvo.nome_completo, "Carlos Eduardo")
+        self.assertEqual(float(paciente_salvo.peso), 80.5)
+
+    def test_cenario_negativo_tentar_salvar_sem_dados_obrigatorios(self):
+        """
+        Cenário Negativo:
+        Dado que o médico está na tela de cadastro
+        Quando tenta salvar o cadastro do paciente sem os dados obrigatórios
+        Então o sistema deve exibir mensagem de erro e não salva o registro
+        """
+        self.login()
+        
+        self.selenium.get(self.live_server_url + "/dashboard/cadastrar/")
+        time.sleep(1)
+
+        botao_salvar = self.selenium.find_element(By.CSS_SELECTOR, "button[type='submit']")
+        botao_salvar.click()
+        time.sleep(1.5)
+
+        quantidade_pacientes = Paciente.objects.count()
+        self.assertEqual(quantidade_pacientes, 0)
+
+        body_text = self.selenium.find_element(By.TAG_NAME, "body").text
+        
+        self.assertIn("obrigatório", body_text.lower())
