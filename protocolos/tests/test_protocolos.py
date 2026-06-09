@@ -598,12 +598,16 @@ class CadastrarPacienteTests(StaticLiveServerTestCase):
         time.sleep(1)
 
         self.selenium.find_element(By.NAME, "nome_completo").send_keys("Carlos Eduardo")
+        time.sleep(0.5)
         self.selenium.find_element(By.NAME, "data_nascimento").send_keys("15/08/1985")
+        time.sleep(0.5)
         self.selenium.find_element(By.NAME, "peso").send_keys("80.5")
+        time.sleep(0.5)
         self.selenium.find_element(By.NAME, "altura").send_keys("180")
         
         select_genero = Select(self.selenium.find_element(By.NAME, "genero"))
         select_genero.select_by_value("M")
+        time.sleep(0.5)
 
         botao_salvar = self.selenium.find_element(By.CSS_SELECTOR, "button[type='submit']")
         botao_salvar.click()
