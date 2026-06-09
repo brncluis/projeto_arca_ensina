@@ -12,7 +12,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import TimeoutException
 from datetime import date
 import time
-import os
 from usuarios.models import Usuario
 from dashboard.models import Prescricao
 from dashboard.models import Paciente, Consulta, Medico, PacienteExportado
@@ -29,11 +28,6 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
 
         chrome_options = Options()
         chrome_options.add_argument('--window-size=1280,960')
-
-        if os.environ.get('CI') == 'true':
-            chrome_options.add_argument('--headless=new')
-            chrome_options.add_argument('--no-sandbox')
-            chrome_options.add_argument('--disable-dev-shm-usage')
 
         service = Service(ChromeDriverManager().install())
         cls.selenium = webdriver.Chrome(
@@ -92,6 +86,91 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
         except:
             pass
 
+    def test_selecionar_paciente_preenche_peso_e_altura_automaticamente(self):
+        """
+        Cenário Positivo:
+
+        Dado que o médico está na página da calculadora
+        Quando ele seleciona um paciente na lista
+        Então o sistema busca automaticamente o peso e a altura cadastrados
+        para aquele paciente.
+        """
+
+        self.selenium.get(self.url_calculadora)
+
+        select_element = WebDriverWait(self.selenium, 5).until(
+            EC.presence_of_element_located((By.ID, "select-paciente"))
+        )
+
+        Select(select_element).select_by_value(str(self.paciente.id))
+
+        WebDriverWait(self.selenium, 5).until(
+            lambda d: d.find_element(
+                By.ID,
+                "info-peso"
+            ).text.strip() != "—"
+        )
+
+        peso = self.selenium.find_element(
+            By.ID,
+            "info-peso"
+        ).text.strip()
+
+        altura = self.selenium.find_element(
+            By.ID,
+            "info-altura"
+        ).text.strip()
+
+        self.assertNotEqual(peso, "")
+        self.assertNotEqual(altura, "")
+
+        self.assertNotEqual(peso, "—")
+        self.assertNotEqual(altura, "—")
+
+    def test_selecionar_opcao_vazia_mantem_campos_em_branco(self):
+        """
+        Cenário Negativo:
+
+        Dado que o médico esteja na tela da calculadora
+        Quando nenhum paciente estiver selecionado
+        Então os campos permanecem vazios e nada é exibido.
+        """
+
+        self.selenium.get(self.url_calculadora)
+
+        select_element = WebDriverWait(self.selenium, 5).until(
+            EC.presence_of_element_located((By.ID, "select-paciente"))
+        )
+
+        Select(select_element).select_by_value("")
+
+        time.sleep(1)
+
+        peso = self.selenium.find_element(
+            By.ID,
+            "info-peso"
+        ).text.strip()
+
+        altura = self.selenium.find_element(
+            By.ID,
+            "info-altura"
+        ).text.strip()
+
+        self.assertTrue(
+            peso in ["", "—"]
+        )
+
+        self.assertTrue(
+            altura in ["", "—"]
+        )
+
+        resultado = self.selenium.find_element(
+            By.ID,
+            "calculadora-resultado"
+        )
+
+        self.assertFalse(resultado.is_displayed())
+
     def test_modal_mesclar_paciente_abre(self):
         self.selenium.get(self.live_server_url + "/protocolos/detalhes/")
 
@@ -109,51 +188,47 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
 
         self.assertTrue(modal.is_displayed())
 
-    """VERIFICAR"""
+    """def test_timer_fluxograma_inicia_ao_clicar_na_etapa(self):
+        self.selenium.get(self.live_server_url + "/protocolos/fluxograma/")
 
-    # def test_timer_fluxograma_inicia_ao_clicar_na_etapa(self):
-    #     self.selenium.get(self.live_server_url + "/protocolos/fluxograma/")
+        primeiro_card = WebDriverWait(self.selenium, 5).until(
+            EC.element_to_be_clickable((By.CLASS_NAME, "card-fluxo-wrap"))
+        )
 
-    #     primeiro_card = WebDriverWait(self.selenium, 5).until(
-    #         EC.element_to_be_clickable((By.CLASS_NAME, "card-fluxo-wrap"))
-    #     )
+        timer = self.selenium.find_element(By.ID, "timer-etapa-0")
 
-    #     timer = self.selenium.find_element(By.ID, "timer-etapa-0")
+        self.assertEqual(timer.text.strip(), "00:00")
 
-    #     self.assertEqual(timer.text.strip(), "00:00")
+        primeiro_card.click()
 
-    #     primeiro_card.click()
+        time.sleep(2)
 
-    #     time.sleep(2)
+        self.assertNotEqual(timer.text.strip(), "00:00")
 
-    #     self.assertNotEqual(timer.text.strip(), "00:00")
+    def test_timer_para_ao_concluir_etapa(self):
+        self.selenium.get(self.live_server_url + "/protocolos/fluxograma/")
 
-    """VERIFICAR"""
+        primeiro_card = WebDriverWait(self.selenium, 5).until(
+            EC.element_to_be_clickable((By.CLASS_NAME, "card-fluxo-wrap"))
+        )
 
-    # def test_timer_para_ao_concluir_etapa(self):
-    #     self.selenium.get(self.live_server_url + "/protocolos/fluxograma/")
+        primeiro_card.click()
 
-    #     primeiro_card = WebDriverWait(self.selenium, 5).until(
-    #         EC.element_to_be_clickable((By.CLASS_NAME, "card-fluxo-wrap"))
-    #     )
+        time.sleep(2)
 
-    #     primeiro_card.click()
+        botao_concluir = self.selenium.find_element(
+            By.CLASS_NAME,
+            "btn-concluir-etapa"
+        )
 
-    #     time.sleep(2)
+        botao_concluir.click()
 
-    #     botao_concluir = self.selenium.find_element(
-    #         By.CLASS_NAME,
-    #         "btn-concluir-etapa"
-    #     )
+        timer = self.selenium.find_element(By.ID, "timer-etapa-0")
+        tempo_parado = timer.text.strip()
 
-    #     botao_concluir.click()
+        time.sleep(2)
 
-    #     timer = self.selenium.find_element(By.ID, "timer-etapa-0")
-    #     tempo_parado = timer.text.strip()
-
-    #     time.sleep(2)
-
-    #     self.assertEqual(timer.text.strip(), tempo_parado)
+        self.assertEqual(timer.text.strip(), tempo_parado)"""
 
 
 class MesclarProtocoloTests(TestCase):
@@ -229,12 +304,6 @@ class ExportarPacienteTests(StaticLiveServerTestCase):
     def setUp(self):
         chrome_options = Options()
         chrome_options.add_argument('--window-size=1280,960')
-
-        if os.environ.get('CI') == 'true':
-            chrome_options.add_argument('--headless=new')
-            chrome_options.add_argument('--no-sandbox')
-            chrome_options.add_argument('--disable-dev-shm-usage')
-
         service = Service(ChromeDriverManager().install())
         self.selenium = webdriver.Chrome(service=service, options=chrome_options)
         self.selenium.implicitly_wait(5)
@@ -385,12 +454,6 @@ class PrescreverMedicamentoTests(StaticLiveServerTestCase):
     def setUp(self):
         chrome_options = Options()
         chrome_options.add_argument('--window-size=1280,960')
-        
-        if os.environ.get('CI') == 'true':
-            chrome_options.add_argument('--headless=new')
-            chrome_options.add_argument('--no-sandbox')
-            chrome_options.add_argument('--disable-dev-shm-usage')
-
         service = Service(ChromeDriverManager().install())
         self.selenium = webdriver.Chrome(service=service, options=chrome_options)
         self.selenium.implicitly_wait(5)
@@ -494,15 +557,8 @@ class PrescreverMedicamentoTests(StaticLiveServerTestCase):
 class CadastrarPacienteTests(StaticLiveServerTestCase):
 
     def setUp(self):
-        # 1. Configuração do Chrome
         chrome_options = Options()
         chrome_options.add_argument('--window-size=1280,960')
-
-        if os.environ.get('CI') == 'true':
-            chrome_options.add_argument('--headless=new')
-            chrome_options.add_argument('--no-sandbox')
-            chrome_options.add_argument('--disable-dev-shm-usage')
-
         service = Service(ChromeDriverManager().install())
         self.selenium = webdriver.Chrome(service=service, options=chrome_options)
         self.selenium.implicitly_wait(5)
@@ -590,12 +646,6 @@ class BaseSeleniumTests(StaticLiveServerTestCase):
         super().setUpClass()
         chrome_options = Options()
         chrome_options.add_argument("--window-size=1280,960")
-        
-        if os.environ.get('CI') == 'true':
-            chrome_options.add_argument('--headless=new')
-            chrome_options.add_argument('--no-sandbox')
-            chrome_options.add_argument('--disable-dev-shm-usage')
-
         service = Service(ChromeDriverManager().install())
         cls.selenium = webdriver.Chrome(service=service, options=chrome_options)
         cls.selenium.implicitly_wait(5)
@@ -724,12 +774,6 @@ class FluxogramaTests(StaticLiveServerTestCase):
         super().setUpClass()
         chrome_options = Options()
         chrome_options.add_argument("--window-size=1280,960")
-        
-        if os.environ.get('CI') == 'true':
-            chrome_options.add_argument('--headless=new')
-            chrome_options.add_argument('--no-sandbox')
-            chrome_options.add_argument('--disable-dev-shm-usage')
-
         service = Service(ChromeDriverManager().install())
         cls.selenium = webdriver.Chrome(service=service, options=chrome_options)
         cls.selenium.implicitly_wait(5)
