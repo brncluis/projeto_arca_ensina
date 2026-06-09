@@ -619,3 +619,243 @@ class CadastrarPacienteTests(StaticLiveServerTestCase):
         body_text = self.selenium.find_element(By.TAG_NAME, "body").text
         
         self.assertIn("obrigatório", body_text.lower())
+
+class BaseSeleniumTests(StaticLiveServerTestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        chrome_options = Options()
+        chrome_options.add_argument("--window-size=1280,960")
+        service = Service(ChromeDriverManager().install())
+        cls.selenium = webdriver.Chrome(service=service, options=chrome_options)
+        cls.selenium.implicitly_wait(5)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.selenium.quit()
+        super().tearDownClass()
+
+    def setUp(self):
+        User = get_user_model()
+        User.objects.create_superuser(
+            username="testeteste",
+            email="teste@teste.com",
+            password="teste123",
+            id_acesso="123456",
+        )
+        self._fazer_login()
+
+    def _fazer_login(self):
+        self.selenium.get(self.live_server_url + "/usuarios/login/")
+        time.sleep(1)
+        self.selenium.find_element(By.ID, "id_acesso").clear()
+        self.selenium.find_element(By.ID, "id_acesso").send_keys("123456")
+        self.selenium.find_element(By.ID, "password").clear()
+        self.selenium.find_element(By.ID, "password").send_keys("teste123")
+        self.selenium.find_element(By.CSS_SELECTOR, "[type=submit]").click()
+        time.sleep(2)
+
+    def tearDown(self):
+        try:
+            self.selenium.switch_to.alert.accept()
+        except Exception:
+            pass
+
+class ListaProtocolosTests(BaseSeleniumTests):
+
+    def setUp(self):
+        super().setUp()
+        self.url_protocolos = self.live_server_url + "/protocolos/"
+
+    def test_medico_autenticado_ve_protocolos_organizados(self):
+        """
+        Dado que o médico está autenticado no sistema e existem protocolos
+        clínicos cadastrados,
+        Quando o médico acessa a seção de protocolos,
+        Então o sistema deve exibir os protocolos organizados por categoria
+        ou especialidade, permitindo navegação rápida e acesso ao conteúdo
+        de cada protocolo corretamente.
+        """
+        self.selenium.get(self.url_protocolos)
+
+        lista = WebDriverWait(self.selenium, 10).until(
+            EC.presence_of_element_located((By.ID, "lista-protocolos"))
+        )
+        self.assertTrue(lista.is_displayed(), "A lista de protocolos deveria estar visível.")
+
+        cards = self.selenium.find_elements(By.CLASS_NAME, "sub_header")
+        visiveis = [c for c in cards if c.is_displayed()]
+        self.assertGreater(len(visiveis), 0, "Nenhum protocolo foi renderizado na lista.")
+
+    def test_clicar_em_protocolo_acessa_conteudo_corretamente(self):
+        """
+        Dado que o médico está autenticado no sistema e existem protocolos
+        clínicos cadastrados,
+        Quando o médico acessa a seção de protocolos,
+        Então o sistema deve permitir acesso ao conteúdo de cada protocolo
+        corretamente.
+        """
+        self.selenium.get(self.url_protocolos)
+
+        protocolo = WebDriverWait(self.selenium, 10).until(
+            EC.element_to_be_clickable((By.CLASS_NAME, "sub_header"))
+        )
+        protocolo.click()
+
+        WebDriverWait(self.selenium, 10).until(
+            lambda d: d.current_url != self.url_protocolos
+        )
+        self.assertNotEqual(self.selenium.current_url, self.url_protocolos)
+
+    def test_medico_nao_autenticado_e_direcionado_para_login(self):
+        """
+        Dado que o médico não está autenticado no sistema,
+        Quando o médico tenta acessar a seção de protocolos,
+        Então o sistema deve direcioná-lo para a tela de login.
+        """
+        self.selenium.get(self.live_server_url + "/usuarios/logout/")
+        time.sleep(1)
+
+        self.selenium.get(self.url_protocolos)
+        time.sleep(2)
+
+        self.assertIn("/login/", self.selenium.current_url)
+
+    def test_sem_sintoma_informado_exibe_todos_os_protocolos(self):
+        """
+        Dado que o médico está autenticado no sistema,
+        Quando o médico informa nenhum sintoma do paciente,
+        Então o sistema deve exibir todos os protocolos existentes.
+        """
+        self.selenium.get(self.url_protocolos)
+
+        campo_busca = WebDriverWait(self.selenium, 10).until(
+            EC.presence_of_element_located(
+                (By.CSS_SELECTOR, "input[placeholder='Buscar protocolos...']")
+            )
+        )
+        self.assertEqual(campo_busca.get_attribute("value"), "")
+
+        todos_os_cards = [
+            c
+            for c in self.selenium.find_elements(By.CLASS_NAME, "sub_header")
+            if c.is_displayed()
+        ]
+        self.assertGreater(
+            len(todos_os_cards),
+            0,
+            "Com campo vazio, todos os protocolos existentes deveriam ser exibidos.",
+        )
+
+class FluxogramaTests(StaticLiveServerTestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        chrome_options = Options()
+        chrome_options.add_argument("--window-size=1280,960")
+        service = Service(ChromeDriverManager().install())
+        cls.selenium = webdriver.Chrome(service=service, options=chrome_options)
+        cls.selenium.implicitly_wait(5)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.selenium.quit()
+        super().tearDownClass()
+
+    def setUp(self):
+        User = get_user_model()
+        User.objects.create_superuser(
+            username="testeteste",
+            email="teste@teste.com",
+            password="teste123",
+            id_acesso="123456",
+        )
+        Protocolo.objects.create(
+            titulo="Dengue",
+            descricao="Protocolo de dengue"
+        )
+        self._fazer_login()
+        self.url_fluxograma = self.live_server_url + "/protocolos/fluxograma/"
+
+    def _fazer_login(self):
+        self.selenium.get(self.live_server_url + "/usuarios/login/")
+        time.sleep(1)
+        self.selenium.find_element(By.ID, "id_acesso").clear()
+        self.selenium.find_element(By.ID, "id_acesso").send_keys("123456")
+        self.selenium.find_element(By.ID, "password").clear()
+        self.selenium.find_element(By.ID, "password").send_keys("teste123")
+        self.selenium.find_element(By.CSS_SELECTOR, "[type=submit]").click()
+        time.sleep(2)
+
+    def tearDown(self):
+        try:
+            self.selenium.switch_to.alert.accept()
+        except Exception:
+            pass
+
+    def test_concluir_etapa_destaca_como_concluida_e_exibe_proxima(self):
+        """
+        Dado que o médico está visualizando um protocolo médico em formato
+        de fluxograma interativo,
+        Quando ele conclui uma etapa do atendimento e marca a opção de check
+        correspondente,
+        Então o sistema deve destacar visualmente a etapa como concluída e
+        permitir ver o avanço para as próximas etapas do protocolo.
+        """
+        self.selenium.get(self.url_fluxograma)
+        WebDriverWait(self.selenium, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "card-fluxo-wrap"))
+        )
+
+        #ativa o card (inicia timer)
+        self.selenium.find_element(By.CLASS_NAME, "card-fluxo-wrap").click()
+        time.sleep(0.5)
+
+        #seleciona a primeira alternativa
+        WebDriverWait(self.selenium, 10).until(
+            EC.element_to_be_clickable((By.CLASS_NAME, "btn-opcao-fluxo"))
+        ).click()
+        time.sleep(0.5)
+
+        #conclui a etapa
+        WebDriverWait(self.selenium, 10).until(
+            EC.element_to_be_clickable((By.CLASS_NAME, "btn-concluir-etapa"))
+        ).click()
+        time.sleep(0.5)
+
+        #verifica 'concluido' no card
+        card = self.selenium.find_element(By.CLASS_NAME, "card-fluxo-wrap")
+        self.assertIn("concluido", card.get_attribute("class"))
+
+        #verifica que a próxima etapa apareceu
+        cards = self.selenium.find_elements(By.CLASS_NAME, "card-fluxo-wrap")
+        cards_reais = [c for c in cards if "progresso-wrap" not in c.get_attribute("class")]
+        self.assertGreater(len(cards_reais), 1)
+
+    def test_proxima_etapa_indisponivel_sem_concluir_anterior(self):
+        """
+        Dado que o médico está utilizando um protocolo médico em formato
+        de fluxograma interativo,
+        Quando ele tenta acessar uma etapa subsequente sem concluir a etapa
+        obrigatória anterior,
+        Então o sistema deve manter as próximas etapas indisponíveis para
+        interação, sem exibir mensagens de erro ou pop-ups, até que a etapa
+        pendente seja concluída.
+        """
+        self.selenium.get(self.url_fluxograma)
+        WebDriverWait(self.selenium, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "card-fluxo-wrap"))
+        )
+        time.sleep(1)
+
+        self.selenium.find_element(By.CLASS_NAME, "card-fluxo-wrap").click()
+        time.sleep(0.5)
+
+        btn_concluir = self.selenium.find_element(By.CLASS_NAME, "btn-concluir-etapa")
+        self.assertEqual(btn_concluir.get_attribute("disabled"), "true")
+
+        cards = self.selenium.find_elements(By.CLASS_NAME, "card-fluxo-wrap")
+        cards_reais = [c for c in cards if "progresso-wrap" not in c.get_attribute("class")]
+        self.assertEqual(len(cards_reais), 1)

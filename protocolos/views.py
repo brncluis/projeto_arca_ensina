@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-
+from django.contrib.auth.decorators import login_required
 from .models import Protocolo, Categoria, Sintoma
 from dashboard.models import Paciente, Consulta
 
@@ -55,7 +55,7 @@ def criar_dados_iniciais():
 
     sedacao.sintomas.set(sintomas_sedacao)
 
-
+@login_required(login_url='/usuarios/login/')
 def protocolos_home(request):
     criar_dados_iniciais()
 
@@ -147,7 +147,7 @@ def mesclar_paciente(request, protocolo_id, paciente_id):
 
     return redirect(request.META.get('HTTP_REFERER', 'protocolos'))
 
-
+@login_required(login_url='/usuarios/login/')
 def fluxograma(request):
     criar_dados_iniciais()
 
