@@ -32,19 +32,19 @@
 - link: https://docs.google.com/document/d/1Om4YsJcrm7x5vpw2RjUWaLttKH6Gy_2jIVOOeKEQsLg/edit?tab=t.0
 #### 8. Materiais de Design e Organização do projeto: 
 - Moodboard : https://www.figma.com/board/WSMSkAPx7e3ZNxxJGH7ehB/Moodboard-Arca?node-id=0-1&p=f&t=AuVnpxLQUxeZ1prR-0
-- Manual de marca:
+- Manual de marca: https://www.figma.com/design/fYBMzgk8z1HsXHg7rCauMT/Manual-de-Marca-Lumos?node-id=0-1&p=f&t=HghQ97ZZBOfa1C32-0
 - Protótipos de alta e média fidelidade: https://www.figma.com/design/OaOS5tW1X3IYxRWsAVFQYz/Arca-Ensina--Prot%C3%B3tipo-de-Alta-Fidelidade-?node-id=0-1&t=YcmoLWeNy6xCIx5W-1
 
 
 ## Equipe
-- Alice :
-- Antonio Gabriel Orrico:
-- Davi Maltez:
-- José Milton:
+- Alice Mohammad : ammg@cesar.school
+- Antonio Gabriel Orrico: agbo@cesar.school
+- Davi Maltez: dmcv@cesar.school
+- José Milton: jmbn@cesar.school
 - Letícia Siqueira: lmss4@cesar.school
-- Luis Alves:
+- Luis Alves: lhss@cesar.school
 - Luísa Fisher: lfvm@cesar.school
-- Luiz Costa:
+- Luiz Costa: lhlc@cesar.school
 - Marcus Barbosa:
 - Sofia villela: svv@cesar.school
 - Thiago Spinola:
