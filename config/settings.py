@@ -20,6 +20,7 @@ LOGIN_URL = 'login'
 LOGIN_REQUIRED_IGNORE_VIEW_NAMES = [
     'login',
     'register',
+    '',
 ]
 
 INSTALLED_APPS = [
