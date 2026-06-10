@@ -186,6 +186,15 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
 class MesclarProtocoloTests(TestCase):
 
     def setUp(self):
+        User = get_user_model()
+        self.user_teste = User.objects.create_user(
+            username="medico_backend", 
+            password="senha_secreta"
+        )
+
+        self.client.force_login(self.user_teste)
+
+    def setUp(self):
         self.paciente = Paciente.objects.create(
             nome_completo="João Silva",
             data_nascimento="2000-01-01",
