@@ -13,3 +13,9 @@ venv/
 
 # Variáveis de ambiente
 .env
+
+#static file
+staticfiles/
+__pycache__/
+*.pyc
+staticfiles.json
