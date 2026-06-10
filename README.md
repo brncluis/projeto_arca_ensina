@@ -26,7 +26,7 @@
 - Foto:
 #### 5. Testes Automatizados (E2E Selenium):
 - Link Screencast:
-#### 6. CI/CD: 
+#### 6. CI/CD: https://www.youtube.com/watch?v=p4u4y5p6mfE
 - Link Screencast:
 #### 7. Pair Programming:
 - link: https://docs.google.com/document/d/1Om4YsJcrm7x5vpw2RjUWaLttKH6Gy_2jIVOOeKEQsLg/edit?tab=t.0
