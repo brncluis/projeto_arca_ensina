@@ -47,6 +47,6 @@
 - Luis Alves: lhss@cesar.school
 - Luísa Fisher: lfvm@cesar.school
 - Luiz Costa: lhlc@cesar.school
-- Marcus Barbosa:
+- Marcus Barbosa: mvpb@cesar.school
 - Sofia villela: svv@cesar.school
 - Thiago Spinola:
