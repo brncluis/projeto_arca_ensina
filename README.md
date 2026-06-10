@@ -25,7 +25,7 @@
 #### 4. Issue/Bug Tracker:
 - Foto:
 #### 5. Testes Automatizados (E2E Selenium):
-- Link Screencast:
+- Link Screencast: https://youtu.be/N9vlXK6xn30
 #### 6. CI/CD: 
 - Link Screencast: https://www.youtube.com/watch?v=p4u4y5p6mfE
 #### 7. Pair Programming:
