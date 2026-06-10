@@ -96,13 +96,11 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
     def test_selecionar_paciente_preenche_peso_e_altura_automaticamente(self):
         """
         Cenário Positivo:
-
         Dado que o médico está na página da calculadora
         Quando ele seleciona um paciente na lista
         Então o sistema busca automaticamente o peso e a altura cadastrados
         para aquele paciente.
         """
-
         self.selenium.get(self.url_calculadora)
 
         select_element = WebDriverWait(self.selenium, 5).until(
@@ -130,19 +128,16 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
 
         self.assertNotEqual(peso, "")
         self.assertNotEqual(altura, "")
-
         self.assertNotEqual(peso, "—")
         self.assertNotEqual(altura, "—")
 
     def test_selecionar_opcao_vazia_mantem_campos_em_branco(self):
         """
         Cenário Negativo:
-
         Dado que o médico esteja na tela da calculadora
         Quando nenhum paciente estiver selecionado
         Então os campos permanecem vazios e nada é exibido.
         """
-
         self.selenium.get(self.url_calculadora)
         time.sleep(1)
 
@@ -151,7 +146,6 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
         )
 
         Select(select_element).select_by_value("")
-
         time.sleep(1)
 
         peso = self.selenium.find_element(
@@ -164,19 +158,13 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
             "info-altura"
         ).text.strip()
 
-        self.assertTrue(
-            peso in ["", "—"]
-        )
-
-        self.assertTrue(
-            altura in ["", "—"]
-        )
+        self.assertTrue(peso in ["", "—"])
+        self.assertTrue(altura in ["", "—"])
 
         resultado = self.selenium.find_element(
             By.ID,
             "calculadora-resultado"
         )
-
         self.assertFalse(resultado.is_displayed())
 
     def test_modal_mesclar_paciente_abre(self):
@@ -187,56 +175,12 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
                 (By.XPATH, "//button[contains(text(), 'Mesclar paciente')]")
             )
         )
-
         botao_mesclar.click()
 
         modal = WebDriverWait(self.selenium, 5).until(
             EC.visibility_of_element_located((By.ID, "modal-paciente"))
         )
-
         self.assertTrue(modal.is_displayed())
-
-    """def test_timer_fluxograma_inicia_ao_clicar_na_etapa(self):
-        self.selenium.get(self.live_server_url + "/protocolos/fluxograma/")
-
-        primeiro_card = WebDriverWait(self.selenium, 5).until(
-            EC.element_to_be_clickable((By.CLASS_NAME, "card-fluxo-wrap"))
-        )
-
-        timer = self.selenium.find_element(By.ID, "timer-etapa-0")
-
-        self.assertEqual(timer.text.strip(), "00:00")
-
-        primeiro_card.click()
-
-        time.sleep(2)
-
-        self.assertNotEqual(timer.text.strip(), "00:00")
-
-    def test_timer_para_ao_concluir_etapa(self):
-        self.selenium.get(self.live_server_url + "/protocolos/fluxograma/")
-
-        primeiro_card = WebDriverWait(self.selenium, 5).until(
-            EC.element_to_be_clickable((By.CLASS_NAME, "card-fluxo-wrap"))
-        )
-
-        primeiro_card.click()
-
-        time.sleep(2)
-
-        botao_concluir = self.selenium.find_element(
-            By.CLASS_NAME,
-            "btn-concluir-etapa"
-        )
-
-        botao_concluir.click()
-
-        timer = self.selenium.find_element(By.ID, "timer-etapa-0")
-        tempo_parado = timer.text.strip()
-
-        time.sleep(2)
-
-        self.assertEqual(timer.text.strip(), tempo_parado)"""
 
 
 class MesclarProtocoloTests(TestCase):
@@ -282,41 +226,41 @@ class MesclarProtocoloTests(TestCase):
             "mesclar_paciente",
             args=[self.protocolo.id, self.paciente.id]
         )
-
         response = self.client.get(url)
-
         self.consulta.refresh_from_db()
 
         self.assertIn(
             self.protocolo,
             self.consulta.protocolos_utilizados.all()
         )
-
         self.assertEqual(response.status_code, 302)
 
     def test_protocolo_aparece_no_prontuario(self):
         self.consulta.protocolos_utilizados.add(self.protocolo)
-
         url = reverse(
             "prontuario_paciente",
             args=[self.paciente.id]
         )
-
         response = self.client.get(url)
-
         self.assertContains(response, "Dengue")
 
-#testes de exportar paciente
+
 class ExportarPacienteTests(StaticLiveServerTestCase):
 
     def setUp(self):
         chrome_options = Options()
         chrome_options.add_argument('--window-size=1280,960')
+
+        if os.environ.get('GITHUB_ACTIONS') == 'true':
+            chrome_options.add_argument('--headless=new')
+            chrome_options.add_argument('--no-sandbox')
+            chrome_options.add_argument('--disable-dev-shm-usage')
+            chrome_options.add_argument('--disable-gpu')
+
         service = Service(ChromeDriverManager().install())
         self.selenium = webdriver.Chrome(service=service, options=chrome_options)
         self.selenium.implicitly_wait(5)
 
-        from usuarios.models import Usuario
         self.usuario = Usuario.objects.create_superuser(
             username='admin',
             email='admin@teste.com',
@@ -360,7 +304,6 @@ class ExportarPacienteTests(StaticLiveServerTestCase):
         time.sleep(2)
 
     def abrir_prontuario(self):
-        from django.urls import reverse
         url = reverse('prontuario_paciente', args=[self.paciente.id])
         self.selenium.get(f'{self.live_server_url}{url}')
         time.sleep(2)
@@ -455,18 +398,24 @@ class ExportarPacienteTests(StaticLiveServerTestCase):
 
         toast_erro = self.selenium.find_element(By.ID, 'toastErro')
         self.assertTrue(toast_erro.is_displayed())
-    
+
 
 class PrescreverMedicamentoTests(StaticLiveServerTestCase):
 
     def setUp(self):
         chrome_options = Options()
         chrome_options.add_argument('--window-size=1280,960')
+
+        if os.environ.get('GITHUB_ACTIONS') == 'true':
+            chrome_options.add_argument('--headless=new')
+            chrome_options.add_argument('--no-sandbox')
+            chrome_options.add_argument('--disable-dev-shm-usage')
+            chrome_options.add_argument('--disable-gpu')
+
         service = Service(ChromeDriverManager().install())
         self.selenium = webdriver.Chrome(service=service, options=chrome_options)
         self.selenium.implicitly_wait(5)
 
-        from usuarios.models import Usuario
         self.usuario = Usuario.objects.create_superuser(
             username='admin2',
             email='admin2@teste.com',
@@ -537,7 +486,6 @@ class PrescreverMedicamentoTests(StaticLiveServerTestCase):
         self.selenium.get(self.live_server_url + "/protocolos/calculadora/")
         time.sleep(1)
 
-        # Preenche tudo de novo
         select_paciente = Select(self.selenium.find_element(By.ID, "select-paciente"))
         select_paciente.select_by_value(str(self.paciente.id))
         time.sleep(2)
@@ -554,7 +502,6 @@ class PrescreverMedicamentoTests(StaticLiveServerTestCase):
             toast_erro = WebDriverWait(self.selenium, 3).until(
                 EC.visibility_of_element_located((By.ID, "alerta-flutuante"))
             )
-            
             texto_erro = toast_erro.text
             self.assertIn("já está prescrito", texto_erro.lower())
             
@@ -567,11 +514,17 @@ class CadastrarPacienteTests(StaticLiveServerTestCase):
     def setUp(self):
         chrome_options = Options()
         chrome_options.add_argument('--window-size=1280,960')
+
+        if os.environ.get('GITHUB_ACTIONS') == 'true':
+            chrome_options.add_argument('--headless=new')
+            chrome_options.add_argument('--no-sandbox')
+            chrome_options.add_argument('--disable-dev-shm-usage')
+            chrome_options.add_argument('--disable-gpu')
+
         service = Service(ChromeDriverManager().install())
         self.selenium = webdriver.Chrome(service=service, options=chrome_options)
         self.selenium.implicitly_wait(5)
 
-        from usuarios.models import Usuario
         self.usuario = Usuario.objects.create_superuser(
             username='medico_intensivista',
             email='medico@teste.com',
@@ -583,7 +536,6 @@ class CadastrarPacienteTests(StaticLiveServerTestCase):
         self.selenium.quit()
 
     def login(self):
-        """Função auxiliar para o robô fazer o login antes de testar"""
         self.selenium.get(f'{self.live_server_url}/usuarios/login/')
         time.sleep(1)
         self.selenium.find_element(By.ID, 'id_acesso').clear()
@@ -648,8 +600,8 @@ class CadastrarPacienteTests(StaticLiveServerTestCase):
         self.assertEqual(quantidade_pacientes, 0)
 
         body_text = self.selenium.find_element(By.TAG_NAME, "body").text
-        
         self.assertIn("obrigatório", body_text.lower())
+
 
 class BaseSeleniumTests(StaticLiveServerTestCase):
 
@@ -658,6 +610,13 @@ class BaseSeleniumTests(StaticLiveServerTestCase):
         super().setUpClass()
         chrome_options = Options()
         chrome_options.add_argument("--window-size=1280,960")
+
+        if os.environ.get('GITHUB_ACTIONS') == 'true':
+            chrome_options.add_argument('--headless=new')
+            chrome_options.add_argument('--no-sandbox')
+            chrome_options.add_argument('--disable-dev-shm-usage')
+            chrome_options.add_argument('--disable-gpu')
+
         service = Service(ChromeDriverManager().install())
         cls.selenium = webdriver.Chrome(service=service, options=chrome_options)
         cls.selenium.implicitly_wait(5)
@@ -692,6 +651,7 @@ class BaseSeleniumTests(StaticLiveServerTestCase):
             self.selenium.switch_to.alert.accept()
         except Exception:
             pass
+
 
 class ListaProtocolosTests(BaseSeleniumTests):
 
@@ -739,26 +699,24 @@ class ListaProtocolosTests(BaseSeleniumTests):
         )
         self.assertNotEqual(self.selenium.current_url, self.url_protocolos)
 
-    """VERIFICAR"""
     # def test_medico_nao_autenticado_e_direcionado_para_login(self):
     #     """
     #     Dado que o médico não está autenticado no sistema,
     #     Quando o médico tenta acessar a seção de protocolos,
     #     Então o sistema deve direcioná-lo para a tela de login.
     #     """
-    #     self.selenium.get(self.live_server_url + "/usuarios/logout/")
-    #     time.sleep(1)
-
-    #     self.selenium.get(self.url_protocolos)
-    #     time.sleep(2)
-
+    #     self.selenium.get(self.live_server_url + "/protocolos/")
+        
+    #     WebDriverWait(self.selenium, 10).until(
+    #         EC.url_contains("/login/")
+    #     )
     #     self.assertIn("/login/", self.selenium.current_url)
 
     def test_sem_sintoma_informado_exibe_todos_os_protocolos(self):
         """
         Dado que o médico está autenticado no sistema,
         Quando o médico informa nenhum sintoma do paciente,
-        Então o sistema deve exibir todos os protocolos existentes.
+        Allora o sistema deve exibir todos os protocolos existentes.
         """
         self.selenium.get(self.url_protocolos)
 
@@ -780,6 +738,7 @@ class ListaProtocolosTests(BaseSeleniumTests):
             "Com campo vazio, todos os protocolos existentes deveriam ser exibidos.",
         )
 
+
 class FluxogramaTests(StaticLiveServerTestCase):
 
     @classmethod
@@ -787,6 +746,13 @@ class FluxogramaTests(StaticLiveServerTestCase):
         super().setUpClass()
         chrome_options = Options()
         chrome_options.add_argument("--window-size=1280,960")
+
+        if os.environ.get('GITHUB_ACTIONS') == 'true':
+            chrome_options.add_argument('--headless=new')
+            chrome_options.add_argument('--no-sandbox')
+            chrome_options.add_argument('--disable-dev-shm-usage')
+            chrome_options.add_argument('--disable-gpu')
+
         service = Service(ChromeDriverManager().install())
         cls.selenium = webdriver.Chrome(service=service, options=chrome_options)
         cls.selenium.implicitly_wait(5)
@@ -841,27 +807,22 @@ class FluxogramaTests(StaticLiveServerTestCase):
             EC.presence_of_element_located((By.CLASS_NAME, "card-fluxo-wrap"))
         )
 
-        #ativa o card (inicia timer)
         self.selenium.find_element(By.CLASS_NAME, "card-fluxo-wrap").click()
         time.sleep(0.5)
 
-        #seleciona a primeira alternativa
         WebDriverWait(self.selenium, 10).until(
             EC.element_to_be_clickable((By.CLASS_NAME, "btn-opcao-fluxo"))
         ).click()
         time.sleep(0.5)
 
-        #conclui a etapa
         WebDriverWait(self.selenium, 10).until(
             EC.element_to_be_clickable((By.CLASS_NAME, "btn-concluir-etapa"))
         ).click()
         time.sleep(0.5)
 
-        #verifica 'concluido' no card
         card = self.selenium.find_element(By.CLASS_NAME, "card-fluxo-wrap")
         self.assertIn("concluido", card.get_attribute("class"))
 
-        #verifica que a próxima etapa apareceu
         cards = self.selenium.find_elements(By.CLASS_NAME, "card-fluxo-wrap")
         cards_reais = [c for c in cards if "progresso-wrap" not in c.get_attribute("class")]
         self.assertGreater(len(cards_reais), 1)
