@@ -91,7 +91,7 @@
         <div class="condutas-container">
             {% for conduta in consulta.condutas.all %}
                 {% if conduta.critica %}
-                    <div class="card-conduta critica">
+                    <div class="card-conduta critica conduta-critica">
                         <div class="topo-conduta">
                             <span class="horario-conduta">{{ conduta.criada_em|date:"d/m/Y" }}</span>
                         </div>

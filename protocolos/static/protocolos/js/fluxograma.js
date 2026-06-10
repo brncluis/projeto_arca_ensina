@@ -678,6 +678,8 @@ function selecionarOpcao(indice, proxima, textoOpcao) {
         return;
     }
 
+    iniciarTimerEtapa(indice);
+    
     // Apenas marca a escolha — não avança ainda
     etapa.escolhaPendente = textoOpcao;
     etapa.proximaPendente = proxima;
