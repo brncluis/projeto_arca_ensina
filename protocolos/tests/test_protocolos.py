@@ -31,7 +31,7 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
         chrome_options.add_argument('--window-size=1280,960')
 
         if os.environ.get('GITHUB_ACTIONS') == 'true':
-            chrome_options.add_argument('--headless=new')
+            chrome_options.add_arguDment('--headless=new')
             chrome_options.add_argument('--no-sandbox')
             chrome_options.add_argument('--disable-dev-shm-usage')
             chrome_options.add_argument('--disable-gpu')
@@ -656,8 +656,14 @@ class BaseSeleniumTests(StaticLiveServerTestCase):
 class ListaProtocolosTests(BaseSeleniumTests):
 
     def setUp(self):
-        super().setUp()
-        self.url_protocolos = self.live_server_url + "/protocolos/"
+
+        if self._testMethodName == 'test_medico_nao_autenticado_e_direcionado_para_login':
+            self.selenium.get(self.live_server_url + "/")
+            self.selenium.delete_all_cookies()
+            self.url_protocolos = self.live_server_url + "/protocolos/"
+        else:
+            super().setUp()
+            self.url_protocolos = self.live_server_url + "/protocolos/"
 
     def test_medico_autenticado_ve_protocolos_organizados(self):
         """
@@ -699,18 +705,20 @@ class ListaProtocolosTests(BaseSeleniumTests):
         )
         self.assertNotEqual(self.selenium.current_url, self.url_protocolos)
 
-    # def test_medico_nao_autenticado_e_direcionado_para_login(self):
-    #     """
-    #     Dado que o médico não está autenticado no sistema,
-    #     Quando o médico tenta acessar a seção de protocolos,
-    #     Então o sistema deve direcioná-lo para a tela de login.
-    #     """
-    #     self.selenium.get(self.live_server_url + "/protocolos/")
+    def test_medico_nao_autenticado_e_direcionado_para_login(self):
+        """
+        Dado que o médico não está autenticado no sistema,
+        Quando o médico tenta acessar a seção de protocolos,
+        Então o sistema deve direcioná-lo para a tela de login.
+        """
+        self.selenium.get(self.live_server_url + "/protocolos/")
+
+        time.sleep(1.5)
         
-    #     WebDriverWait(self.selenium, 10).until(
-    #         EC.url_contains("/login/")
-    #     )
-    #     self.assertIn("/login/", self.selenium.current_url)
+        WebDriverWait(self.selenium, 10).until(
+            EC.url_contains("/login/")
+        )
+        self.assertIn("/login/", self.selenium.current_url)
 
     def test_sem_sintoma_informado_exibe_todos_os_protocolos(self):
         """
