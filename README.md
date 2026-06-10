@@ -35,7 +35,7 @@
 - Manual de marca: https://www.figma.com/design/fYBMzgk8z1HsXHg7rCauMT/Manual-de-Marca-Lumos?node-id=0-1&p=f&t=HghQ97ZZBOfa1C32-0
 - Protótipos de alta e média fidelidade: https://www.figma.com/design/OaOS5tW1X3IYxRWsAVFQYz/Arca-Ensina--Prot%C3%B3tipo-de-Alta-Fidelidade-?node-id=0-1&t=YcmoLWeNy6xCIx5W-1
 - arquitetura da informação da solução: https://www.figma.com/board/2zpO06ORlBeMTTJaJllhrT/Arquitetura-da-Informação--Arca-Ensina-?node-id=0-1&p=f&t=vyAKfeoRIxNHcEjF-0
-- Iconografia: 
+- Iconografia: https://www.figma.com/design/OaOS5tW1X3IYxRWsAVFQYz/Arca-Ensina--Wireframes-?node-id=43-3&p=f&t=KB6ctvvhhnnITeap-0
 
 
 ## Equipe
