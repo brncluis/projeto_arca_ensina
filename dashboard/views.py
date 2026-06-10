@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 import json
-from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
 from .models import Paciente, Consulta, Conduta, Medico, PacienteExportado
 from datetime import date
 from django.utils import timezone
+from .models import Paciente, Consulta, Conduta, Medico, PacienteExportado, Prescricao
 
 
 def dashboard(request):
@@ -67,7 +67,9 @@ def prontuario_paciente(request, id):
         paciente=paciente
     ).first()
 
-    medicos = Medico.objects.all().order_by('nome')  # ← CORRIGIDO: passa médicos para o template
+    medicos = Medico.objects.all().order_by('nome')
+
+    prescricoes = paciente.prescricoes.all() 
 
     return render(
         request,
@@ -75,7 +77,8 @@ def prontuario_paciente(request, id):
         {
             'paciente': paciente,
             'consulta': consulta,
-            'medicos': medicos,  # ← CORRIGIDO
+            'medicos': medicos,
+            'prescricoes': prescricoes,  
         }
     )
 
@@ -252,7 +255,6 @@ def cadastrar_paciente(request):
     )
 
 
-@login_required
 @require_POST
 def exportar_paciente(request, paciente_id):
     body = json.loads(request.body)
@@ -277,3 +279,54 @@ def exportar_paciente(request, paciente_id):
         exportado_por=request.user,
     )
     return JsonResponse({'sucesso': True})
+
+@require_POST
+def prescrever(request):
+    try:
+        body        = json.loads(request.body)
+        paciente_id = body.get('paciente_id')
+        nome_med    = body.get('nome_medicamento', '').strip()
+        dose        = body.get('dose_calculada', '').strip()
+        peso        = body.get('peso_utilizado')
+
+        if not paciente_id or not nome_med or not dose or peso is None:
+            return JsonResponse({'sucesso': False, 'erro': 'Dados incompletos.'}, status=400)
+
+        paciente = get_object_or_404(Paciente, pk=paciente_id)
+
+        medicamento_ja_prescrito = Prescricao.objects.filter(
+            paciente=paciente,
+            nome_medicamento__iexact=nome_med
+        ).exists()
+
+        if medicamento_ja_prescrito:
+            return JsonResponse({
+                'sucesso': False, 
+                'erro': f'O medicamento "{nome_med}" já está prescrito para este paciente.'
+            }, status=400)
+
+        prescricao = Prescricao.objects.create(
+            paciente         = paciente,
+            nome_medicamento = nome_med,
+            tipo_medicamento = body.get('tipo_medicamento', ''),
+            dose_calculada   = dose,
+            unidade          = body.get('unidade', ''),
+            peso_utilizado   = peso,
+        )
+
+        return JsonResponse({
+            'sucesso':  True,
+            'mensagem': f'{prescricao.dose_calculada} {prescricao.unidade} de {prescricao.nome_medicamento} foi prescrito para {paciente.nome_completo}.',
+        })
+
+    except (json.JSONDecodeError, ValueError) as e:
+        return JsonResponse({'sucesso': False, 'erro': str(e)}, status=400)
+
+
+def dados_paciente(request, paciente_id):
+    paciente = get_object_or_404(Paciente, pk=paciente_id)
+    return JsonResponse({
+        'nome':   paciente.nome_completo,
+        'peso':   float(paciente.peso),
+        'altura': float(paciente.altura),
+    })

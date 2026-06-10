@@ -91,7 +91,7 @@
         <div class="condutas-container">
             {% for conduta in consulta.condutas.all %}
                 {% if conduta.critica %}
-                    <div class="card-conduta critica">
+                    <div class="card-conduta critica conduta-critica">
                         <div class="topo-conduta">
                             <span class="horario-conduta">{{ conduta.criada_em|date:"d/m/Y" }}</span>
                         </div>
@@ -129,7 +129,21 @@
         {% endfor %}
     </section>
 
-</div>
+    <section>
+        <h2>Medicamentos prescritos</h2>
+        <div class="condutas-container">
+            {% for prescricao in prescricoes %}
+                <div class="card-conduta">
+                    <p><strong>Medicamento:</strong> {{ prescricao.nome_medicamento }}</p>
+                    <p><strong>Dose Calculada:</strong> {{ prescricao.dose_calculada }} {{ prescricao.unidade }}</p>
+                    <p><strong>Peso Utilizado:</strong> {{ prescricao.peso_utilizado }} kg</p>
+                </div>
+            {% empty %}
+                <p>Nenhum medicamento foi prescrito para este paciente ainda.</p>
+            {% endfor %}
+        </div>
+    </section>
+    </div> 
 
 <!-- ===== MODAL EXPORTAR ===== -->
 <div id="modalExportar" class="modal-overlay" style="display:none;" onclick="if(event.target===this) fecharModalExportar()">
@@ -162,7 +176,7 @@
                 <div
                     class="medico-item"
                     data-nome="{{ medico.nome|lower }}"
-                    onclick="selecionarMedico(this, {{ medico.id }}, '{{ medico.nome }}')"
+                    onclick="selecionarMedico(this, '{{ medico.id }}', '{{ medico.nome|escapejs }}')"
                 >
                     {{ medico.nome }}
                 </div>

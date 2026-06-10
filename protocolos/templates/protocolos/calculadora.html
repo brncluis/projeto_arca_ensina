@@ -1,6 +1,5 @@
 {% load static %}
-
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -8,12 +7,18 @@
     <title>Calculadora de Dosagens</title>
     <link rel="stylesheet" href="{% static 'protocolos/style.css' %}">
     <link rel="stylesheet" href="{% static 'protocolos/modal.css' %}">
-    
+    <style>
+        .bloco-info-paciente {
+            display: none; gap: 1.5rem;
+            background: #f4f6fa; border-radius: 8px;
+            padding: .75rem 1rem; margin-top: .5rem;
+            font-size: .88rem; color: #444;
+        }
+        .bloco-info-paciente span strong { color: #1a1a1a; }
+    </style>
 </head>
-
 <body>
 <div class="container">
-
     <div class="header">
         <a href="{% url 'dashboard' %}" class="btn-voltar">
             <img src="{% static 'dashboard/icons/Seta_sair_vetorizada.png' %}" alt="Voltar">
@@ -22,7 +27,6 @@
     </div>
 
     <div class="calc-layout">
-
         <div class="calc-coluna-esq">
 
             <div class="calc-subtitulo">
@@ -31,20 +35,25 @@
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                     <circle cx="12" cy="7" r="4"/>
                 </svg>
-                <span>Dados do Paciente</span>
+                <span>Paciente</span>
             </div>
 
             <div class="calc-campo">
-                <label>Peso (Kg)</label>
-                <input type="number" id="peso" placeholder="Ex: 50.5" class="calc-input">
+                <label>Selecione o paciente</label>
+                <select id="select-paciente" class="calc-select">
+                    <option value="">— escolha um paciente —</option>
+                    {% for paciente in pacientes %}
+                        <option value="{{ paciente.id }}">{{ paciente.nome_completo }}</option>
+                    {% endfor %}
+                </select>
             </div>
 
-            <div class="calc-campo">
-                <label>Altura (cm)</label>
-                <input type="number" id="altura" placeholder="Ex: 130" class="calc-input">
+            <div class="bloco-info-paciente" id="bloco-info-paciente">
+                <span>Peso: <strong id="info-peso">—</strong></span>
+                <span>Altura: <strong id="info-altura">—</strong></span>
             </div>
 
-            <div class="calc-campo">
+            <div class="calc-campo" style="margin-top: 1.25rem;">
                 <label>Medicação</label>
                 <select id="medicacao" class="calc-select">
                     <option value="">Selecione uma medicação</option>
@@ -60,44 +69,30 @@
         </div>
 
         <div class="calc-coluna-dir">
-
             <div id="calculadora-placeholder" class="calc-placeholder">
                 <p class="calc-placeholder-titulo">Pronto para Calcular</p>
-                <p class="calc-placeholder-texto">Preencha o peso do paciente e selecione uma medicação para ver as dosagens calculadas.</p>
+                <p class="calc-placeholder-texto">Selecione um paciente e uma medicação para ver a dosagem calculada automaticamente.</p>
             </div>
-
             <div id="calculadora-resultado" class="calc-resultado" style="display:none;">
-
                 <div class="calc-res-header">
                     <h2 id="resultado-nome-farmaco">—</h2>
                     <span class="calc-tag-tipo" id="resultado-tipo-farmaco">—</span>
                 </div>
-
                 <div class="calc-card">
                     <p class="calc-res-dose-label">Dose calculada: <strong id="resultado-dose">—</strong></p>
                 </div>
-
                 <div class="calc-card">
                     <p id="resultado-efeito">—</p>
                 </div>
-
                 <div class="calc-card calc-card-dica" id="bloco-dica">
                     <p><strong>ⓘ Dica de Segurança</strong></p>
-                    <p>Sempre verifique cálculos críticos com outro profissional antes da administração.</p>
+                    <p>Sempre verifique cálculos críticos com outro profissional.</p>
                 </div>
-
-                <div class="calc-card calc-card-prescricao" id="bloco-prescricao" style="display:none;">
-                    <p><strong>Informações sobre a prescrição</strong><br>
-                    (nome do medicamento, dosagem, tempo de administração, via de administração)</p>
-                </div>
-
+                <div class="calc-card calc-card-prescricao" id="bloco-prescricao" style="display:none;"></div>
             </div>
-
         </div>
-
     </div>
 </div>
-
 <script src="{% static 'protocolos/js/calculadora.js' %}"></script>
 </body>
 </html>

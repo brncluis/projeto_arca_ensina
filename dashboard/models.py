@@ -115,3 +115,19 @@ class PacienteExportado(models.Model):
     def __str__(self):
         medico = self.medico_destino.nome if self.medico_destino else 'Médico removido'
         return f'{self.paciente} → {medico} ({self.data_exportacao:%d/%m/%Y %H:%M})'
+    
+class Prescricao(models.Model):
+    paciente         = models.ForeignKey('Paciente', on_delete=models.CASCADE, related_name='prescricoes', verbose_name='Paciente')
+    nome_medicamento = models.CharField(max_length=100, verbose_name='Medicamento')
+    tipo_medicamento = models.CharField(max_length=100, blank=True, verbose_name='Tipo')
+    dose_calculada   = models.CharField(max_length=100, verbose_name='Dose calculada')
+    unidade          = models.CharField(max_length=50, blank=True, verbose_name='Unidade')
+    peso_utilizado   = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='Peso (kg)')
+
+    class Meta:
+        ordering            = ['-id']
+        verbose_name        = 'Prescrição'
+        verbose_name_plural = 'Prescrições'
+
+    def __str__(self):
+        return f'{self.nome_medicamento} → {self.paciente.nome_completo}'

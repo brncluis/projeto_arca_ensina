@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-
 from .models import Protocolo, Categoria, Sintoma
 from dashboard.models import Paciente, Consulta
 
@@ -55,7 +54,6 @@ def criar_dados_iniciais():
 
     sedacao.sintomas.set(sintomas_sedacao)
 
-
 def protocolos_home(request):
     criar_dados_iniciais()
 
@@ -69,19 +67,21 @@ def protocolos_home(request):
         protocolos = Protocolo.objects.all()
 
     categorias = Categoria.objects.all()
+    pacientes  = Paciente.objects.filter(
+        consulta__isnull=False
+    ).distinct().order_by('-ultimo_acesso', 'nome_completo')
 
     mensagem = None
-
     if sintomas_ids and not protocolos.exists():
         mensagem = "Nenhum protocolo encontrado com esses sintomas"
 
     return render(request, 'protocolos/index.html', {
         'protocolos': protocolos,
         'categorias': categorias,
-        'mensagem': mensagem,
+        'mensagem':   mensagem,
         'sintomas_selecionados': sintomas_ids,
+        'pacientes':  pacientes,
     })
-
 
 def detalhes_protocolo(request):
     criar_dados_iniciais()
@@ -145,7 +145,6 @@ def mesclar_paciente(request, protocolo_id, paciente_id):
 
     return redirect(request.META.get('HTTP_REFERER', 'protocolos'))
 
-
 def fluxograma(request):
     criar_dados_iniciais()
 
@@ -195,4 +194,7 @@ def fluxograma_sedacao(request):
 
 
 def calculadora_dosagens(request):
-    return render(request, 'protocolos/calculadora.html')
+    pacientes = Paciente.objects.filter(
+        consulta__isnull=False
+    ).distinct().order_by('-ultimo_acesso', 'nome_completo')
+    return render(request, 'protocolos/calculadora.html', {'pacientes': pacientes})

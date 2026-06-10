@@ -668,20 +668,7 @@ function pararTimerAtual() {
 }
 
 function concluirEtapa(indice) {
-    const etapa = historicoFluxo[indice];
-
-    if (!etapa || etapa.concluido || fluxoFinalizado) {
-        return;
-    }
-
-    etapa.concluido = true;
-
-    if (etapaAtiva === indice) {
-        pararTimerAtual();
-    }
-
-    atualizarProgresso();
-    renderizarFluxograma();
+    concluirEAvancar(indice);
 }
 
 function selecionarOpcao(indice, proxima, textoOpcao) {
@@ -691,27 +678,51 @@ function selecionarOpcao(indice, proxima, textoOpcao) {
         return;
     }
 
-    if (!etapa.concluido) {
-        alert("Conclua a etapa atual antes de seguir para a próxima decisão.");
+    iniciarTimerEtapa(indice);
+    
+    // Apenas marca a escolha — não avança ainda
+    etapa.escolhaPendente = textoOpcao;
+    etapa.proximaPendente = proxima;
+
+    renderizarFluxograma();
+}
+
+function concluirEAvancar(indice) {
+    const etapa = historicoFluxo[indice];
+
+    if (!etapa || fluxoFinalizado) {
         return;
     }
 
-    etapa.escolha = textoOpcao;
+    etapa.concluido = true;
 
-    if (proxima === null) {
-        fluxoFinalizado = true;
+    if (etapaAtiva === indice) {
         pararTimerAtual();
-        atualizarProgresso();
-        renderizarFluxograma();
-        return;
     }
 
-    historicoFluxo.push({
-        chave: proxima,
-        tempo: 0,
-        concluido: false,
-        escolha: null
-    });
+    // Se há uma escolha pendente, agora avança
+    if (etapa.escolhaPendente !== undefined) {
+        etapa.escolha = etapa.escolhaPendente;
+        const proxima = etapa.proximaPendente;
+
+        delete etapa.escolhaPendente;
+        delete etapa.proximaPendente;
+
+        if (proxima === null) {
+            fluxoFinalizado = true;
+            pararTimerAtual();
+            atualizarProgresso();
+            renderizarFluxograma();
+            return;
+        }
+
+        historicoFluxo.push({
+            chave: proxima,
+            tempo: 0,
+            concluido: false,
+            escolha: null
+        });
+    }
 
     atualizarProgresso();
     renderizarFluxograma();
@@ -730,6 +741,8 @@ function voltarEtapa(indice) {
 
     etapa.concluido = false;
     etapa.escolha = null;
+    delete etapa.escolhaPendente;
+    delete etapa.proximaPendente;
 
     fluxoFinalizado = false;
 
@@ -842,38 +855,14 @@ function renderizarFluxograma() {
                     : ""
                 }
 
-                <div class="fluxo-card-rodape">
-                    ${
-                        item.concluido
-                        ? `
-                            <button
-                                type="button"
-                                class="btn-concluir-etapa"
-                                disabled
-                            >
-                                ✓ Concluída
-                            </button>
-                        `
-                        : `
-                            <button
-                                type="button"
-                                class="btn-concluir-etapa"
-                                onclick="event.stopPropagation(); concluirEtapa(${indice})"
-                            >
-                                ✓ Concluir
-                            </button>
-                        `
-                    }
-                </div>
-
                 ${
-                    item.concluido && !item.escolha && !fluxoFinalizado
+                    !item.concluido && !item.escolha && !fluxoFinalizado
                     ? `
                         <div class="fluxo-opcoes">
                             ${dados.opcoes.map(opcao => `
                                 <button
                                     type="button"
-                                    class="btn-opcao-fluxo"
+                                    class="btn-opcao-fluxo${item.escolhaPendente === opcao.texto ? ' selecionada' : ''}"
                                     onclick="event.stopPropagation(); selecionarOpcao(${indice}, ${opcao.proxima === null ? "null" : `'${opcao.proxima}'`}, '${opcao.texto.replace(/'/g, "\\'")}')"
                                 >
                                     ${opcao.texto}
@@ -883,6 +872,31 @@ function renderizarFluxograma() {
                     `
                     : ""
                 }
+
+                <div class="fluxo-card-rodape">
+                    ${
+                        item.concluido
+                        ? `
+                            <button
+                                type="button"
+                                class="btn-concluir-etapa"
+                                
+                            >
+                                ✓ Concluída
+                            </button>
+                        `
+                        : `
+                            <button
+                                type="button"
+                                class="btn-concluir-etapa"
+                                ${dados.opcoes.length > 0 && !item.escolhaPendente ? 'disabled title="Selecione uma opção antes de concluir"' : ''}
+                                onclick="event.stopPropagation(); concluirEtapa(${indice})"
+                            >
+                                ✓ Concluir
+                            </button>
+                        `
+                    }
+                </div>
 
                 ${
                     indice < historicoFluxo.length - 1
@@ -923,7 +937,7 @@ function renderizarFluxograma() {
     footer.className = "fluxograma-footer";
     footer.innerHTML = `
         <div class="card-fluxo-wrap progresso-wrap">
-            ${fluxoFinalizado ? `<button class="btn-protocolo-concluido" style="display:flex;" disabled>✔ Protocolo concluído</button>` : ""}
+            ${fluxoFinalizado ? `<button class="btn-protocolo-concluido" style="display:flex;" onclick="window.location.href = typeof URL_PROTOCOLOS !== 'undefined' ? URL_PROTOCOLOS : '/'">✔ Protocolo concluído</button>` : ""}
             <button class="btn-reiniciar-protocolo" onclick="resetarFluxograma()">↺ Reiniciar protocolo</button>
         </div>
     `;
