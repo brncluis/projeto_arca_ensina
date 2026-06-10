@@ -18,9 +18,9 @@ AUTH_USER_MODEL = 'usuarios.Usuario'
 LOGIN_URL = 'login'
 
 LOGIN_REQUIRED_IGNORE_VIEW_NAMES = [
+    'home',
     'login',
     'register',
-    '',
 ]
 
 INSTALLED_APPS = [
