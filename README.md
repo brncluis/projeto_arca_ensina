@@ -49,4 +49,4 @@
 - Luiz Costa: lhlc@cesar.school
 - Marcus Barbosa: mvpb@cesar.school
 - Sofia villela: svv@cesar.school
-- Thiago Spinola:
+- Thiago Spinola: tcts@cesar.school
