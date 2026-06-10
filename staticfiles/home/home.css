@@ -1,0 +1,199 @@
+@import url('/static/base.css');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #8FBFFA;
+    font-family: 'CreatoDisplay', Arial, sans-serif;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100vh;
+}
+
+.container {
+
+    background-color: #8FBFFA;
+    width: 100%;
+    max-width: 1200px;
+    height: 600px;
+    border-radius: 40px;
+
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 0px;
+}
+
+.circulo {
+    width: 130px;
+    height: 130px;
+
+    background-color: hsl(0, 2%, 25%);
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.texto {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 35px;
+}
+
+.circulo span {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.titulo {
+    color: rgb(255, 255, 255);
+    font-family: 'Recline', Arial, sans-serif;
+    font-size: 32px;
+    font-weight: bold;
+    align-self: flex-start;
+}
+
+.slogan {
+    color: rgb(255, 255, 255);
+    font-family: 'CreatoDisplay', Arial, sans-serif;
+    font-size: 27px;
+    font-weight: bold;
+    text-align: left;
+
+    margin-top: 20px;
+}
+
+.botao {
+    margin-top: 80px;
+
+    background-color: #1C3AA9;
+    color: rgb(255, 255, 255);
+
+    padding: 15px 200px;
+    border-radius: 40px;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+.botao:hover {
+    transform: scale(1.05);
+    background-color: #152c7e;
+}
+
+.header-logo {
+    margin-bottom: 100px;
+}
+
+/* RESPONSIVIDADE MOBILE — TELA INICIAL */
+
+@media (max-width: 768px) {
+
+    body {
+        align-items: stretch;
+        justify-content: stretch;
+        height: 100%;
+        min-height: 100vh;
+    }
+
+    .container {
+        height: 100vh;
+        min-height: 100vh;
+        border-radius: 0;
+        max-width: 100%;
+        padding: 0 32px;
+        justify-content: center;
+        gap: 0;
+    }
+
+    .header-logo {
+        margin-bottom: 40px;
+    }
+
+    .header-logo svg {
+        width: 180px;
+        height: 168px;
+    }
+
+    .texto {
+        align-items: center;
+        gap: 0;
+        margin-bottom: 64px;
+        width: 100%;
+    }
+
+    .titulo {
+        font-size: 28px;
+        font-weight: bold;
+        align-self: center;
+        text-align: center;
+        color: #fff;
+        margin-bottom: 16px;
+    }
+
+    .slogan {
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 0;
+        color: #fff;
+        line-height: 1.4;
+    }
+
+    .botao {
+        width: 100%;
+        max-width: 200px;
+        padding: 14px 0;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 0;
+        text-decoration: none;
+        display: block;
+        border-radius: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .container {
+        padding: 0 28px;
+    }
+
+    .header-logo svg {
+        width: 150px;
+        height: 140px;
+    }
+
+    .header-logo {
+        margin-bottom: 32px;
+    }
+
+    .titulo {
+        font-size: 24px;
+    }
+
+    .slogan {
+        font-size: 16px;
+    }
+
+    .texto {
+        margin-bottom: 56px;
+    }
+}

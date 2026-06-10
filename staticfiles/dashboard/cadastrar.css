@@ -1,0 +1,418 @@
+@import url('/static/base.css');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #8FBFFA;
+    font-family: 'CreatoDisplay', Arial, sans-serif;
+    color: #000000;
+}
+
+.pagina {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.cabecalho {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.btn-voltar {
+    font-size: 20px;
+    text-decoration: none;
+    color: #000000;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-voltar img {
+    width: 45px;
+    height: 45px;
+    transition: transform 0.2s ease;
+}
+
+.btn-voltar img:hover {
+    transform: scale(1.15);
+}
+
+.cabecalho h1 {
+    font-family: 'CreatoDisplay', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    color: #1C3AA9;
+}
+
+.cabecalho p {
+    font-size: 13px;
+    color: #1C3AA9;
+}
+
+section {
+    background-color: white;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.20);
+}
+
+section h2 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #1C3AA9;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 10px 14px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    background-color: #BEE6FF;
+    color: #000000;
+    outline: none;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+input:focus, textarea:focus, select:focus {
+    background-color: #8FBFFA;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* BOTÃO SALVAR */
+
+.btn-salvar{
+
+    background-color:#4285F4;
+
+    color:#ffffff;
+
+    border:none;
+
+    border-radius:10px;
+
+    padding:12px 30px;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    display:block;
+
+    margin-top:20px;
+
+    margin-left:auto;
+
+    transition:0.2s;
+}
+
+.btn-salvar:hover{
+
+    background-color:#1C3AA9;
+}
+
+
+.erro {
+    color: red;
+    font-size: 12px;
+    display: block;
+    margin-top: -6px;
+    margin-bottom: 8px;
+}
+
+input.campo-invalido, 
+select.campo-invalido {
+    border: 1.5px solid red !important;
+    background-color: #fff0f0 !important;
+}
+
+.conduta-inicial{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.box-critica{
+
+    background:#fff4f4;
+
+    border:2px solid #ffd3d3;
+
+    border-radius:18px;
+
+    padding:16px;
+}
+
+.checkbox-critica{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:14px;
+
+    cursor:pointer;
+}
+
+.checkbox-critica input{
+
+    width:18px;
+
+    height:18px;
+
+    margin-top:2px;
+
+    accent-color:#d62828;
+
+    flex-shrink:0;
+}
+
+.texto-critica{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:4px;
+}
+
+.titulo-critica-checkbox{
+
+    font-size:15px;
+
+    font-weight:700;
+
+    color:#d62828;
+}
+
+.texto-critica small{
+
+    color:#666;
+
+    font-size:13px;
+
+    line-height:1.4;
+}
+
+.btn-adicionar-conduta{
+
+    background-color:#4285F4;
+
+    color:#ffffff;
+
+    border:none;
+
+    border-radius:10px;
+
+    padding:12px 30px;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    width:fit-content;
+
+    transition:0.2s;
+}
+
+.form-conduta{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:16px;
+}
+
+/* LISTA DE CONDUTAS */
+
+#lista-condutas{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-top:10px;
+}
+
+/* CARD */
+
+.card-conduta{
+    background:#BEE6FF;
+    border-radius:18px;
+    padding:16px 18px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.08);
+
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+/* CARD CRÍTICO */
+
+.card-conduta.critica{
+    background:#fff1f1;
+}
+
+/* TOPO DO CARD */
+
+.topo-conduta{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+/* BADGE */
+
+.badge-critica{
+    background:#d62828;
+    color:white;
+
+    padding:6px 12px;
+
+    border-radius:999px;
+
+    font-size:12px;
+    font-weight:bold;
+}
+
+.horario-conduta{
+    font-size:12px;
+    color:#464545;
+}
+
+/* TEXTO SEM CONDUTA */
+
+.sem-conduta{
+    color:#666;
+    font-size:14px;
+}
+
+/* BOX NOVA CONDUTA */
+
+.nova-conduta-box{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-top:20px;
+}
+
+@media (max-width: 768px) {
+
+    .pagina {
+        padding: 20px 16px;
+    }
+
+    .cabecalho {
+        margin-bottom: 24px;
+        gap: 10px;
+    }
+
+    .cabecalho h1 {
+        font-size: 28px;
+        font-weight: 700;
+        color: #1C3AA9;
+    }
+
+    .cabecalho p {
+        font-size: 14px;
+        color: #1C3AA9;
+    }
+
+    .btn-voltar img {
+        width: 38px;
+        height: 38px;
+    }
+
+    section {
+        background-color: white;
+        border-radius: 14px;
+        padding: 20px;
+        margin-bottom: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.20);
+    }
+
+    section h2 {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 14px;
+    }
+
+    input, textarea, select {
+        font-size: 15px;
+        padding: 12px 14px;
+        border-radius: 12px;
+        margin-bottom: 8px;
+    }
+
+    .btn-salvar {
+        width: auto;
+        margin-left: auto;
+        font-size: 15px;
+        padding: 12px 28px;
+        border-radius: 14px;
+        display: block;
+    }
+
+    .titulo-critica-checkbox {
+        font-size: 14px;
+    }
+
+    .texto-critica small {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .pagina {
+        padding: 16px 12px;
+    }
+
+    .cabecalho h1 {
+        font-size: 24px;
+    }
+
+    .cabecalho p {
+        font-size: 13px;
+    }
+
+    .btn-voltar img {
+        width: 34px;
+        height: 34px;
+    }
+
+    section {
+        background-color: white;
+        border-radius: 14px;
+        padding: 20px;
+        margin-bottom: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.20);
+    }
+
+    section h2 {
+        font-size: 15px;
+    }
+
+    input, textarea, select {
+        font-size: 14px;
+        padding: 11px 12px;
+    }
+}
