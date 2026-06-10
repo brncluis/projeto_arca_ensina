@@ -31,7 +31,7 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
         chrome_options.add_argument('--window-size=1280,960')
 
         if os.environ.get('GITHUB_ACTIONS') == 'true':
-            chrome_options.add_arguDment('--headless=new')
+            chrome_options.add_argument('--headless=new')
             chrome_options.add_argument('--no-sandbox')
             chrome_options.add_argument('--disable-dev-shm-usage')
             chrome_options.add_argument('--disable-gpu')
@@ -187,9 +187,11 @@ class MesclarProtocoloTests(TestCase):
 
     def setUp(self):
         User = get_user_model()
-        self.user_teste = User.objects.create_user(
+        self.user_teste = User.objects.create_superuser(
             username="medico_backend", 
-            password="senha_secreta"
+            email="backend@teste.com",
+            password="senha_secreta",
+            id_acesso="123456" 
         )
 
         self.client.force_login(self.user_teste)
