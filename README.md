@@ -21,7 +21,7 @@
 - Fotos: 
 #### 3. Deployment (RENDER):
 - Link do LUMOS: https://arca-ensina.onrender.com
-- Screencast do sistema: 
+- Screencast do sistema: https://youtu.be/V8Aop62O9BY
 #### 4. Issue/Bug Tracker:
 - Foto:
 #### 5. Testes Automatizados (E2E Selenium):
