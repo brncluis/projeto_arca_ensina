@@ -21,14 +21,13 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-class CalculadoraSeleniumTests(StaticLiveServerTestCase):
+class BaseSeleniumTests(StaticLiveServerTestCase):
 
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-
         chrome_options = Options()
-        chrome_options.add_argument('--window-size=1280,960')
+        chrome_options.add_argument("--window-size=1280,960")
 
         if os.environ.get('GITHUB_ACTIONS') == 'true':
             chrome_options.add_argument('--headless=new')
@@ -37,11 +36,7 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
             chrome_options.add_argument('--disable-gpu')
 
         service = Service(ChromeDriverManager().install())
-        cls.selenium = webdriver.Chrome(
-            service=service,
-            options=chrome_options
-        )
-
+        cls.selenium = webdriver.Chrome(service=service, options=chrome_options)
         cls.selenium.implicitly_wait(5)
 
     @classmethod
@@ -50,6 +45,35 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
         super().tearDownClass()
 
     def setUp(self):
+        User = get_user_model()
+        User.objects.create_superuser(
+            username="testeteste",
+            email="teste@teste.com",
+            password="teste123",
+            id_acesso="123456",
+        )
+        self._fazer_login()
+
+    def _fazer_login(self):
+        self.selenium.get(self.live_server_url + "/usuarios/login/")
+        time.sleep(1)
+        self.selenium.find_element(By.ID, "id_acesso").clear()
+        self.selenium.find_element(By.ID, "id_acesso").send_keys("123456")
+        self.selenium.find_element(By.ID, "password").clear()
+        self.selenium.find_element(By.ID, "password").send_keys("teste123")
+        self.selenium.find_element(By.CSS_SELECTOR, "[type=submit]").click()
+        time.sleep(2)
+
+    def tearDown(self):
+        try:
+            self.selenium.switch_to.alert.accept()
+        except Exception:
+            pass
+
+class CalculadoraSeleniumTests(BaseSeleniumTests):  
+
+    def setUp(self):
+        super().setUp()  
         self.url_calculadora = self.live_server_url + '/protocolos/calculadora/'
 
         self.paciente = Paciente.objects.create(
@@ -87,20 +111,8 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
             descricao="Protocolo de dengue"
         )
 
-    def tearDown(self):
-        try:
-            self.selenium.switch_to.alert.accept()
-        except:
-            pass
-
     def test_selecionar_paciente_preenche_peso_e_altura_automaticamente(self):
-        """
-        Cenário Positivo:
-        Dado que o médico está na página da calculadora
-        Quando ele seleciona um paciente na lista
-        Então o sistema busca automaticamente o peso e a altura cadastrados
-        para aquele paciente.
-        """
+        """Cenário Positivo: Peso e altura preenchidos automaticamente."""
         self.selenium.get(self.url_calculadora)
 
         select_element = WebDriverWait(self.selenium, 5).until(
@@ -110,21 +122,11 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
         Select(select_element).select_by_value(str(self.paciente.id))
 
         WebDriverWait(self.selenium, 5).until(
-            lambda d: d.find_element(
-                By.ID,
-                "info-peso"
-            ).text.strip() != "—"
+            lambda d: d.find_element(By.ID, "info-peso").text.strip() != "—"
         )
 
-        peso = self.selenium.find_element(
-            By.ID,
-            "info-peso"
-        ).text.strip()
-
-        altura = self.selenium.find_element(
-            By.ID,
-            "info-altura"
-        ).text.strip()
+        peso = self.selenium.find_element(By.ID, "info-peso").text.strip()
+        altura = self.selenium.find_element(By.ID, "info-altura").text.strip()
 
         self.assertNotEqual(peso, "")
         self.assertNotEqual(altura, "")
@@ -132,12 +134,7 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
         self.assertNotEqual(altura, "—")
 
     def test_selecionar_opcao_vazia_mantem_campos_em_branco(self):
-        """
-        Cenário Negativo:
-        Dado que o médico esteja na tela da calculadora
-        Quando nenhum paciente estiver selecionado
-        Então os campos permanecem vazios e nada é exibido.
-        """
+        """Cenário Negativo: Limpar seleção mantém os blocos vazios."""
         self.selenium.get(self.url_calculadora)
         time.sleep(1)
 
@@ -148,23 +145,13 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
         Select(select_element).select_by_value("")
         time.sleep(1)
 
-        peso = self.selenium.find_element(
-            By.ID,
-            "info-peso"
-        ).text.strip()
-
-        altura = self.selenium.find_element(
-            By.ID,
-            "info-altura"
-        ).text.strip()
+        peso = self.selenium.find_element(By.ID, "info-peso").text.strip()
+        altura = self.selenium.find_element(By.ID, "info-altura").text.strip()
 
         self.assertTrue(peso in ["", "—"])
         self.assertTrue(altura in ["", "—"])
 
-        resultado = self.selenium.find_element(
-            By.ID,
-            "calculadora-resultado"
-        )
+        resultado = self.selenium.find_element(By.ID, "calculadora-resultado")
         self.assertFalse(resultado.is_displayed())
 
     def test_modal_mesclar_paciente_abre(self):
@@ -186,34 +173,32 @@ class CalculadoraSeleniumTests(StaticLiveServerTestCase):
 class MesclarProtocoloTests(TestCase):
 
     def setUp(self):
+        User = get_user_model()
+        self.user_teste = User.objects.create_superuser(
+            username="medico_backend", 
+            email="backend@teste.com",
+            password="senha_secreta",
+            id_acesso="123456" 
+        )
+        self.client.force_login(self.user_teste)
+
         self.paciente = Paciente.objects.create(
             nome_completo="João Silva",
             data_nascimento="2000-01-01",
-            peso=70,
-            genero="M",
-            altura=1.75,
-            nome_mae="Maria Silva",
-            nome_pai="José Silva"
+            peso=70, genero="M", altura=1.75,
+            nome_mae="Maria Silva", nome_pai="José Silva"
         )
 
         self.consulta = Consulta.objects.create(
             paciente=self.paciente,
             data_consulta=date.today(),
-            alergias="Nenhuma",
-            doencas_cronicas="Nenhuma",
-            cirurgias_anteriores="Nenhuma",
-            medicamentos_uso_continuo="Nenhum",
-            queixa_principal="Febre",
-            historico_de_doenca_atual="Paciente com febre",
-            frequencia_respiratoria="20",
-            pressao_arterial="120/80",
-            frequencia_cardiaca="80",
-            temperatura="38",
-            saturacao="98",
-            ausculta_pulmonar="Normal",
-            estado_geral="Regular",
-            exames_solicitados="Hemograma",
-            diagnostico_provisorio="Suspeita de dengue"
+            alergias="Nenhuma", doencas_cronicas="Nenhuma",
+            cirurgias_anteriores="Nenhuma", medicamentos_uso_continuo="Nenhum",
+            queixa_principal="Febre", historico_de_doenca_atual="Paciente com febre",
+            frequencia_respiratoria="20", pressao_arterial="120/80",
+            frequencia_cardiaca="80", temperatura="38", saturacao="98",
+            ausculta_pulmonar="Normal", estado_geral="Regular",
+            exames_solicitados="Hemograma", diagnostico_provisorio="Suspeita de dengue"
         )
 
         self.protocolo = Protocolo.objects.create(
@@ -309,7 +294,6 @@ class ExportarPacienteTests(StaticLiveServerTestCase):
         time.sleep(2)
 
     def test_modal_exportar_abre_ao_clicar(self):
-        """O modal de exportar deve abrir ao clicar no botão."""
         self.login()
         self.abrir_prontuario()
 
@@ -325,7 +309,6 @@ class ExportarPacienteTests(StaticLiveServerTestCase):
         self.assertEqual(modal.value_of_css_property('display'), 'flex')
 
     def test_modal_exibe_medico_cadastrado(self):
-        """O modal deve listar o médico cadastrado."""
         self.login()
         self.abrir_prontuario()
 
@@ -340,7 +323,6 @@ class ExportarPacienteTests(StaticLiveServerTestCase):
         self.assertIn('Dr. Teste', lista)
 
     def test_pesquisa_medico_inexistente_exibe_nenhum_resultado(self):
-        """Pesquisar médico inexistente deve exibir 'Nenhum resultado'."""
         self.login()
         self.abrir_prontuario()
 
@@ -359,7 +341,6 @@ class ExportarPacienteTests(StaticLiveServerTestCase):
         self.assertTrue(aviso.is_displayed())
 
     def test_exportar_paciente_exibe_toast_confirmacao(self):
-        """Ao confirmar exportação deve aparecer o toast de sucesso."""
         self.login()
         self.abrir_prontuario()
 
@@ -380,7 +361,6 @@ class ExportarPacienteTests(StaticLiveServerTestCase):
         self.assertIn('exportado', toast.text.lower())
 
     def test_exportar_mesmo_medico_duas_vezes_exibe_aviso(self):
-        """Exportar para o mesmo médico duas vezes deve exibir aviso de erro."""
         self.login()
 
         for _ in range(2):
@@ -426,11 +406,8 @@ class PrescreverMedicamentoTests(StaticLiveServerTestCase):
         self.paciente = Paciente.objects.create(
             nome_completo="Luis Top",
             data_nascimento="2015-05-10",
-            peso=35.0, 
-            genero="F", 
-            altura=140,
-            nome_mae="Leticia", 
-            nome_pai="Davi"
+            peso=35.0, genero="F", altura=140,
+            nome_mae="Leticia", nome_pai="Davi"
         )
         
         self.consulta = Consulta.objects.create(
@@ -454,7 +431,6 @@ class PrescreverMedicamentoTests(StaticLiveServerTestCase):
         time.sleep(2)
 
     def test_fluxo_completo_prescrever_e_bloquear_repetido(self):
-        """Verifica o sucesso da prescrição, rola a página do prontuário, e depois testa o bloqueio de repetição."""
         self.login()
         
         self.selenium.get(self.live_server_url + "/protocolos/calculadora/")
@@ -546,14 +522,7 @@ class CadastrarPacienteTests(StaticLiveServerTestCase):
         time.sleep(2)
 
     def test_cenario_positivo_cadastrar_novo_paciente(self):
-        """
-        Cenário Positivo:
-        Dado que o médico está cadastrado no sistema
-        Quando o médico abre a tela de cadastro e informa os dados do novo paciente
-        Então o sistema salva as informações e redireciona com sucesso
-        """
         self.login()
-        
         self.selenium.get(self.live_server_url + "/dashboard/cadastrar/")
         time.sleep(1)
 
@@ -581,14 +550,7 @@ class CadastrarPacienteTests(StaticLiveServerTestCase):
         self.assertEqual(float(paciente_salvo.peso), 80.5)
 
     def test_cenario_negativo_tentar_salvar_sem_dados_obrigatorios(self):
-        """
-        Cenário Negativo:
-        Dado que o médico está na tela de cadastro
-        Quando tenta salvar o cadastro do paciente sem os dados obrigatórios
-        Então o sistema deve exibir mensagem de erro e não salva o registro
-        """
         self.login()
-        
         self.selenium.get(self.live_server_url + "/dashboard/cadastrar/")
         time.sleep(1)
 
@@ -603,90 +565,30 @@ class CadastrarPacienteTests(StaticLiveServerTestCase):
         self.assertIn("obrigatório", body_text.lower())
 
 
-class BaseSeleniumTests(StaticLiveServerTestCase):
-
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        chrome_options = Options()
-        chrome_options.add_argument("--window-size=1280,960")
-
-        if os.environ.get('GITHUB_ACTIONS') == 'true':
-            chrome_options.add_argument('--headless=new')
-            chrome_options.add_argument('--no-sandbox')
-            chrome_options.add_argument('--disable-dev-shm-usage')
-            chrome_options.add_argument('--disable-gpu')
-
-        service = Service(ChromeDriverManager().install())
-        cls.selenium = webdriver.Chrome(service=service, options=chrome_options)
-        cls.selenium.implicitly_wait(5)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.selenium.quit()
-        super().tearDownClass()
-
-    def setUp(self):
-        User = get_user_model()
-        User.objects.create_superuser(
-            username="testeteste",
-            email="teste@teste.com",
-            password="teste123",
-            id_acesso="123456",
-        )
-        self._fazer_login()
-
-    def _fazer_login(self):
-        self.selenium.get(self.live_server_url + "/usuarios/login/")
-        time.sleep(1)
-        self.selenium.find_element(By.ID, "id_acesso").clear()
-        self.selenium.find_element(By.ID, "id_acesso").send_keys("123456")
-        self.selenium.find_element(By.ID, "password").clear()
-        self.selenium.find_element(By.ID, "password").send_keys("teste123")
-        self.selenium.find_element(By.CSS_SELECTOR, "[type=submit]").click()
-        time.sleep(2)
-
-    def tearDown(self):
-        try:
-            self.selenium.switch_to.alert.accept()
-        except Exception:
-            pass
-
-
 class ListaProtocolosTests(BaseSeleniumTests):
 
     def setUp(self):
-        super().setUp()
-        self.url_protocolos = self.live_server_url + "/protocolos/"
+        if self._testMethodName == 'test_medico_nao_autenticado_e_direcionado_para_login':
+            self.selenium.get(self.live_server_url + "/")
+            self.selenium.delete_all_cookies()
+            self.url_protocolos = self.live_server_url + "/protocolos/"
+        else:
+            super().setUp()
+            self.url_protocolos = self.live_server_url + "/protocolos/"
 
     def test_medico_autenticado_ve_protocolos_organizados(self):
-        """
-        Dado que o médico está autenticado no sistema e existem protocolos
-        clínicos cadastrados,
-        Quando o médico acessa a seção de protocolos,
-        Então o sistema deve exibir os protocolos organizados por categoria
-        ou especialidade, permitindo navegação rápida e acesso ao conteúdo
-        de cada protocolo corretamente.
-        """
         self.selenium.get(self.url_protocolos)
 
         lista = WebDriverWait(self.selenium, 10).until(
             EC.presence_of_element_located((By.ID, "lista-protocolos"))
         )
-        self.assertTrue(lista.is_displayed(), "A lista de protocolos deveria estar visível.")
+        self.assertTrue(lista.is_displayed())
 
         cards = self.selenium.find_elements(By.CLASS_NAME, "sub_header")
         visiveis = [c for c in cards if c.is_displayed()]
-        self.assertGreater(len(visiveis), 0, "Nenhum protocolo foi renderizado na lista.")
+        self.assertGreater(len(visiveis), 0)
 
     def test_clicar_em_protocolo_acessa_conteudo_corretamente(self):
-        """
-        Dado que o médico está autenticado no sistema e existem protocolos
-        clínicos cadastrados,
-        Quando o médico acessa a seção de protocolos,
-        Então o sistema deve permitir acesso ao conteúdo de cada protocolo
-        corretamente.
-        """
         self.selenium.get(self.url_protocolos)
 
         protocolo = WebDriverWait(self.selenium, 10).until(
@@ -699,25 +601,16 @@ class ListaProtocolosTests(BaseSeleniumTests):
         )
         self.assertNotEqual(self.selenium.current_url, self.url_protocolos)
 
-    # def test_medico_nao_autenticado_e_direcionado_para_login(self):
-    #     """
-    #     Dado que o médico não está autenticado no sistema,
-    #     Quando o médico tenta acessar a seção de protocolos,
-    #     Então o sistema deve direcioná-lo para a tela de login.
-    #     """
-    #     self.selenium.get(self.live_server_url + "/protocolos/")
+    def test_medico_nao_autenticado_e_direcionado_para_login(self):
+        self.selenium.get(self.live_server_url + "/protocolos/")
+        time.sleep(1.5)
         
-    #     WebDriverWait(self.selenium, 10).until(
-    #         EC.url_contains("/login/")
-    #     )
-    #     self.assertIn("/login/", self.selenium.current_url)
+        WebDriverWait(self.selenium, 10).until(
+            EC.url_contains("/login/")
+        )
+        self.assertIn("/login/", self.selenium.current_url)
 
     def test_sem_sintoma_informado_exibe_todos_os_protocolos(self):
-        """
-        Dado que o médico está autenticado no sistema,
-        Quando o médico informa nenhum sintoma do paciente,
-        Allora o sistema deve exibir todos os protocolos existentes.
-        """
         self.selenium.get(self.url_protocolos)
 
         campo_busca = WebDriverWait(self.selenium, 10).until(
@@ -728,15 +621,9 @@ class ListaProtocolosTests(BaseSeleniumTests):
         self.assertEqual(campo_busca.get_attribute("value"), "")
 
         todos_os_cards = [
-            c
-            for c in self.selenium.find_elements(By.CLASS_NAME, "sub_header")
-            if c.is_displayed()
+            c for c in self.selenium.find_elements(By.CLASS_NAME, "sub_header") if c.is_displayed()
         ]
-        self.assertGreater(
-            len(todos_os_cards),
-            0,
-            "Com campo vazio, todos os protocolos existentes deveriam ser exibidos.",
-        )
+        self.assertGreater(len(todos_os_cards), 0)
 
 
 class FluxogramaTests(StaticLiveServerTestCase):
@@ -765,15 +652,9 @@ class FluxogramaTests(StaticLiveServerTestCase):
     def setUp(self):
         User = get_user_model()
         User.objects.create_superuser(
-            username="testeteste",
-            email="teste@teste.com",
-            password="teste123",
-            id_acesso="123456",
+            username="testeteste", email="teste@teste.com", password="teste123", id_acesso="123456",
         )
-        Protocolo.objects.create(
-            titulo="Dengue",
-            descricao="Protocolo de dengue"
-        )
+        Protocolo.objects.create(titulo="Dengue", descricao="Protocolo de dengue")
         self._fazer_login()
         self.url_fluxograma = self.live_server_url + "/protocolos/fluxograma/"
 
@@ -794,14 +675,6 @@ class FluxogramaTests(StaticLiveServerTestCase):
             pass
 
     def test_concluir_etapa_destaca_como_concluida_e_exibe_proxima(self):
-        """
-        Dado que o médico está visualizando um protocolo médico em formato
-        de fluxograma interativo,
-        Quando ele conclui uma etapa do atendimento e marca a opção de check
-        correspondente,
-        Então o sistema deve destacar visualmente a etapa como concluída e
-        permitir ver o avanço para as próximas etapas do protocolo.
-        """
         self.selenium.get(self.url_fluxograma)
         WebDriverWait(self.selenium, 10).until(
             EC.presence_of_element_located((By.CLASS_NAME, "card-fluxo-wrap"))
@@ -828,15 +701,6 @@ class FluxogramaTests(StaticLiveServerTestCase):
         self.assertGreater(len(cards_reais), 1)
 
     def test_proxima_etapa_indisponivel_sem_concluir_anterior(self):
-        """
-        Dado que o médico está utilizando um protocolo médico em formato
-        de fluxograma interativo,
-        Quando ele tenta acessar uma etapa subsequente sem concluir a etapa
-        obrigatória anterior,
-        Então o sistema deve manter as próximas etapas indisponíveis para
-        interação, sem exibir mensagens de erro ou pop-ups, até que a etapa
-        pendente seja concluída.
-        """
         self.selenium.get(self.url_fluxograma)
         WebDriverWait(self.selenium, 10).until(
             EC.presence_of_element_located((By.CLASS_NAME, "card-fluxo-wrap"))
@@ -851,4 +715,4 @@ class FluxogramaTests(StaticLiveServerTestCase):
 
         cards = self.selenium.find_elements(By.CLASS_NAME, "card-fluxo-wrap")
         cards_reais = [c for c in cards if "progresso-wrap" not in c.get_attribute("class")]
-        self.assertEqual(len(cards_reais), 1)
+        self.assertEqual(len(cards_reais), 1)  
