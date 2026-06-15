@@ -1,8 +1,8 @@
 # LUMOS 
 ### Olá, nós somos o Lumos!
-- Um Projeto voltado para transformar atendimentos pediátricos em processos mais ágeis e precisos com a reformulação da aplicação Web da Arca Ensina que disponibiliza procedimentos médicos voltados para pediatras recém-formados.
-- Descrição do projeto:
-- Link do LUMOS: https://arca-ensina.onrender.com
+- A Lumos foi desenvolvida por estudantes de graduação da CESAR School para auxiliar profissionais da saúde em situações de emergência, oferecendo mais agilidade e eficiência na busca por protocolos médicos. Centraliza informações essenciais de forma rápida e acessível, reduzindo o tempo gasto na consulta de materiais e apoiando a tomada de decisão em momentos críticos.
+Seu propósito é tornar o acesso ao conhecimento médico mais simples, contribuindo para atendimentos mais seguros, assertivos e ágeis. Por meio da tecnologia, a Lumos busca ser uma ferramenta de apoio confiável para equipes de saúde que atuam sob pressão e precisam de informações precisas no momento certo.
+- Link de acesso do LUMOS: https://arca-ensina.onrender.com
 
 ### Tecnologias utilizadas:
 - Figma (Prototipação dos Wireframes)
