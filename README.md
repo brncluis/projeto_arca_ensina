@@ -1,7 +1,7 @@
 # LUMOS 
 ### Olá, nós somos o Lumos!
 - A Lumos foi desenvolvida por estudantes de graduação da CESAR School para auxiliar profissionais da saúde em situações de emergência, oferecendo mais agilidade e eficiência na busca por protocolos médicos. Centraliza informações essenciais de forma rápida e acessível, reduzindo o tempo gasto na consulta de materiais e apoiando a tomada de decisão em momentos críticos.
-Seu propósito é tornar o acesso ao conhecimento médico mais simples, contribuindo para atendimentos mais seguros, assertivos e ágeis. Por meio da tecnologia, a Lumos busca ser uma ferramenta de apoio confiável para equipes de saúde que atuam sob pressão e precisam de informações precisas no momento certo.
+- Nosso propósito é tornar o acesso ao conhecimento médico mais simples, contribuindo para atendimentos mais seguros, assertivos e ágeis. Por meio da tecnologia, a Lumos busca ser uma ferramenta de apoio confiável para equipes de saúde que atuam sob pressão e precisam de informações precisas no momento certo.
 - Link de acesso do LUMOS: https://arca-ensina.onrender.com
 
 ### Tecnologias utilizadas:
@@ -28,6 +28,7 @@ Seu propósito é tornar o acesso ao conhecimento médico mais simples, contribu
 #### 4. Issue/Bug Tracker:
 - Fotos:
 <img width="1653" height="737" alt="image" src="https://github.com/user-attachments/assets/b1fc03d3-2ebb-45d5-9051-4776ffeb653b" />
+<img width="1652" height="767" alt="image" src="https://github.com/user-attachments/assets/f80569ba-4470-4d25-bb74-0b27cbcecec7" />
 
 #### 5. Testes Automatizados (E2E Selenium):
 - Link Screencast: https://youtu.be/N9vlXK6xn30
