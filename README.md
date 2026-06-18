@@ -18,6 +18,7 @@
 - link: https://docs.google.com/document/d/1zGFzDu3PnlFmveNXsWsdLlEUHGExox8XbkJMA5MO7gU/edit?usp=sharing
 #### 2. Jira (Ferramenta Ágil)
 - link: https://davi-jira.atlassian.net/?continue=https%3A%2F%2Fdavi-jira.atlassian.net%2Fwelcome%2Fsoftware%3FprojectId%3D10034&atlOrigin=eyJpIjoiY2Y1MjU1NDliNTMxNDk4ZGJlM2Y5NzVhYTQ1Y2UyYWUiLCJwIjoiamlyYS1zb2Z0d2FyZSJ9
+- Informação importante! O sistema do jira caiu duas vezes durando o processo de desenvolvimento e tivemos que criar outro, então perdemos o fluxo de trabalho. Esse jira é novo e foi criado para mostrar como dividimos as sprints, esse não foi o nosso Jira original.
 - Fotos:
 <img width="1686" height="871" alt="Captura de tela 2026-06-18 150058" src="https://github.com/user-attachments/assets/416f0468-6744-45e0-b967-f043a392d97e" />
 <img width="1712" height="945" alt="Captura de tela 2026-06-18 150029" src="https://github.com/user-attachments/assets/707683b7-6eb3-4e4d-8683-c8fe166a3f2d" />
