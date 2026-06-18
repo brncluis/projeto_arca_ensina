@@ -18,12 +18,15 @@ Seu propósito é tornar o acesso ao conhecimento médico mais simples, contribu
 - link: https://docs.google.com/document/d/1zGFzDu3PnlFmveNXsWsdLlEUHGExox8XbkJMA5MO7gU/edit?usp=sharing
 #### 2. Jira (Ferramenta Ágil)
 - link: https://davi-jira.atlassian.net/?continue=https%3A%2F%2Fdavi-jira.atlassian.net%2Fwelcome%2Fsoftware%3FprojectId%3D10034&atlOrigin=eyJpIjoiY2Y1MjU1NDliNTMxNDk4ZGJlM2Y5NzVhYTQ1Y2UyYWUiLCJwIjoiamlyYS1zb2Z0d2FyZSJ9
-- Fotos: 
+- Fotos:
+<img width="1686" height="871" alt="Captura de tela 2026-06-18 150058" src="https://github.com/user-attachments/assets/416f0468-6744-45e0-b967-f043a392d97e" />
+<img width="1712" height="945" alt="Captura de tela 2026-06-18 150029" src="https://github.com/user-attachments/assets/707683b7-6eb3-4e4d-8683-c8fe166a3f2d" />
 #### 3. Deployment (RENDER):
 - Link do LUMOS: https://arca-ensina.onrender.com
 - Screencast do sistema: https://youtu.be/V8Aop62O9BY
 #### 4. Issue/Bug Tracker:
-- Foto:
+- Fotos:
+<img width="1653" height="737" alt="image" src="https://github.com/user-attachments/assets/b1fc03d3-2ebb-45d5-9051-4776ffeb653b" />
 #### 5. Testes Automatizados (E2E Selenium):
 - Link Screencast: https://youtu.be/N9vlXK6xn30
 #### 6. CI/CD: 
